@@ -47,8 +47,11 @@ def makeAUDescription (AUName, AUs, value):
         if au.get("AU") == AUName:
             outAU = au
             break
-    return outAU.get ("FACS Name") + ", using the muscles: " + outAU.get ("Muscles") + ", with a value of " + str (value) + "\n"
-
+    if value and value >= 0.5:
+        return outAU.get ("FACS Name") + ", using the muscles: " + outAU.get ("Muscles") + ", with a value of " + str (value) + "; "
+    else:
+        return ""
+    
 def getNaturalLanguageDescription (sample:dict, possibleAUsNames:list, AUs:list):
     naturalLanguageDescription = ""
     for AUName in possibleAUsNames:
@@ -73,3 +76,5 @@ def naturalLanguageDescriptionFromAU ():
             value [i]["naturalLanguageDescription"] = getNaturalLanguageDescription (sample, possibleAUsNames, AUs)
         saveToJsonFile (value, outPaths [iteratorOutPaths])
         iteratorOutPaths += 1
+
+naturalLanguageDescriptionFromAU ()
