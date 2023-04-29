@@ -76,5 +76,3 @@ def naturalLanguageDescriptionFromAU ():
             value [i]["naturalLanguageDescription"] = getNaturalLanguageDescription (sample, possibleAUsNames, AUs)
         saveToJsonFile (value, outPaths [iteratorOutPaths])
         iteratorOutPaths += 1
-
-naturalLanguageDescriptionFromAU ()
