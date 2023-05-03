@@ -109,7 +109,7 @@ Hanno poi sfruttato un framework che esegue il riconoscimento dell’engagement 
 \section{Studi sul riconoscimento delle emozioni FACS per scelta del modello da utilizzare}
 Essendo l’ammontare di studi che trattano l’analisi delle emozioni FACS maggiore rispetto a quelle che cercano di creare sistemi di riconoscimento automatico per gli stati d’animo, i quali possono direttamente aiutare a identificare i problemi nell’apprendimento delle conoscenze, ho ritenuto opportuno studiare e selezionare fra i modelli da questi proposti per l’elaborazione delle informazioni per il mio caso di studio.
 
-Il paper con i migliori risultati che ho trovato è stato [12], in questo studio viene utilizzata una random forest a due livelli:
+Il paper con i migliori risultati che ho trovato è stato \cite{FaceExpreRecoImgSeqTwoFoldRandomForestClass}, in questo studio viene utilizzata una random forest a due livelli:
 \begin{itemize}
     \item il primo livello è utilizzato per determinare le Action Units nelle sequenze di espressioni che vengono analizzate
     \item il secondo livello invece prende in input le Action Units estratte, ed effettua la classificazione delle espressioni finali
@@ -208,7 +208,7 @@ Per confermare l'efficacia del metodo, sono stati selezionati casualmente un set
 È stato dimostrato che il sistema ha una prestazione stabile utilizzando set di training e testing diversi. 
 Il tasso di riconoscimento medio è significativamente più alto del metodo di confronto [15].
 
-Un altro studio utilizzato per la predizione delle emozioni attraverso l’analisi delle Action Units è [13].
+Un altro studio utilizzato per la predizione delle emozioni attraverso l’analisi delle Action Units è \cite{InferEmoFaceAUs}.
 In questo studio viene proposto un metodo per mappare le AUs a sei emozioni:
 \begin{itemize}
     \item anger,
@@ -241,7 +241,7 @@ Il metodo proposto è stato testato su vari datasets:
 
 è stata poi effettuata una comparazione fra il metodo proposto e altri precedentemente presentati e si sono notati dei miglioramenti, sia sui datasets di benchmark che per quelli in-the-wild.\newpage
 
-La procedura proposta basa il rilevamento delle AUs sul metodo offerto da [16] e a seguire le Action Units vengono mappate con il metodo indicato nel paper.
+La procedura proposta basa il rilevamento delle AUs sul metodo offerto da \cite{RecoFaceExprMachLearnAppSpontBehav} e a seguire le Action Units vengono mappate con il metodo indicato nel paper.
 \begin{figure}
     \begin{center}    
         \includegraphics[width=0.7\linewidth]{images/18.png}
@@ -290,7 +290,7 @@ La lunghezza di stringa di template utilizzata è di cinque per gli esperimenti 
 
 Date le stringhe con le Action Units per le immagini analizzate, queste vengono confrontate con le stringhe di template per trovare l'emozione corrispondente. 
 
-Si utilizza la sotto sequenza comune più lunga (LCS) [18] per misurare la similarità tra le stringhe. LCS è un metodo per trovare la sotto sequenza più lunga fra tutte le sequenze date. 
+Si utilizza la sotto sequenza comune più lunga (LCS) \cite{IntroToAlgo} per misurare la similarità tra le stringhe. LCS è un metodo per trovare la sotto sequenza più lunga fra tutte le sequenze date. 
 
 In questo caso, una sotto sequenza è definita come una sequenza in cui le unità appaiono nello stesso ordine una rispetto all’altra, ma non necessariamente in modo contiguo. 
 
@@ -471,7 +471,7 @@ Strumenti utilizzati per effettuare la classificazione:
     \item Questionari a cui sottoporre i soggetti che vengono ripresi per la creazione del dataset
         \item \mbox{}\\[-\baselineskip]
         \begin{minipage}[t]{0.6\textwidth}
-            In \cite{StudEngagDataset} è stata adoperata una tecnica di crowdsourcing: mediante la piattaforma Amazon Mechanical Turk (o MTurk) i ricercatori hanno specificato la task che si erano proposti di risolvere e hanno fornito i frame da analizzare. Questi sono stati poi suddivisi dalla piattaforma e categorizzati dai singoli individui (tale servizio è naturalmente retribuito)
+            In \cite{DAiSEE} è stata adoperata una tecnica di crowdsourcing: mediante la piattaforma Amazon Mechanical Turk (o MTurk) i ricercatori hanno specificato la task che si erano proposti di risolvere e hanno fornito i frame da analizzare. Questi sono stati poi suddivisi dalla piattaforma e categorizzati dai singoli individui (tale servizio è naturalmente retribuito)
         \end{minipage}\hfill
         \begin{minipage}[t]{0.3\textwidth}
             \centering
@@ -506,7 +506,7 @@ Dopo aver analizzato i sistemi impiegati per l’elaborazione delle informazioni
 
 \section{Unione dei dataset ritrovati e relativa categorizzazione delle immagini all’interno di questo}
 
-I dataset utili ritrovati sono il DAiSEE \cite{StudEngagDataset} e il Student-engagement-dataset [11], (nota al professore: e altri che mi sto adoperando per ottenere) ritrovabili ai seguenti link:
+I dataset utili ritrovati sono il DAiSEE \cite{DAiSEE} e il Student-engagement-dataset \cite{StudEngagDataset}, (nota al professore: e altri che mi sto adoperando per ottenere) ritrovabili ai seguenti link:
 
 https://people.iith.ac.in/vineethnb/resources/daisee/index.html
 
