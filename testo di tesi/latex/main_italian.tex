@@ -1,12 +1,10 @@
 \PassOptionsToPackage{table, dvipsnames}{xcolor}
 \documentclass[a4paper,twoside,12pt]{toptesi}
-
-\usepackage{microtype}
-\sloppy
-
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage[italian]{babel}
+\usepackage{natbib} 
+\bibliographystyle{plain}
 \usepackage{graphicx}
 \usepackage{tikz}
 \usetikzlibrary{positioning}
@@ -17,8 +15,33 @@
 \captionsetup[listing]{position=top}
 \usepackage{subcaption}
 \pgfplotsset{compat=1.18}
+\usepackage{lscape}
+\usepackage{adjustbox}
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\usepackage{microtype}
+\usepackage{tocloft}
+\usepackage{xcolor}
+
+\sloppy
 
 \SetupFloatingEnvironment{listing}{name=Codice}
+
+
+
+
+% ===== Define abstract environment =====
+\newcommand{\prefacename}{Preface}
+\newenvironment{preface}{
+    \vspace*{\stretch{1}}
+    {\noindent \bfseries \Huge \prefacename}
+    \begin{center}
+        % \phantomsection \addcontentsline{toc}{chapter}{\prefacename} % enable this if you want to put the preface in the table of contents
+        \thispagestyle{plain}
+    \end{center}%
+}
+{\vspace*{\stretch{1}}}
+
 
 \newcommand{\walter}[1]{\textcolor{red}{{\bf [Walter: }{#1}{\bf ]}}}
 
@@ -41,12 +64,11 @@
 \def\course{Corso di Laurea in Informatica}
 \def\title{Analisi espressioni facciali in contesto di e-learning}
 \def\author{Alessandro Carella}
-\def\beforeprof{Prof}
-\def\prof{Prof. Stefano Ferilli}
-\def\beforeRelatore{Relatore}
-\def\relatore{Prof. Berardina Nadja De Carolis}
+\def\beforeprof{Professore}
+\def\prof{Prof. Stefano Ferilli\newline\newline Prof. Berardina Nadja De Carolis}
+\def\beforeRelatore {Relatrice}
 \def\beforetitle{Tesi di Laurea in}
-\def\subject{}
+\def\subject{Informatica}
 \def\annoacc{2022 - 2023}
 \def\beforecandidate{Laureando}
 \def\beforeannoacc{Anno Accademico}
@@ -84,17 +106,15 @@
 
 \cleardoublepage
 
-\include{introduction}
+
 \pagenumbering{arabic}
 \setcounter{page}{1}
-\include{chapter_1}
-\include{chapter_2}
-\include{chapter_3}
-\include{chapter_4}
+\include{prefazione_introduzione.tex}
+\include{capitolo_1_stato_dell_arte}
 \include{conclusion}
 \include{acknoweldgements}
 
-
 \bibliographystyle{plain}  
-\bibliography{bibliografia}
+\include{bibliografia}
+
 \end{document}
