@@ -31,3 +31,14 @@ def visualizeDataFrameChart (df):
     counts.plot(kind='bar')
     plt.title('Bar chart of counts for column_name')
     plt.show()
+
+def visualizeFeaturesImportances(rfc_model, X):
+    ax = (pd.Series(rfc_model.feature_importances_, index=X.columns)
+          .nlargest(10)
+          .plot(kind='pie', figsize=(6, 6))
+          .invert_yaxis())
+
+    plt.title("Top features derived by Random Forest")
+    plt.ylabel("")
+    plt.show()
+    plt.clf()

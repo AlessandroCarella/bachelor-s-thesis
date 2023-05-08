@@ -5,6 +5,8 @@ from os.path import join, isdir, isfile, abspath, dirname
 import os
 from sklearn.model_selection import train_test_split
 
+from getInfoDataset import visualizeFeaturesImportances
+
 def parseNewSample(sample_str):
     sampleList = sample_str.split(',')
     sampleList = sampleList [:20]
@@ -15,34 +17,6 @@ def getXtrainYTrain():
     # Load the dataset
     df = pd.read_csv('C:/Users/Alessandro/Desktop/bachelor-s-thesis/src/final analysis/DAiSEE and student engagement dataset clean sampled.csv')
 
-    # Print the number of samples for each label
-    print(df['label'].value_counts())
-    """
-    # remove n samples with value 'A' from Column1
-    n = 55207
-    value = 'engaged'
-    indices_to_remove = df[df['label'] == value].index[:n]
-    df = df.drop(indices_to_remove)
-
-    n = 15586
-    value = 'bored'
-    indices_to_remove = df[df['label'] == value].index[:n]
-    df = df.drop(indices_to_remove)
-
-    n = 500
-    value = 'confused'
-    indices_to_remove = df[df['label'] == value].index[:n]
-    df = df.drop(indices_to_remove)
-
-    n = 339
-    value = 'frustrated'
-    indices_to_remove = df[df['label'] == value].index[:n]
-    df = df.drop(indices_to_remove)
-    """
-    
-    # Print the number of samples for each label
-    print(df['label'].value_counts())
-
     # Split the dataset into features and target variable
     y = df['label']
     X = df.drop(["input","naturalLanguageDescription","label","numLabel"], axis=1)
@@ -50,7 +24,7 @@ def getXtrainYTrain():
     # Split the dataset into training and testing sets
     Xtrain, Xtest, yTrain, yTest = train_test_split(X, y, test_size=0.2, random_state=42)
     
-    return Xtrain, yTrain
+    return Xtrain, yTrain, X
 
 def getRandomForestClassifier ():
     filePathRandomForestClassifier = join(dirname(abspath(__file__)), "randomForestClassifier.pickle")
@@ -61,9 +35,11 @@ def getRandomForestClassifier ():
     else:
         print ("Creazione random forest classifier")
         randomForestClassifier = RandomForestClassifier(n_estimators=100, verbose=True)
-        Xtrain, yTrain = getXtrainYTrain ()
+        Xtrain, yTrain, datasetWithoutLabelCol = getXtrainYTrain ()
         randomForestClassifier.fit(Xtrain, yTrain)
         
+        visualizeFeaturesImportances (randomForestClassifier, datasetWithoutLabelCol)
+
         with open (filePathRandomForestClassifier, "wb") as f:
             pickle.dump (randomForestClassifier, f)
         

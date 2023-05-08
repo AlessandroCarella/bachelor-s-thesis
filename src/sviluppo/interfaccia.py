@@ -7,12 +7,13 @@ import os
 from feat import Detector
 import torch
 import numpy as np
+import pickle
 
 from randomForestClassifier import getRandomForestClassifier
 
-def getDetector ():
+def buildNewDetector (filePathDetector):
     device = "cuda" if torch.cuda.is_available() else "cpu"
-    return Detector(
+    detector = Detector(
         face_model="retinaface",
         landmark_model="mobilefacenet",
         au_model="xgb",
@@ -20,6 +21,24 @@ def getDetector ():
         facepose_model="img2pose",
         device=device,
     )
+    
+    with open (filePathDetector, "wb") as f:
+        pickle.dump (detector, f)
+
+    print (detector.device)
+    return detector
+
+def getDetector ():
+    filePathDetector = join(dirname(abspath(__file__)), "detector.pickle")
+    if isfile (filePathDetector):
+        with open (filePathDetector, "rb") as f:
+            detector = pickle.load (f)
+        if detector.device == "cuda" and not torch.cuda.is_available():
+            detector = buildNewDetector (filePathDetector)
+    else:
+        detector = buildNewDetector (filePathDetector)
+
+    return detector
 
 def createRootWindow():
     # Define the GUI window

@@ -1,6 +1,8 @@
 appunti.txt
 datasets/*
-*src/sviluppo/randomForestClassifier.pickle
+
+/src/sviluppo/detector.pickle
+/src/sviluppo/randomForestClassifier.pickle
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
