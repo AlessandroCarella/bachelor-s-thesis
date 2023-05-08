@@ -3,6 +3,7 @@ datasets/*
 
 /src/sviluppo/detector.pickle
 /src/sviluppo/randomForestClassifier.pickle
+/src/sviluppo/tempImg.jpg
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
