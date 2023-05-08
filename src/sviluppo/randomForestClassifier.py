@@ -13,11 +13,11 @@ def parseNewSample(sample_str):
 
 def getXtrainYTrain():
     # Load the dataset
-    df = pd.read_csv('C:/Users/Alessandro/Desktop/bachelor-s-thesis/src/final analysis/DAiSEE and student engagement dataset clean.csv')
+    df = pd.read_csv('C:/Users/Alessandro/Desktop/bachelor-s-thesis/src/final analysis/DAiSEE and student engagement dataset clean sampled.csv')
 
     # Print the number of samples for each label
     print(df['label'].value_counts())
-
+    """
     # remove n samples with value 'A' from Column1
     n = 55207
     value = 'engaged'
@@ -33,6 +33,12 @@ def getXtrainYTrain():
     value = 'confused'
     indices_to_remove = df[df['label'] == value].index[:n]
     df = df.drop(indices_to_remove)
+
+    n = 339
+    value = 'frustrated'
+    indices_to_remove = df[df['label'] == value].index[:n]
+    df = df.drop(indices_to_remove)
+    """
     
     # Print the number of samples for each label
     print(df['label'].value_counts())

@@ -2,15 +2,13 @@ import cv2
 import tkinter as tk
 from PIL import Image, ImageTk
 import time
-from os.path import join, isdir, isfile, abspath, dirname
+from os.path import join, isfile, abspath, dirname
 import os
 from feat import Detector
 import torch
-import threading
-from randomForestClassifier import getRandomForestClassifier
 import numpy as np
 
-last_save_time = time.time()  # Declare the variable outside the function
+from randomForestClassifier import getRandomForestClassifier
 
 def getDetector ():
     device = "cuda" if torch.cuda.is_available() else "cpu"
@@ -23,124 +21,171 @@ def getDetector ():
         device=device,
     )
 
-def getGUI():
+def createRootWindow():
     # Define the GUI window
     root = tk.Tk()
     root.title("Stato d'animo detection")
-    root.protocol("WM_DELETE_WINDOW", on_closing)
-    
+    root.protocol("WM_DELETE_WINDOW", onClosing)
+    return root
+
+def createVideoStreamFrame(root):
     # Create a frame to hold the video stream
     frame = tk.Frame(root)
     frame.pack(side="left")
+    return frame
 
+def createCanvas(frame):
     # Create a canvas to display the video stream
     canvas = tk.Canvas(frame, width=640, height=480)
     canvas.pack()
+    return canvas
 
+def createTextFrame(root):
     # Create a frame to hold the text widget
-    text_frame = tk.Frame(root)
-    text_frame.pack(side="right")
+    textFrame = tk.Frame(root)
+    textFrame.pack(side="right")
+    return textFrame
 
+def createTextWidget(textFrame):
     # Create a text widget to display text
-    text_widget = tk.Text(text_frame, width=50, height=20, state="normal", font=("TkDefaultFont", 16))
-    text_widget.tag_configure("center", justify='center')
-    text_widget.tag_add("center", "1.0", "end")
-    text_widget.pack()
+    textWidget = tk.Text(textFrame, width=50, height=20, state="normal", font=("TkDefaultFont", 16))
+    textWidget.tag_configure("center", justify='center')
+    textWidget.tag_add("center", "1.0", "end")
+    textWidget.pack()
+    return textWidget
 
-    return canvas, text_widget, root
+def getGUI():
+    root = createRootWindow()
+    return (
+        createCanvas(createVideoStreamFrame(root)), 
+        createTextWidget(createTextFrame(root)), 
+        root)
 
-def getPyFeatAnalysis ():
-    detectImageOutput = detector.detect_image (imagePath)
+def getPyFeatAnalysis():
+    detectImageOutput = detector.detect_image(imagePath)
     AUs = detectImageOutput.aus.loc[0]
     facePos = list(list(zip(*detectImageOutput.facebox.loc[0].items()))[1])
     return AUs, facePos
 
-def on_closing():
-    global window_closed
-    window_closed = True
+def onClosing():
+    global windowClosed
+    windowClosed = True
     root.quit()
 
 # Define a function to update the video stream
-def update(cap, canvas, text_widget, root, imagePath):
-    global last_save_time, randomForestClassifier, window_closed  # Use the global variable
-
+def update(cap, canvas, textWidget, root, imagePath):
+    global lastSaveTime, randomForestClassifier, windowClosed
+    
+    frame = readFrame(cap)
+    if frame is not None:
+        img = convertFrameToImage(frame)
+        updateCanvas(canvas, img)
+        
+    saveFrame(frame, imagePath)
+    lastSaveTime = time.time()
+    
+    AUs, facePos = getPyFeatAnalysis()
+    predictionText = getPredictionText(AUs, randomForestClassifier)
+    updateTextWidget(textWidget, predictionText)
+    
+    drawFaceRectangle(canvas, facePos)
+    
+    if not windowClosed:
+        root.after(20, update, cap, canvas, textWidget, root, imagePath)
+    else:
+        releaseCapture(cap)
+        closeWindows()
+        removeImageIfExists(imagePath)
+             
+def readFrame(cap):
     ret, frame = cap.read()
-    if ret:
-        # Convert the frame to a PIL image
-        img = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-        img = Image.fromarray(img)
-        img = ImageTk.PhotoImage(img)
+    return frame if ret else None    
 
-        # Update the canvas with the new image
-        canvas.create_image(0, 0, anchor="nw", image=img)
-        canvas.image = img
+def convertFrameToImage(frame):
+    img = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+    img = Image.fromarray(img)
+    img = ImageTk.PhotoImage(img)
+    return img
 
-    # Save the current frame as an image
+def updateCanvas(canvas, img):
+    canvas.create_image(0, 0, anchor="nw", image=img)
+    canvas.image = img
+
+def saveFrame(frame, imagePath):
     cv2.imwrite(imagePath, frame, [cv2.IMWRITE_JPEG_QUALITY, 80])
-    last_save_time = time.time()  # Update the variable
-
-    AUs, facePos = getPyFeatAnalysis ()
-    AUs_2d = np.array(AUs).reshape(1, -1)
-
-    try:    
-        prediction = randomForestClassifier.predict_proba(AUs_2d)
+    
+def getPredictionText(AUs, randomForestClassifier):
+    try:
+        AUs2d = np.array(AUs).reshape(1, -1)
+        prediction = randomForestClassifier.predict_proba(AUs2d)
         bestClass = ""
-        max_prob = 0
+        maxProb = 0
         text = ""
         for i, label in enumerate(randomForestClassifier.classes_):
-            prob = prediction[0][i]*100
+            prob = prediction[0][i] * 100
             text += "{}: {:.2f}%\n".format(label, prob)
-            if prob > max_prob:
-                max_prob = prob
+            if prob > maxProb:
+                maxProb = prob
                 bestClass = label
-        text = "\n\n\n\n\nMood rilevato: " + bestClass + "\n\nCon i valori:\n" + text
-    except Exception as e:
-        text = "\n\n\n\n\n\n\n\n\nNessuna faccia rilevata"
+        return "\n\n\n\n\nMood rilevato: " + bestClass + "\n\nCon i valori:\n" + text
+    except:
+        return "\n\n\n\n\n\n\n\n\nNessuna faccia rilevata"
     
-    text_widget.delete("1.0", tk.END)
-    text_widget.insert("1.0", text)
-    text_widget.tag_configure("center", justify='center')
-    text_widget.tag_add("center", "1.0", "end")
-
-
-    # Draw a rectangle around the face
-    canvas.create_rectangle(facePos[0], facePos[1], facePos[0]+facePos[2], facePos[1]+facePos[3], outline='green', width=2)
+def updateTextWidget(textWidget, text):
+    textWidget.delete("1.0", tk.END)
+    textWidget.insert("1.0", text)
+    textWidget.tag_configure("center", justify='center')
+    textWidget.tag_add("center", "1.0", "end")
     
-    if not window_closed:
-        # Schedule the update function to be called again in 20 milliseconds
-        root.after(20, update, cap, canvas, text_widget, root, imagePath)
-    else:
-        cap.release()
-        cv2.destroyAllWindows()
-        if isfile(imagePath):
-            os.remove(imagePath)
+def drawFaceRectangle(canvas, facePos):
+    canvas.create_rectangle(
+        facePos[0], 
+        facePos[1], 
+        facePos[0] + facePos[2], 
+        facePos[1] + facePos[3], 
+        outline='purple', width=2
+    )
+     
+def releaseCapture(cap):
+    cap.release()
+    
+def closeWindows():
+    cv2.destroyAllWindows()
+    
+def removeImageIfExists(imagePath):
+    if os.path.isfile(imagePath):
+        os.remove(imagePath)
 
-window_closed = False
+def initializeWebcam():
+    # Initialize the webcam
+    cap = cv2.VideoCapture(0)
+    cap.set(cv2.CAP_PROP_EXPOSURE, 1.5)  # Adjust the exposure value (0.0 to 1.0)
+    cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)  # Set the width to 640 pixels
+    cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)  # Set the height to 480 pixels
+    cap.set(cv2.CAP_PROP_FPS, 24)  # Set the frame rate to 15 fps
+    return cap
 
-imagePath = join(dirname(abspath(__file__)), "tempImg.jpg")
-print (imagePath)
+def handleProgramClose():
+    # Release the webcam when the program exits
+    cap.release()
+    cv2.destroyAllWindows()
 
-canvas, text_widget, root = getGUI()
+    if isfile(imagePath):
+        os.remove(imagePath)
 
-# Initialize the webcam
-cap = cv2.VideoCapture(0)
-cap.set(cv2.CAP_PROP_EXPOSURE, 1.5)  # Adjust the exposure value (0.0 to 1.0)
-cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)  # Set the width to 640 pixels
-cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)  # Set the height to 480 pixels
-cap.set(cv2.CAP_PROP_FPS, 24)  # Set the frame rate to 15 fps
+if __name__ == '__main__':
+    windowClosed = False
 
-detector = getDetector()
-randomForestClassifier = getRandomForestClassifier()
+    canvas, textWidget, root = getGUI()
+    cap = initializeWebcam()
 
-# Start the update loop
-update(cap, canvas, text_widget, root, imagePath)
+    imagePath = join(dirname(abspath(__file__)), "tempImg.jpg")
+    detector = getDetector()
+    randomForestClassifier = getRandomForestClassifier()
 
-# Start the GUI main loop
-root.mainloop()
+    # Start the update loop
+    update(cap, canvas, textWidget, root, imagePath)
+    # Start the GUI main loop
+    root.mainloop()
 
-# Release the webcam when the program exits
-cap.release()
-cv2.destroyAllWindows()
-
-if isfile(imagePath):
-    os.remove(imagePath)
+    handleProgramClose()
