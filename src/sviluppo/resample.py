@@ -40,5 +40,3 @@ def resampleDataset ():
     visualizeDataFrameChart(df)
 
     df.to_csv(r'C:\Users\Alessandro\Desktop\bachelor-s-thesis\src\final analysis\DAiSEE and student engagement dataset clean sampled.csv', index=False)
-
-resampleDataset()

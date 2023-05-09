@@ -18,6 +18,15 @@ def getNumberOfNullValuesForEachAU ():
         if rows:
             print(f"{column}: {rows}")
 
+def getNumberOfValuesForEachLabel ():
+    # Load your data into a pandas DataFrame
+    df = pd.read_csv(r'C:\Users\Alessandro\Desktop\bachelor-s-thesis\src\final analysis\DAiSEE and student engagement dataset clean.csv')
+
+    # Replace 'my_column_name' with the name of the column you want to count values for
+    value_counts = df['label'].value_counts()
+
+    print(value_counts)
+
 def visualizeDataFrameChart (df):
     # Count the number of samples for each value in a column
     counts = df['label'].value_counts()
