@@ -10,7 +10,7 @@ import numpy as np
 import pickle
 from collections import Counter
 
-from randomForestClassifier import getRandomForestClassifier
+from pickClassifier import pickClassifier
 
 def buildNewDetector (filePathDetector):
     device = "cuda" if torch.cuda.is_available() else "cpu"
@@ -94,7 +94,7 @@ def onClosing():
 
 # Define a function to update the video stream
 def update(cap, canvas, textWidget, root, imagePath):
-    global lastSaveTime, randomForestClassifier, windowClosed, bestClassLastMinute, lastPredictionTime
+    global lastSaveTime, userChosenClassifier, windowClosed, bestClassesLastMinute, lastPredictionTime
     
     frame = readFrame(cap)
     if frame is not None:
@@ -108,7 +108,7 @@ def update(cap, canvas, textWidget, root, imagePath):
     
     timeDiff = time.time() - lastPredictionTime
     lastPredictionTime = time.time()
-    predictionText = getPredictionText(AUs, randomForestClassifier, timeDiff)
+    predictionText = getPredictionText(AUs, userChosenClassifier, timeDiff)
     updateTextWidget(textWidget, predictionText)
     
     drawFaceRectangle(canvas, facePos)
@@ -137,33 +137,38 @@ def updateCanvas(canvas, img):
 def saveFrame(frame, imagePath):
     cv2.imwrite(imagePath, frame, [cv2.IMWRITE_JPEG_QUALITY, 80])
     
-def addToBestClassLastMinute (bestClass):
-    bestClassLastMinute[time.time()] = bestClass
+def addToBestClassesLastMinute (bestClass):
+    bestClassesLastMinute[time.time()] = bestClass
+
+def removeOldKeys(bestClassesLastMinute):
+    currentTime = time.time()
+    oneMinuteAgo = currentTime - 60
+    return {k:v for k,v in bestClassesLastMinute.items() if k > oneMinuteAgo}
 
 def getMostFrequentMoodLastMinute ():
      # Count the number of occurrences of each value in the dictionary
-    valueCounts = Counter(bestClassLastMinute.values())
+    valueCounts = Counter(bestClassesLastMinute.values())
 
     # Get the value with the highest count
     mostFrequentValue, count = valueCounts.most_common(1)[0]
 
     return mostFrequentValue
 
-def getPredictionText(AUs, randomForestClassifier, timeDiff):
+def getPredictionText(AUs, userChosenClassifier, timeDiff):
     try:
         AUs2d = np.array(AUs).reshape(1, -1)
-        prediction = randomForestClassifier.predict_proba(AUs2d)
+        prediction = userChosenClassifier.predict_proba(AUs2d)
         bestClass = ""
         maxProb = 0
         text = ""
-        for i, label in enumerate(randomForestClassifier.classes_):
+        for i, label in enumerate(userChosenClassifier.classes_):
             prob = prediction[0][i] * 100
             text += "{}: {:.2f}%\n".format(label, prob)
             if prob > maxProb:
                 maxProb = prob
                 bestClass = label
-                addToBestClassLastMinute (bestClass)
-                removeOldKeys(bestClassLastMinute)
+                addToBestClassesLastMinute (bestClass)
+                removeOldKeys(bestClassesLastMinute)
         return (
             "\n\n\n\n\nMood rilevato: " + bestClass + 
             "\n\nCon i valori:\n" + text + 
@@ -172,11 +177,6 @@ def getPredictionText(AUs, randomForestClassifier, timeDiff):
         )
     except:
         return "\n\n\n\n\n\n\n\n\nNessuna faccia rilevata"
-    
-def removeOldKeys(bestClassLastMinute):
-    currentTime = time.time()
-    oneMinuteAgo = currentTime - 60
-    return {k:v for k,v in bestClassLastMinute.items() if k > oneMinuteAgo}
 
 def updateTextWidget(textWidget, text):
     textWidget.delete("1.0", tk.END)
@@ -228,8 +228,8 @@ if __name__ == '__main__':
 
     imagePath = join(dirname(abspath(__file__)), "tempImg.jpg")
     detector = getDetector()
-    randomForestClassifier = getRandomForestClassifier()
-    bestClassLastMinute = {}
+    userChosenClassifier = pickClassifier()
+    bestClassesLastMinute = {}
     lastPredictionTime = time.time()
 
     # Start the update loop

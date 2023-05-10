@@ -38,26 +38,29 @@ def getXtrainYTrain():
     
     print (type(Xtrain), type(Xtest))
 
-    return Xtrain, yTrain
+    return Xtrain, yTrain, Xtest, yTest
 
-def getRandomForestClassifier ():
+def getRandomForestClassifier():
     filePathRandomForestClassifier = join(dirname(abspath(__file__)), "randomForestClassifier.pickle")
 
-    if isfile (filePathRandomForestClassifier):
-        with open (filePathRandomForestClassifier, "rb") as f:
-            randomForestClassifier = pickle.load (f)
+    if isfile(filePathRandomForestClassifier):
+        with open(filePathRandomForestClassifier, "rb") as f:
+            randomForestClassifier = pickle.load(f)
     else:
-        print ("Creazione random forest classifier")
+        print("Creazione random forest classifier")
         randomForestClassifier = RandomForestClassifier(n_estimators=100, verbose=True, random_state=69)
-        Xtrain, yTrain = getXtrainYTrain ()
+        Xtrain, yTrain, Xtest, yTest = getXtrainYTrain()
         randomForestClassifier.fit(Xtrain, yTrain)
         
-        #visualizeFeaturesImportances (randomForestClassifier, datasetWithoutLabelCol)
-        randomForestClassifierVisualize (randomForestClassifier)
+        #visualizeFeaturesImportances(randomForestClassifier, datasetWithoutLabelCol)
+        #randomForestClassifierVisualize(randomForestClassifier)
 
-        with open (filePathRandomForestClassifier, "wb") as f:
-            pickle.dump (randomForestClassifier, f)
+        with open(filePathRandomForestClassifier, "wb") as f:
+            pickle.dump(randomForestClassifier, f)
         
+        relativeTestResult = randomForestClassifier.score(Xtest, yTest)
+        print("Relative test result:", relativeTestResult)
+
     return randomForestClassifier
 
 getRandomForestClassifier()
