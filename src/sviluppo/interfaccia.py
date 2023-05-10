@@ -8,9 +8,8 @@ from feat import Detector
 import torch
 import numpy as np
 import pickle
-from collections import Counter
 
-from pickClassifier import pickClassifier
+from pickClassifier import pickClassifier, predictProba, getModelPredictionText
 
 def buildNewDetector (filePathDetector):
     device = "cuda" if torch.cuda.is_available() else "cpu"
@@ -108,7 +107,7 @@ def update(cap, canvas, textWidget, root, imagePath):
     
     timeDiff = time.time() - lastPredictionTime
     lastPredictionTime = time.time()
-    predictionText = getPredictionText(AUs, userChosenClassifier, timeDiff)
+    predictionText, bestClassesLastMinute = getPredictionText(AUs, userChosenClassifier, timeDiff, bestClassesLastMinute)
     updateTextWidget(textWidget, predictionText)
     
     drawFaceRectangle(canvas, facePos)
@@ -136,47 +135,19 @@ def updateCanvas(canvas, img):
 
 def saveFrame(frame, imagePath):
     cv2.imwrite(imagePath, frame, [cv2.IMWRITE_JPEG_QUALITY, 80])
-    
-def addToBestClassesLastMinute (bestClass):
-    bestClassesLastMinute[time.time()] = bestClass
 
-def removeOldKeys(bestClassesLastMinute):
-    currentTime = time.time()
-    oneMinuteAgo = currentTime - 60
-    return {k:v for k,v in bestClassesLastMinute.items() if k > oneMinuteAgo}
-
-def getMostFrequentMoodLastMinute ():
-     # Count the number of occurrences of each value in the dictionary
-    valueCounts = Counter(bestClassesLastMinute.values())
-
-    # Get the value with the highest count
-    mostFrequentValue, count = valueCounts.most_common(1)[0]
-
-    return mostFrequentValue
-
-def getPredictionText(AUs, userChosenClassifier, timeDiff):
+def getPredictionText(AUs, userChosenClassifier, timeDiff, bestClassesLastMinute):
     try:
         AUs2d = np.array(AUs).reshape(1, -1)
-        prediction = userChosenClassifier.predict_proba(AUs2d)
-        bestClass = ""
-        maxProb = 0
-        text = ""
-        for i, label in enumerate(userChosenClassifier.classes_):
-            prob = prediction[0][i] * 100
-            text += "{}: {:.2f}%\n".format(label, prob)
-            if prob > maxProb:
-                maxProb = prob
-                bestClass = label
-                addToBestClassesLastMinute (bestClass)
-                removeOldKeys(bestClassesLastMinute)
-        return (
-            "\n\n\n\n\nMood rilevato: " + bestClass + 
-            "\n\nCon i valori:\n" + text + 
-            "\n\n\nMood più frequente nell'ultimo minuto: " + getMostFrequentMoodLastMinute() + 
-            "\n" + "Temp dalla predizione precedente " + "{:.2f}".format(timeDiff)
-        )
-    except:
-        return "\n\n\n\n\n\n\n\n\nNessuna faccia rilevata"
+        prediction = predictProba(userChosenClassifier, userChosenClassifierObj, AUs2d)
+        if prediction is not None:
+            output, bestClassesLastMinute = getModelPredictionText (userChosenClassifier, prediction, timeDiff, bestClassesLastMinute)
+            return output, bestClassesLastMinute
+        else:
+            return "\n\n\n\n\n\n\n\n\nErrore con il modello predittivo", bestClassesLastMinute
+    except Exception as e:
+        print (e)
+        return "\n\n\n\n\n\n\n\n\nNessuna faccia rilevata", bestClassesLastMinute
 
 def updateTextWidget(textWidget, text):
     textWidget.delete("1.0", tk.END)
@@ -228,7 +199,7 @@ if __name__ == '__main__':
 
     imagePath = join(dirname(abspath(__file__)), "tempImg.jpg")
     detector = getDetector()
-    userChosenClassifier = pickClassifier()
+    userChosenClassifier, userChosenClassifierObj = pickClassifier()
     bestClassesLastMinute = {}
     lastPredictionTime = time.time()
 
