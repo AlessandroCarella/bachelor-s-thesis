@@ -3,10 +3,10 @@ import tkinter as tk
 import time
 from collections import Counter
 
-from randomForestClassifier import getRandomForestClassifier
-from KnnClassifier import getKnnClassifier
-from naiveBayesClassifier import getNaiveBayesClassifier
-from SVMclassifier import getSVMClassifier
+from classifiers.randomForestClassifier import getRandomForestClassifier
+from classifiers.KnnClassifier import getKnnClassifier
+from classifiers.naiveBayesClassifier import getNaiveBayesClassifier
+from classifiers.SVMclassifier import getSVMClassifier
 
 def predictProba (chosenClassifier, classifierObj, input):
     """
@@ -156,7 +156,7 @@ def pickClassifier(nTentative=0):
     4 = svm
     """
     root = tk.Tk()
-    root.title("Button Example")
+    root.title("Classifier picker")
 
     getGui(root)
 
