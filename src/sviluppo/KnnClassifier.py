@@ -20,7 +20,7 @@ def parseNewSample(sample_str):
     sample = [float(x) for x in sampleList]
     return pd.DataFrame([sample], columns=['AU01','AU02','AU04','AU05','AU06','AU07','AU09','AU10','AU11','AU12','AU14','AU15','AU17','AU20','AU23','AU24','AU25','AU26','AU28','AU43'])
 
-def getAccuracyKnnClassifier(yTest, yPred):
+def getModelAccuracy(yTest, yPred):
     # Evaluate the accuracy of the classifier
     from sklearn.metrics import accuracy_score
     accuracy = accuracy_score(yTest, yPred)
@@ -42,9 +42,7 @@ def getKnnClassifier():
         with open(filePathKnnClassifier, "wb") as f:
             pickle.dump(KnnClassifier, f)
         
-        #getAccuracyKnnClassifier(yTest, KnnClassifier.predict(Xtest))
+        #getModelAccuracy(yTest, KnnClassifier.predict(Xtest))
         #visualizeHeatMapCorrelationMatrix(Xtrain)
 
     return KnnClassifier
-
-getKnnClassifier()
