@@ -20,7 +20,7 @@ def getKnnClassifier():
             KnnClassifier = pickle.load(f)
     else:
         print("Creazione Knn classifier")
-        KnnClassifier = KNeighborsClassifier(n_neighbors=5)
+        KnnClassifier = KNeighborsClassifier(n_neighbors=15)
         Xtrain, yTrain, Xtest, yTest = getXtrainYTrain()
         KnnClassifier.fit(Xtrain, yTrain)
         

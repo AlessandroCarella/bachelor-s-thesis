@@ -31,7 +31,7 @@ def getClassifierObj (buttonLabel):
     return None
 
 def getLabelsList ():
-    return ['bored' 'confused' 'drowsy' 'engaged' 'frustrated' 'looking away']
+    return ['bored', 'confused', 'drowsy', 'engaged', 'frustrated', 'looking away']
 
     
 def addToBestClassesLastMinute (bestClass, bestClassesLastMinute):
@@ -70,17 +70,17 @@ def getPredictionTextRandomForestClassifier (prediction, timeDiff, bestClassesLa
         "\n\n\n\n\nMood rilevato: " + bestClass + 
         "\n\nCon i valori:\n" + text + 
         "\n\n\nMood più frequente nell'ultimo minuto: " + getMostFrequentMoodLastMinute(bestClassesLastMinute) + 
-        "\n" + "Temp dalla predizione precedente " + "{:.2f}".format(timeDiff)
+        "\n" + "Tempo passato dalla predizione precedente " + "{:.2f}".format(timeDiff)
     ), bestClassesLastMinute
 
 def getPredictionTextKnnClassifier(prediction, timeDiff, bestClassesLastMinute):
-    bestClassesLastMinute = addToBestClassesLastMinute (prediction, bestClassesLastMinute)
+    bestClassesLastMinute = addToBestClassesLastMinute (prediction[0], bestClassesLastMinute)
     bestClassesLastMinute = removeOldKeys(bestClassesLastMinute)
-    
+
     return (
-        "\n\n\n\n\nMood rilevato: " + prediction + 
-        "\n\n\nMood più frequente nell'ultimo minuto: " + getMostFrequentMoodLastMinute(bestClassesLastMinute) + 
-        "\n" + "Temp dalla predizione precedente " + "{:.2f}".format(timeDiff)
+        "\n\n\n\n\n\n\n\n\nMood rilevato: " + prediction[0] + 
+        "\n\n\n\n\n\n\n\nMood più frequente nell'ultimo minuto: " + getMostFrequentMoodLastMinute(bestClassesLastMinute) + 
+        "\n" + "Tempo passato dalla predizione precedente " + "{:.2f}".format(timeDiff)
     ), bestClassesLastMinute
 
 def getModelPredictionText (chosenClassifier, prediction, timeDiff, bestClassesLastMinute):
