@@ -13,6 +13,7 @@ from pickClassifier import pickClassifier, predictProba, getModelPredictionText
 
 def buildNewDetector (filePathDetector):
     device = "cuda" if torch.cuda.is_available() else "cpu"
+    #device = "cpu"
     detector = Detector(
         face_model="retinaface",
         landmark_model="mobilefacenet",

@@ -8,6 +8,15 @@ import matplotlib.pyplot as plt
 
 from getInfoDataset import visualizeFeaturesImportances
 
+def getModelScores(yTest, yPred):
+    # Evaluate the accuracy of the classifier
+    from sklearn.metrics import accuracy_score, precision_score, recall_score, balanced_accuracy_score
+    acc = accuracy_score(yTest, yPred)
+    prec = precision_score (yTest, yPred, average="weighted")
+    recall = recall_score(yTest, yPred, average="weighted")
+    balaAcc = balanced_accuracy_score(yTest, yPred)
+    return acc, prec, recall, balaAcc
+
 dpia = 460
 
 def randomForestClassifierVisualize (rfc):
@@ -25,9 +34,9 @@ def parseNewSample(sample_str):
     sample = [float(x) for x in sampleList]
     return pd.DataFrame([sample], columns=['AU01','AU02','AU04','AU05','AU06','AU07','AU09','AU10','AU11','AU12','AU14','AU15','AU17','AU20','AU23','AU24','AU25','AU26','AU28','AU43'])
 
-def getXtrainYTrain():
+def getXtrainYTrainXtestYTest():
     # Load the dataset
-    df = pd.read_csv(join(dirname(abspath(__file__)), "../final analysis/DAiSEE and student engagement dataset clean sampled.csv"))
+    df = pd.read_csv(join(dirname(abspath(__file__)), "../../final analysis/DAiSEE and student engagement dataset clean sampled.csv"))
 
     # Split the dataset into features and target variable
     y = df['label']
@@ -39,7 +48,7 @@ def getXtrainYTrain():
     return Xtrain, yTrain, Xtest, yTest
 
 def getRandomForestClassifier():
-    filePathRandomForestClassifier = join(dirname(abspath(__file__)), "classifiers/serializedObjects/randomForestClassifier.pickle")
+    filePathRandomForestClassifier = join(dirname(abspath(__file__)), "serializedObjects/randomForestClassifier.pickle")
 
     if isfile(filePathRandomForestClassifier):
         with open(filePathRandomForestClassifier, "rb") as f:
@@ -47,17 +56,20 @@ def getRandomForestClassifier():
     else:
         print("Creazione random forest classifier")
         randomForestClassifier = RandomForestClassifier(n_estimators=100, verbose=True, random_state=69)
-        Xtrain, yTrain, Xtest, yTest = getXtrainYTrain()
+        Xtrain, yTrain, Xtest, yTest = getXtrainYTrainXtestYTest()
         randomForestClassifier.fit(Xtrain, yTrain)
         
         #visualizeFeaturesImportances(randomForestClassifier, datasetWithoutLabelCol)
         #randomForestClassifierVisualize(randomForestClassifier)
+        #for score in getModelScores(yTest, randomForestClassifier.predict(Xtest)):
+        #    print (score)
+        #    print()
 
         with open(filePathRandomForestClassifier, "wb") as f:
             pickle.dump(randomForestClassifier, f)
         
-        relativeTestResult = randomForestClassifier.score(Xtest, yTest)
-        print("Relative test result:", relativeTestResult)
+        #relativeTestResult = randomForestClassifier.score(Xtest, yTest)
+        #print("Relative test result:", relativeTestResult)
 
     return randomForestClassifier
 
