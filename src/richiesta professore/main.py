@@ -67,6 +67,8 @@ def checkIfDirExistsAndIfNotCreateIt (dirPath:str) -> None:
         os.makedirs(dirPath)
 
 if __name__ == "__main__":
+    ACTION_UNITS_THRESHOLD = 0.5
+
     videosPathMain = getVideoPaths ()
 
     #data = getPredictionsAndSaveThemOnFile (videosPathMain, getDetector())
@@ -79,7 +81,7 @@ if __name__ == "__main__":
 
     videoExtractions = []
     for singleVideoData in tqdm(data): #itero sui video
-        videoExtractions.append(getSingleVideoExtraction(singleVideoData, DAiSEE))
+        videoExtractions.append(getSingleVideoExtraction(singleVideoData, DAiSEE, ACTION_UNITS_THRESHOLD))
     
     dirName = join(dirname(abspath(__file__)), "extractions")
     checkIfDirExistsAndIfNotCreateIt (dirName)

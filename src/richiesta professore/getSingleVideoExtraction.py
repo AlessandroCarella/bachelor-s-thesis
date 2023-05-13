@@ -82,7 +82,7 @@ def closeAllOpenedAUs (lastFrame:str, activityOrProcessBeginOrEndStr:str, label:
 
     return closingLinesForActiveActionUnits
 
-def getSingleVideoExtraction (singleVideoData:dict, DAiSEE: pd.DataFrame) -> dict:
+def getSingleVideoExtraction (singleVideoData:dict, DAiSEE: pd.DataFrame, actionUnitsThreshold:float) -> dict:
     """
     (T, E, W, P, A, O), where
     T is the time/date the event occurred, 
@@ -127,7 +127,7 @@ def getSingleVideoExtraction (singleVideoData:dict, DAiSEE: pd.DataFrame) -> dic
     
     for actionUnit, framesDict in singleVideoData.items (): #itero sulle action units
         for frame, value in framesDict.items (): #itero sui frame relativi all'action unit che sto analizzando ora
-            if float(value) >= 0.5 and actionUnit not in activeActionUnits:
+            if float(value) >= actionUnitsThreshold and actionUnit not in activeActionUnits:
                 activeActionUnits.append(actionUnit)
                 outputStrings.append(
                     getEntryText(
