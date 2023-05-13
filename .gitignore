@@ -1,8 +1,7 @@
 appunti.txt
-datasets/*
+*/datasets/*
 
-/src/sviluppo/detector.pickle
-/src/sviluppo/randomForestClassifier.pickle
+*.pickle
 /src/sviluppo/tempImg.jpg
 
 # Byte-compiled / optimized / DLL files
