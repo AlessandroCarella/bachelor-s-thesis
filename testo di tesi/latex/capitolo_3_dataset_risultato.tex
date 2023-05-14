@@ -53,13 +53,13 @@ Per controllare che sia effettivamente possibile utilizzare questa funzionalità
 
 Il parametro face\_model imposta il modello di rilevamento del viso da utilizzare. Ho ritenuto opportuno impostarlo su "retinaface", popolare modello di rilevamento del viso che utilizza una CNN (Convolutional Neural Networks).
 
-Il parametro landmark\_model imposta il modello di rilevamento dei landmark facciali da utilizzare. Qui è impostato su "mobilefacenet", un Single-stage dense face localisation in the wild ottenuto dagli autori della libreria da [18].
+Il parametro landmark\_model imposta il modello di rilevamento dei landmark facciali da utilizzare. Qui è impostato su "mobilefacenet", un Single-stage dense face localisation in the wild ottenuto dagli autori della libreria da \cite{Chen2018MobileFaceNets} .
 
-Il parametro au\_model prepara il modello utilizzato alla rilevazione automatica dell'unità d'azione (AU) facciale. Il modello è un classificatore Extreme Gradient Boosting (XGB) estratto, dagli autori di py-feat da i datasets BP4D, DISFA, CK+, UNBC-McMaster shoulder pain, e AFF-Wild2 e basato sul lavoro di [19].
+Il parametro au\_model prepara il modello utilizzato alla rilevazione automatica dell'unità d'azione (AU) facciale. Il modello è un classificatore Extreme Gradient Boosting (XGB) estratto, dagli autori di py-feat da i datasets BP4D, DISFA, CK+, UNBC-McMaster shoulder pain, e AFF-Wild2 e basato sul lavoro di \cite{ChenG16}.
 
-Il parametro emotion\_model avvia il modello utilizzato per la rilevazione delle emozioni dalle espressioni facciali, ovvero "resmasknet", implementato utilizzando il lavoro di [20].
+Il parametro emotion\_model avvia il modello utilizzato per la rilevazione delle emozioni dalle espressioni facciali, ovvero "resmasknet", implementato utilizzando il lavoro di \cite{FacialExprRecoUseResMaskNet}.
 
-Il parametro facepose\_model stabilisce il modello utilizzato per la stima della posa della testa "img2pose", implementato utilizzando il lavoro di [21].
+Il parametro facepose\_model stabilisce il modello utilizzato per la stima della posa della testa "img2pose", implementato utilizzando il lavoro di \cite{img2pose}.
 
 \subsection{Dati ulteriori alle action units estratti da py-feat}
 Py-feat permette di estrarre i valori delle Action units attraverso il metodo \mintinline[bgcolor=bg]{python}{detector.detect_image(imagePath)} che prende in input il percorso di un’immagine e restituisce i valori estratti; i valori estratti da questo metodo non si limitano alle Action Units da me utilizzate poiché vengono calcolati anche altri valori, quali:
@@ -148,9 +148,10 @@ print("Numero di valori nulli per ogni colonna:")
 print(nullVals.sum())
         \end{minted}
         che dà in output:
+        
         \begin{figure}
             \begin{center}    
-                \includegraphics[width=0.4\linewidth]{images/image35.png}
+                \includegraphics[width=0.7\linewidth]{images/image35.png}
             \end{center}
         \end{figure}
         Come è possibile osservare dall’immagine, il dataset risultato non presenta valori nulli.
@@ -188,19 +189,19 @@ Il dataset risultato da me realizzato presenta una notevole complicazione: se de
 Per sbilanciato intendo il fatto che sono presenti molti valori per alcune delle classi (labels), e troppi pochi, a confronto, per altri.
 \begin{figure}
     \begin{center}    
-        \includegraphics[width=0.4\linewidth]{images/image42.png}
+        \includegraphics[width=0.23\linewidth]{images/image42.png}
     \end{center}
 \end{figure}
 
 In questi grafici è possibile riscontrare la differenza fra il numero di elementi per ogni valore unico nella colonna label:
 \begin{figure}
     \begin{center}    
-        \includegraphics[width=0.8\linewidth]{images/image43.png}
+        \includegraphics[width=0.75\linewidth]{images/image43.png}
     \end{center}
 \end{figure}
 \begin{figure}
     \begin{center}    
-        \includegraphics[width=0.8\linewidth]{images/image44.png}
+        \includegraphics[width=0.75\linewidth]{images/image44.png}
     \end{center}
 \end{figure}
 
@@ -223,12 +224,12 @@ def undersampleDataset(df, columnName, valueToDownSample, numberOfSamplesAfter):
 \item L'oversampling, d'altra parte, consiste nell'aumentare il numero di istanze della classe minoritaria (ovvero quella con un minor numero di campioni) in modo da bilanciare la distribuzione delle classi nel dataset.
 
 Sussistono molte tecniche per l'oversampling, tra cui la duplicazione casuale degli esempi esistenti, la generazione di nuovi esempi sintetici attraverso tecniche come la Synthetic Minority Over-sampling Technique (SMOTE), e la duplicazione degli esempi esistenti con una variazione minore (data augmentation). 
+
 Il codice utilizzato per effettuare l’oversampling dei sample per ognuna delle labels è il seguente:
 \begin{minted}[bgcolor=bg, fontsize=\scriptsize]{python}
 def oversampleDataset(df, columnName, valueToOversample, numberOfSamplesAfter):
     if len(df[df[columnName] == valueToOversample]) < numberOfSamplesAfter:
         engagedIndices = df[df[columnName] == valueToOversample].index
-        
         tempDf = df.loc[engagedIndices]
         tempDfOversampled = resample(
             tempDf, 
@@ -236,7 +237,6 @@ def oversampleDataset(df, columnName, valueToOversample, numberOfSamplesAfter):
             n_samples=numberOfSamplesAfter, 
             random_state=69
         )
-        
         return pd.concat([df.drop(engagedIndices), tempDfOversampled])
     return df
 \end{minted}
@@ -246,7 +246,7 @@ def oversampleDataset(df, columnName, valueToOversample, numberOfSamplesAfter):
 In sintesi, il resampling è una tecnica utile per bilanciare dataset e migliorare le prestazioni dei modelli di machine learning. 
 
 Questo invece è il codice che gestisce le chiamate per entrambi i metodi riportati sopra:
-\begin{minted}[bgcolor=bg]{python}
+\begin{minted}[bgcolor=bg, fontsize=\scriptsize]{python}
 def resampleDataset ():
     df = pd.read_csv(oldDatasetPath)
     visualizeDataFrameChart(df)
@@ -274,6 +274,7 @@ def resampleDataset ():
    df.to_csv(newDatasetPath, index=False)
 \end{minted}
 
+
 \begin{enumerate}
 \item sklearn.utils.resample è una funzione fornita dalla libreria scikit-learn che viene utilizzata al fine di generare esempi sintetici per l'oversampling di dataset. In particolare, la funzione resample prende in input un insieme di campioni e genera un nuovo insieme di campioni sintetici.
 
@@ -285,6 +286,7 @@ La funzione resample prende in input i seguenti parametri:
 \item n\_samples: il numero di esempi sintetici da generare
 \item random\_state: un valore intero che rappresenta il seed per la generazione casuale degli esempi sintetici
 \end{itemize}
+
 La funzione resample restituisce due oggetti:
 \begin{itemize}
 \item X\_resampled: un array o un dataframe contenente le feature dei campioni originali e dei nuovi esempi sintetici generati (unico output utilizzato)
@@ -319,12 +321,11 @@ Dopo aver messo in pratica vari test, sono giunto alla conclusione di eseguire u
 Di seguito riporto i grafici riguardanti il dataset presentati all’inizio, generati dopo aver effettuato il resampling:
 \begin{figure}
     \begin{center}    
-        \includegraphics[width=0.9\linewidth]{images/image45.png}
+        \includegraphics[width=1\linewidth]{images/image45.png}
     \end{center}
 \end{figure}
-
 \begin{figure}
     \begin{center}    
-        \includegraphics[width=0.9\linewidth]{images/image46.png}
+        \includegraphics[width=1\linewidth]{images/image46.png}
     \end{center}
 \end{figure}

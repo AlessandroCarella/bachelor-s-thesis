@@ -14,19 +14,23 @@ Una volta avviato il programma per l’interfaccia grafica, si presenta una sche
 Una volta scelto l’algoritmo da utilizzare, questo viene, se precedentemente utilizzato, prelevato dalla memoria, altrimenti viene generato al momento e poi salvato su file binario attraverso i metodi disponibili nella libreria pickle (utilizzata sia per la scrittura che per la lettura di questi file contenti i modelli).
 \begin{minted}[bgcolor=bg]{python}
 def getRandomForestClassifier():
-    filePathRandomForestClassifier = join(dirname(abspath(__file__)), "randomForestClassifier.pickle")
+    filePathRandomForestClassifier = join(
+        dirname(abspath(__file__)), 
+        "randomForestClassifier.pickle"
+    )
 
     if isfile(filePathRandomForestClassifier):
         with open(filePathRandomForestClassifier, "rb") as f:
             randomForestClassifier = pickle.load(f)
     else:
         print("Creazione random forest classifier")
-        randomForestClassifier = RandomForestClassifier(n_estimators=100, verbose=True, random_state=69)
+        randomForestClassifier = RandomForestClassifier(
+            n_estimators=100, 
+            verbose=True, 
+            random_state=69
+        )
         Xtrain, yTrain, Xtest, yTest = getXtrainYTrainXtestYTest()
         randomForestClassifier.fit(Xtrain, yTrain)
-        
-        #visualizeFeaturesImportances(randomForestClassifier, datasetWithoutLabelCol)
-        #randomForestClassifierVisualize(randomForestClassifier)
 
         with open(filePathRandomForestClassifier, "wb") as f:
             pickle.dump(randomForestClassifier, f)
@@ -61,7 +65,9 @@ def addToBestClassesLastMinute (bestClass):
 def removeOldKeys(bestClassesLastMinute):
     currentTime = time.time()
     oneMinuteAgo = currentTime - 60
-    return {k:v for k,v in bestClassesLastMinute.items() if k > oneMinuteAgo}
+    return {
+        k:v for k,v in bestClassesLastMinute.items() if k > oneMinuteAgo
+    }
 \end{minted}
 Infine, viene mostrato quanto tempo è passato fra una predizione e l’altra, così da fornire un’idea delle prestazioni del programma.
 

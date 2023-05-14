@@ -1,7 +1,7 @@
 \chapter{Modelli predittivi utilizzati}
 \section{Algoritmi utilizzati per la creazione dei modelli predittivi}
 \subsection{Random forest}
-Da [https://www.ibm.com/topics/random-forest#:~:text=Random%20forest%20is%20a%20commonly,both%20classification%20and%20regression%20problems.]
+\cite{radnomForestIbm}
 
 \begin{figure}
     \begin{center}    
@@ -90,7 +90,7 @@ Ci sono diversi vantaggi e sfide che l'algoritmo random forest presenta quando u
 
 
 \subsection{K-nearest neighbors}
-[da https://www.ibm.com/it-it/topics/knn]
+\cite{KNNibm}
 
 \begin{figure}
     \begin{center}    
@@ -120,7 +120,7 @@ Perviene quindi che tutto il calcolo avvenga quando si compie una classificazion
 
 Poiché fa ampiamente affidamento sulla memoria per archiviare tutti i suoi dati di addestramento, viene anche definito metodo di apprendimento basato su istanze o basato sulla memoria.
 
-Le idee iniziali sul modello KNN sono attribuite a Evelyn Fix e Joseph Hodges in questo articolo [TODO trova articolo] del 1951, mentre Thomas Cover ne amplia il concetto nella sua ricerca, “Nearest Neighbor Pattern Classification.” [TODO trova articolo] 
+Le idee iniziali sul modello KNN sono attribuite a Evelyn Fix e Joseph Hodges in questo articolo \cite{KNNEvelynFixJosephHodges} del 1951, mentre Thomas Cover ne amplia il concetto nella sua ricerca, “Nearest Neighbor Pattern Classification”\cite{NearNeighPattClass}.
 
 Pur non riscuotendo un tale successo come in precedenza, è ancora uno dei primi algoritmi che si affronta nello studio della data science per la sua semplicità ed accuratezza. 
 
@@ -162,24 +162,21 @@ Sebbene sussistano diverse misure di distanza, tra cui è possibile scegliere, l
             \includegraphics[width=0.45\linewidth]{images/image14.png}
         \end{center}
     \end{figure}
-
     \item Distanza di Hamming: questa tecnica viene utilizzata tipicamente con vettori booleani o stringa, identificando i punti in cui i vettori non trovano corrispondenza. 
     
     Di conseguenza, è stata anche definita metrica di sovrapposizione.
-    \begin{figure}
-        \begin{center}    
-            \includegraphics[width=0.45\linewidth]{images/image15.png}
-        \end{center}
-    \end{figure}
+    \begin{center}    
+        \includegraphics[width=0.45\linewidth]{images/image15.png}
+    \end{center}
+    
 \end{itemize}
 
-Ad esempio, se avessi le seguenti stringhe, la distanza di Hamming sarebbe due poiché solo due dei valori differiscono.
 
-\begin{figure}
-    \begin{center}    
-        \includegraphics[width=0.8\linewidth]{images/image16.png}
-    \end{center}
-\end{figure}
+Ad esempio, se avessi le seguenti stringhe, la distanza di Hamming sarebbe due poiché solo due dei valori differiscono.
+\begin{center}    
+    \includegraphics[width=0.8\linewidth]{images/image16.png}
+\end{center}
+
 
 \subsubsection{Calcolare KNN: definizione di k}
 Il valore k nell'algoritmo k-NN definisce quanti vicini verranno controllati per determinare la classificazione di un punto di query specifico. 
@@ -226,7 +223,7 @@ Tuttavia, se il valore di k è troppo alto, può essere inferiore ai dati.
 \end{itemize}
 
 \subsection{Naive Bayes Classifier}
-[da https://towardsdatascience.com/naive-bayes-classifier-81d512f50a7c]
+\cite{NaiveBayesClassTowardDataScience}
 Un classificatore di Bayes è un modello di apprendimento automatico probabilistico utilizzato per compiti di classificazione. Il fulcro del classificatore si basa sul teorema di Bayes.
 
 
@@ -240,6 +237,7 @@ L'assunzione alla base del teorema è che i predittori e le caratteristiche sian
     \end{center}
 \end{figure}
 Volendo oﬀrire un esempio al fine di una migliore comprensione, consideriamo il problema di giocare a golf.  Il dataset è rappresentato come segue.
+\newpage
 \begin{figure}
     \begin{center}    
         \includegraphics[width=0.9\linewidth]{images/image18.jpeg}
@@ -252,41 +250,38 @@ Prendendo a campione la prima riga del dataset, possiamo osservare che non è ad
 come già detto, consideriamo che questi predittori siano indipendenti (ovvero, se la temperatura è calda, non significa necessariamente che l'umidità sia alta). Un'altra assunzione fatta qui è che tutti i predittori abbiano un eﬀetto uguale sul risultato. Cioè, il fatto che ci sia vento non ha una maggiore importanza nella  decisione di giocare a golf o meno. 
 
 Rifacendosi al secondo esempio, il teorema di Bayes può essere quindi riscritto come segue:
-
+\newpage
 \begin{figure}
     \begin{center}    
-        \includegraphics[width=0.9\linewidth]{images/image19.png}
+        \includegraphics[width=0.8\linewidth]{images/image19.png}
     \end{center}
 \end{figure}
 La variabile y è la variabile di classe (giocare a golf), la quale rappresenta quanto sia adatta la giornata o meno per giocare a golf. La variabile X rappresenta i parametri/caratteristiche.
 
-
 X è dato come segue:
-\begin{figure}
-    \begin{center}    
-        \includegraphics[width=0.9\linewidth]{images/image20.png}
-    \end{center}
-\end{figure}
+\begin{center}    
+    \includegraphics[width=0.9\linewidth]{images/image20.png}
+\end{center}
+
+
 Qui x1, x2... xn raffigurano le caratteristiche, cioè possono essere mappati su cielo, temperatura, umidità e vento. Sostituendo X ed espandendo utilizzando la regola della catena otteniamo:
 \begin{figure}
     \begin{center}    
         \includegraphics[width=0.9\linewidth]{images/image21.jpeg}
     \end{center}
 \end{figure}
+
 Ora è possibile ottenere i valori per ognuno guardando il dataset e sostituendoli nell'equazione. Per tutte le voci nel dataset, il denominatore non cambia, rimane statico. Pertanto, il denominatore può essere rimosso e può essere introdotta una proporzionalità.
+\begin{center}    
+    \includegraphics[width=0.9\linewidth]{images/image22.jpeg}
+\end{center}
 
-\begin{figure}
-    \begin{center}    
-        \includegraphics[width=0.9\linewidth]{images/image22.jpeg}
-    \end{center}
-\end{figure}
+
 Nel nostro caso, la variabile di classe (y) ha solo due risultati, sì o no. Potrebbero esserci casi in cui la classificazione potrebbe rivelarsi multivariata. Pertanto, sarà necessario trovare la classe y con la massima probabilità.
+\begin{center}    
+    \includegraphics[width=0.5\linewidth]{images/image23.jpeg}
+\end{center}
 
-\begin{figure}
-    \begin{center}    
-        \includegraphics[width=0.9\linewidth]{images/image23.jpeg}
-    \end{center}
-\end{figure}
 Utilizzando questa funzione ci è possibile ottenere la classe, dato il predittore.
 
 
@@ -310,12 +305,11 @@ Utilizzando questa funzione ci è possibile ottenere la classe, dato il preditto
 Poiché il modo in cui i valori sono presenti nel dataset cambia, la formula per la probabilità condizionata cambia in questo caso,
 \begin{figure}
     \begin{center}    
-        \includegraphics[width=0.9\linewidth]{images/image24.jpeg}
+        \includegraphics[width=1\linewidth]{images/image24.jpeg}
     \end{center}
 \end{figure}
 
 \subsubsection{Conclusione}
- 
 Gli algoritmi Bayesiani sono principalmente utilizzati nell'analisi del sentiment, nel filtraggio dello spam, nei reccomender systems, ecc. 
 
 Sono veloci e facili da implementare, ma il loro più grande svantaggio è la necessità che i predittori siano indipendenti. 
@@ -339,26 +333,30 @@ L'obiettivo dell'algoritmo support vector machine è quello di trovare un iperpi
     \includegraphics[width=\linewidth]{images/image26.png}
   \end{minipage}
 \end{figure}
+
 Per separare le due classi di punti dati sono presenti molti iperpiani possibili da cui poter scegliere. Il nostro obiettivo è trovare un piano che possegga il margine massimo, ovvero la massima distanza tra i punti dati di entrambe le classi. Massimizzare la distanza del margine fornisce un rinforzo in modo che i futuri punti dati possano essere classificati con maggiore fiducia.
 
-Iperpiani e support vector
-\begin{figure}
-    \begin{center}    
-        \includegraphics[width=0.9\linewidth]{images/image27.jpeg}
-    \end{center}
-\end{figure}
+\subsubsection{Iperpiani e support vector}
 Gli iperpiani sono i confini decisionali che aiutano a classificare i punti dati. 
 
 I punti dati che cadono su entrambi i lati dell'iperpiano possono essere attribuiti a diverse classi. 
 
 Inoltre, la dimensione dell’iperpiano  dipende dal numero di caratteristiche. 
 
+\begin{figure}
+    \begin{center}    
+        \includegraphics[width=0.9\linewidth]{images/image27.jpeg}
+    \end{center}
+\end{figure}
+
+\newpage
 Se il numero di caratteristiche di input è 2, l'iperpiano è solo una linea. Se il numero di caratteristiche di input è 3, l'iperpiano diventa un piano bidimensionale. Diventa difficile immaginare quando il numero di caratteristiche supera 3.
 \begin{figure}
     \begin{center}    
         \includegraphics[width=0.9\linewidth]{images/image28.jpeg}
     \end{center}
 \end{figure}
+
 I support vector sono i punti dati più vicini all'iperpiano e inﬂuenzano la posizione e l'orientamento di quest’ultimo. Impiegando i support vector, massimizziamo il margine del classificatore. L’eliminazione  dei support vector cambierà la posizione dell'iperpiano. 
 
 \subsubsection{Intuizione del grande margine}
@@ -393,26 +391,25 @@ Dopo aver aggiunto il parametro di regolarizzazione, la funzione di costo appare
         \includegraphics[width=0.9\linewidth]{images/image31.jpeg}
     \end{center}
 \end{figure}
+
 Ora che abbiamo ottenuto la funzione di perdita, utilizziamo le derivate parziali rispetto ai pesi per trovare i gradienti. 
 
 Così facendo, possiamo aggiornare i pesi.
-\begin{figure}
-    \begin{center}    
-        \includegraphics[width=0.9\linewidth]{images/image32.jpeg}
-    \end{center}
-\end{figure}
+\begin{center}    
+    \includegraphics[width=0.9\linewidth]{images/image32.jpeg}
+\end{center}
+
 Quando non vi è alcuna errata classificazione, ovvero il nostro modello prevede correttamente la classe del nostro punto dati, sarà necessario aggiornare solo il gradiente dal parametro di regolarizzazione.
 \begin{figure}
     \begin{center}    
-        \includegraphics[width=0.9\linewidth]{images/image33.png}
+        \includegraphics[width=0.5\linewidth]{images/image33.png}
     \end{center}
 \end{figure}
+
 Quando ci si trova di fronte ad una errata classificazione, ossia il nostro modello commette un errore sulla previsione della classe del nostro punto dati, includiamo la perdita insieme al parametro di regolarizzazione per eseguire l'aggiornamento del gradiente.
-
-
 \begin{figure}
     \begin{center}    
-        \includegraphics[width=0.9\linewidth]{images/image34.png}
+        \includegraphics[width=0.5\linewidth]{images/image34.png}
     \end{center}
 \end{figure}
 
@@ -424,11 +421,12 @@ Per la creazione del classificatore ho in primis letto il file csv contenente il
 Questo è il metodo relativo:
 \begin{minted}[bgcolor=bg]{python}
 def getXtrainYTrainXtestYTest():
-	pd.read_csv(join(dirname(
-        abspath(__file__)), 
-        "../final analysis/" + 
-        "DAiSEE and student engagement dataset clean sampled.csv"
-    ))
+    pd.read_csv(join(dirname(
+            abspath(__file__)), 
+            "../final analysis/" + 
+            "DAiSEE and student engagement dataset clean sampled.csv"
+        )
+    )
     y = df['label']
     X = df.drop(
         ["input","naturalLanguageDescription","label","numLabel"], 
@@ -450,7 +448,11 @@ Il RandomForestClassifier viene generato con 100 alberi di decisione e viene add
 
 Il metodo è il seguente:
 \begin{minted}[bgcolor=bg]{python}
-randomForestClassifier = RandomForestClassifier(n_estimators=100, verbose=True , random_state=42)
+randomForestClassifier = RandomForestClassifier(
+    n_estimators=100, 
+    verbose=True, 
+    random_state=69
+)
 Xtrain, yTrain = getXtrainYTrainXtestYTest ()
 randomForestClassifier.fit(Xtrain, yTrain)
 return randomForestClassifier
@@ -458,7 +460,7 @@ return randomForestClassifier
 
 Eseguendo dei test attraverso il metodo \mintinline[bgcolor=bg]{python}{score(Xtest, yTest)} offerto dal random forest classifier generato dalla libreria sklearn.ensemble ho potuto calcolare l’accuracy del modello da me generato.
 
-I risultati di questa analisi sono che il random forest classifier ottiene una precisione dell’82,3periodico% sul dataset di test generato nel metodo \mintinline[bgcolor=bg]{python}{getXtrainYTrainXtestYTest}
+I risultati di questa analisi sono che il random forest classifier ottiene una precisione dell’82,3periodico\% sul dataset di test generato nel metodo \mintinline[bgcolor=bg]{python}{getXtrainYTrainXtestYTest}
 
 \begin{figure}
     \begin{center}    
@@ -467,14 +469,14 @@ I risultati di questa analisi sono che il random forest classifier ottiene una p
 \end{figure}
 
 Oltre alla produzione del classificatore viene anche generato un grafico per la visualizzazione dell’influenza di ognuna delle label sulla predizione che allego qui di seguito:
-
+\newpage
 \begin{figure}
     \begin{center}    
-        \includegraphics[width=0.9\linewidth]{images/image37.png}
+        \includegraphics[width=1\linewidth]{images/image37.png}
     \end{center}
 \end{figure}
 
-Come è possibile constatare, quasi tutte le label influenzano la predizione in modo simile (in un range fra il 7,2% e l’11,9%) tranne per la AU43 (Eyes Closed) che, ovviamente, influenza largamente la predizione effettuata dal modello.
+Come è possibile constatare, quasi tutte le label influenzano la predizione in modo simile (in un range fra il 7,2\% e l’11,9\%) tranne per la AU43 (Eyes Closed) che, ovviamente, influenza largamente la predizione effettuata dal modello.
 
 \section{K-nearest Neighbors Classifier}
 Un ulteriore classificatore realizzato per effettuare predizioni sul dataset è il K-nearest Neighbors Classifier, attraverso il quale ho effettuato delle query fornendo i dati delle Action Units da nuove immagini.
@@ -523,7 +525,7 @@ Le caratteristiche con correlazioni elevate avranno un impatto minore sul calcol
 
 Il seguente codice viene utilizzato per disegnare una heatmap della matrice di correlazione delle caratteristiche:
 \begin{minted}[bgcolor=bg]{python}
-        def visualizeHeatMapCorrelationMatrix(Xtrain):
+def visualizeHeatMapCorrelationMatrix(Xtrain):
     corr = Xtrain.corr()
     sns.heatmap(corr, cmap='coolwarm')
     plt.show()
@@ -580,7 +582,7 @@ Eseguendo dei test attraverso il metodo Eseguendo dei test attraverso il metodo 
 
 Il ~40\% di accuracy è il valore più alto che sono riuscito ad ottenere modificando i diversi valori presi in input dal costruttore di MultinomialNB.
 
-\subsection{Quale modello predittivo risulta essere il migliore?}
+\subsection{Quale è il miglior modello predittivo?}
 Ho collezionato diverse metriche per valutare quale dei modelli predittivi sviluppati fosse il migliore: 
 \subsection{Accuracy}
 La metrica dell'accuracy è una delle metriche più comuni utilizzate per valutare la performance dei modelli predittivi. Essa misura la percentuale di predizioni corrette rispetto al numero totale di predizioni effettuate. Ad esempio, se un modello ha effettuato 100 predizioni e 80 di queste sono corrette, l'accuracy sarebbe del 80\%.
@@ -597,7 +599,7 @@ In formule, l'accuracy si calcola come:
 
 \begin{figure}
     \begin{center}    
-        \includegraphics[width=0.9\linewidth]{images/image47.png}
+        \includegraphics[width=0.5\linewidth]{images/image47.png}
     \end{center}
 \end{figure}
 
@@ -614,7 +616,7 @@ Pur considerandosi utile, presenta alcune limitazioni. In particolare, la precis
 
 \begin{figure}
     \begin{center}    
-        \includegraphics[width=0.9\linewidth]{images/image48.jpeg}
+        \includegraphics[width=0.5\linewidth]{images/image48.jpeg}
     \end{center}
 \end{figure}
 
@@ -631,7 +633,7 @@ Infine, è importante notare che la recall non ci comunica nulla sulla capacità
 
 \begin{figure}
     \begin{center}    
-        \includegraphics[width=0.9\linewidth]{images/image49.jpeg}
+        \includegraphics[width=0.5\linewidth]{images/image49.jpeg}
     \end{center}
 \end{figure}
 
@@ -655,10 +657,15 @@ In caso di dataset sbilanciati, in cui una classe target è più rappresentata d
 Tutte le metriche sono state calcolate a partire dai diversi modelli predittivi attraverso questo metodo:
 
 \begin{minted}[bgcolor=bg]{python} 
+from sklearn.metrics import accuracy_score, precision_score, recall_score, 
+                            balanced_accuracy_score 
+
 def getModelScores(yTest, yPred):
-from sklearn.metrics import accuracy_score, precision_score, recall_score, balanced_accuracy_score acc = accuracy_score(yTest, yPred)
-prec = precision_score (yTest, yPred, average="weighted") recall = recall_score(yTest, yPred, average="weighted") balaAcc = balanced_accuracy_score(yTest, yPred)
-return acc, prec, recall, balaAcc
+    acc = accuracy_score(yTest, yPred)
+    prec = precision_score (yTest, yPred, average="weighted") 
+    recall = recall_score(yTest, yPred, average="weighted") 
+    balaAcc = balanced_accuracy_score(yTest, yPred)
+    return acc, prec, recall, balaAcc
 \end{minted}
 dove yTest è il dataframe estrapolato attraverso il metodo getXtrainYTrainXtestYTest precedentemente citato e yPred è la predizione effettuata sul dataframe Xtest, estratto sempre dallo stesso metodo, da parte del modello predittivo.
 
