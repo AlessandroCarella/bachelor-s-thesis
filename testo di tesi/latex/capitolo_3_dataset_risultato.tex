@@ -1,0 +1,26 @@
+\chapter{Dataset risulato}
+Come anticipato nel primo capitolo, il dataset di immagini utilizzato per il mio caso di studio è il risultato dell’unione dei due dataset Student engagement dataset\cite{StudEngagDataset} e DAiSEE\cite{DAiSEE}.
+In principio le immagini e i video al loro interno sono state elaborate attraverso la libreria py-feat per ottenere le misure delle Action Units.
+Le labels risultanti e il numero di sample per ognuna di queste sono:
+\begin{itemize}
+\item engaged con 55707 samples
+\item bored con 16086 samples
+\item confused con 1041 samples
+\item looking away con 409 samples
+\item frustrated con 893 samples
+\item drowsy con 240 samples
+\end{itemize}
+
+con un totale di 74322 immagini (o frame estratti da video) per le quali sono stati generati i dati relativi alle Action Units.
+
+
+\section{Generazione descrizione in linguaggio naturale}
+Sotto richiesta del professore ho aggiunto una descrizione in linguaggio naturale di ogni immagine utilizzando il seguente codice:
+\begin{minted}[bgcolor=bg]{python}
+if value and value >= 0.5:
+    return outAU.get ("FACS Name") + ", using the muscles: " + 
+    outAU.get ("Muscles") + ", with a value of " + str (value) + "; "
+else:
+    return ""
+\end{minted}
+Questo algoritmo verifica inizialmente che il valore dell’Action Unit passato in input al metodo (non riportato interamente in quanto prevede azioni preliminari trascurabili) sia presente e, successivamente, in caso fosse provvista di un valore maggiore o uguale a 0.5 (il range di valori è fra 0 e 1) restituisce la stringa che ho descritto nello spazio sottostante; in caso contrario restituirà una stringa vuota.

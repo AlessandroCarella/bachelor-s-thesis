@@ -28,6 +28,10 @@
 \SetupFloatingEnvironment{listing}{name=Codice}
 
 
+\usepackage{minted}
+\usemintedstyle{monokai}
+\definecolor{bg}{RGB}{40, 44, 52}
+
 
 
 % ===== Define abstract environment =====
@@ -109,12 +113,17 @@
 
 \pagenumbering{arabic}
 \setcounter{page}{1}
-\include{prefazione_introduzione.tex}
-\include{capitolo_1_stato_dell_arte}
-\include{conclusion}
-\include{acknoweldgements}
+%\include{prefazione_introduzione.tex}
+%\include{capitolo_1_stato_dell_arte}
+%\include{capitolo_2_metodi}
+\include{capitolo_3_dataset_risultato}
+%\include{conclusion}
+%\include{acknoweldgements}
 
 \bibliographystyle{plain}  
 \include{bibliografia}
 
 \end{document}
+
+
+
