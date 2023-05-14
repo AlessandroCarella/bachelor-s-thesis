@@ -1,0 +1,427 @@
+[
+    {
+        "AU": "AU1",
+        "FACS Name": "Inner Brow Raiser",
+        "Muscles": "Frontalis (medial)",
+        "FACS Category": "main",
+        "Related Expression": "sadness, surprise, fear",
+        "Models": "svm, xgb,  Py-Feat viz"
+    },
+    {
+        "AU": "AU2",
+        "FACS Name": "Outer Brow Raiser",
+        "Muscles": "Frontalis (lateral)",
+        "FACS Category": "main",
+        "Related Expression": "surprise, fear",
+        "Models": "svm, xgb,  Py-Feat viz"
+    },
+    {
+        "AU": "AU3",
+        "FACS Name": "Inner corner Brow Tightener",
+        "Muscles": "Procerus, Depressor Supercilii, Corrugator Supercilii",
+        "FACS Category": "extended (Baby FACS)",
+        "Related Expression": "none",
+        "Models": "Only in babies! Analogue of AU4 in adults"
+    },
+    {
+        "AU": "AU4",
+        "FACS Name": "Brow Lowerer",
+        "Muscles": "Procerus, Depressor Supercilii, Corrugator Supercilii",
+        "FACS Category": "main",
+        "Related Expression": "sadness, fear, anger",
+        "Models": "svm, xgb,  Py-Feat viz"
+    },
+    {
+        "AU": "AU5",
+        "FACS Name": "Upper Lid Raiser",
+        "Muscles": "Levator Palpebrae Superioris, Superior Tarsal Muscle",
+        "FACS Category": "main",
+        "Related Expression": "surprise, fear, anger",
+        "Models": "svm, xgb, Py-Feat viz"
+    },
+    {
+        "AU": "AU6",
+        "FACS Name": "Cheek Raiser",
+        "Muscles": "Orbicularis Oculi (orbital)",
+        "FACS Category": "main",
+        "Related Expression": "happiness, disgust, contempt",
+        "Models": "svm, xgb, Py-Feat viz"
+    },
+    {
+        "AU": "AU7",
+        "FACS Name": "Lid Tightener",
+        "Muscles": "Orbicularis Oculi (palpebral)",
+        "FACS Category": "main",
+        "Related Expression": "fear, anger",
+        "Models": "svm, xgb,  Py-Feat viz"
+    },
+    {
+        "AU": "AU8",
+        "FACS Name": "Lips Toward Each Other",
+        "Muscles": "Orbicularis Oris",
+        "FACS Category": "main",
+        "Related Expression": "none"
+    },
+    {
+        "AU": "AU9",
+        "FACS Name": "Nose Wrinkler",
+        "Muscles": "Levator Labii Superioris Alaeque Nasi",
+        "FACS Category": "main",
+        "Related Expression": "disgust",
+        "Models": "svm, xgb, Py-Feat viz"
+    },
+    {
+        "AU": "AU10",
+        "FACS Name": "Upper Lip Raiser",
+        "Muscles": "Levator Labii Superioris",
+        "FACS Category": "main",
+        "Related Expression": "svm, xgb,  Py-Feat viz"
+    },
+    {
+        "AU": "AU11",
+        "FACS Name": "Nasolabial Deepener",
+        "Muscles": "Zygomaticus Minor",
+        "FACS Category": "main",
+        "Related Expression": "disgust, fear",
+        "Models": "svm, xgb, Py-Feat viz"
+    },
+    {
+        "AU": "AU12",
+        "FACS Name": "Lip Corner Puller",
+        "Muscles": "Zygomaticus Major",
+        "FACS Category": "main",
+        "Related Expression": "happiness, contempt",
+        "Models": "svm, xgb,  Py-Feat viz"
+    },
+    {
+        "AU": "AU13",
+        "FACS Name": "Sharp Lip Puller",
+        "Muscles": "Levator Anguli Oris/Caninus",
+        "FACS Category": "main",
+        "Related Expression": "none"
+    },
+    {
+        "AU": "AU14",
+        "FACS Name": "Dimpler",
+        "Muscles": "Buccinator",
+        "FACS Category": "main",
+        "Related Expression": "contempt",
+        "Models": "svm, xgb,  Py-Feat viz"
+    },
+    {
+        "AU": "AU15",
+        "FACS Name": "Lip Corner Depressor",
+        "Muscles": "Depressor Anguli Oris",
+        "FACS Category": "main",
+        "Related Expression": "sadness, disgust",
+        "Models": "svm, xgb,  Py-Feat viz"
+    },
+    {
+        "AU": "AU16",
+        "FACS Name": "Lower Lip Depressor",
+        "Muscles": "Depressor Labii Inferioris",
+        "FACS Category": "main",
+        "Related Expression": "none"
+    },
+    {
+        "AU": "AU17",
+        "FACS Name": "Chin Raiser",
+        "Muscles": "Mentalis",
+        "FACS Category": "main",
+        "Related Expression": "disgust",
+        "Models": "svm, xgb,  Py-Feat viz"
+    },
+    {
+        "AU": "AU18",
+        "FACS Name": "Lip Pucker",
+        "Muscles": "Incisvii Labii Superioris, Incisvii Labii Inferioris",
+        "FACS Category": "main",
+        "Related Expression": "none"
+    },
+    {
+        "AU": "AU19",
+        "FACS Name": "Tongue Show",
+        "Muscles": "Genioglossus, Medial Pterygoid, Masseter",
+        "FACS Category": "main",
+        "Related Expression": "none"
+    },
+    {
+        "AU": "AU20",
+        "FACS Name": "Lip Stretcher",
+        "Muscles": "Risorius, Platysma",
+        "FACS Category": "main",
+        "Related Expression": "fear",
+        "Models": "svm, xgb, Py-Feat viz"
+    },
+    {
+        "AU": "AU21",
+        "FACS Name": "Neck Tightener",
+        "Muscles": "Platysma",
+        "FACS Category": "main",
+        "Related Expression": "none"
+    },
+    {
+        "AU": "AU22",
+        "FACS Name": "Lip Funneler",
+        "Muscles": "Orbicularis Oris",
+        "FACS Category": "main",
+        "Related Expression": "none"
+    },
+    {
+        "AU": "AU23",
+        "FACS Name": "Lip Tightener",
+        "Muscles": "Orbicularis Oris",
+        "FACS Category": "main",
+        "Related Expression": "anger",
+        "Models": "svm, xgb,  Py-Feat viz"
+    },
+    {
+        "AU": "AU24",
+        "FACS Name": "Lip Pressor",
+        "Muscles": "Orbicularis Oris",
+        "FACS Category": "main",
+        "Related Expression": "svm, xgb,  Py-Feat viz"
+    },
+    {
+        "AU": "AU25",
+        "FACS Name": "Lip Part",
+        "Muscles": "Depressor Labii Inferioris",
+        "FACS Category": "main",
+        "Related Expression": "happiness, surprise, fear",
+        "Models": "svm, xgb, Py-Feat viz"
+    },
+    {
+        "AU": "AU26",
+        "FACS Name": "Jaw Drop",
+        "Muscles": "Masseter, Temporalis, Medial Pterygoid",
+        "FACS Category": "main",
+        "Related Expression": "fear, surprise",
+        "Models": "svm, xgb, Py-Feat viz"
+    },
+    {
+        "AU": "AU27",
+        "FACS Name": "Mouth Stretch",
+        "Muscles": "Pterygoids, Digastric",
+        "FACS Category": "main",
+        "Related Expression": "none"
+    },
+    {
+        "AU": "AU28",
+        "FACS Name": "Lip Suck",
+        "Muscles": "Orbicularis Oris",
+        "FACS Category": "main",
+        "Related Expression": "svm, xgb, Py-Feat viz"
+    },
+    {
+        "AU": "AU29",
+        "FACS Name": "Jaw Thrust",
+        "Muscles": "Pterygoids, Masseter",
+        "FACS Category": "behavioral",
+        "Related Expression": "none"
+    },
+    {
+        "AU": "AU30",
+        "FACS Name": "Jaw Sideways",
+        "Muscles": "Pterygoids, Masseter, Temporalis",
+        "FACS Category": "behavioral",
+        "Related Expression": "none"
+    },
+    {
+        "AU": "AU31",
+        "FACS Name": "Jaw Clencher",
+        "Muscles": "Masseter",
+        "FACS Category": "behavioral",
+        "Related Expression": "none"
+    },
+    {
+        "AU": "AU32",
+        "FACS Name": "Lip Bite",
+        "Muscles": "Masseter",
+        "FACS Category": "behavioral",
+        "Related Expression": "none"
+    },
+    {
+        "AU": "AU33",
+        "FACS Name": "Cheek Blow",
+        "Muscles": "Buccinator, Orbicularis Oris, Mentalis",
+        "FACS Category": "behavioral",
+        "Related Expression": "none"
+    },
+    {
+        "AU": "AU34",
+        "FACS Name": "Cheek Puff",
+        "Muscles": "Buccinator, Orbicularis Oris, Mentalis, Depressor Depti Nasi",
+        "FACS Category": "behavioral",
+        "Related Expression": "none"
+    },
+    {
+        "AU": "AU35",
+        "FACS Name": "Cheek Suck",
+        "Muscles": "Buccinator",
+        "FACS Category": "behavioral",
+        "Related Expression": "none"
+    },
+    {
+        "AU": "AU37",
+        "FACS Name": "Lip Wipe",
+        "Muscles": "Pterygoids, Masseter, Genioglossus",
+        "FACS Category": "behavioral",
+        "Related Expression": "none"
+    },
+    {
+        "AU": "AU38",
+        "FACS Name": "Nostril Dilator",
+        "Muscles": "Nasalis (alaris), Dilator Naris Anterior, Depressor Septi Nasi",
+        "FACS Category": "behavioral",
+        "Related Expression": "anger",
+        "Models": "none"
+    },
+    {
+        "AU": "AU39",
+        "FACS Name": "Nostril Compressor",
+        "Muscles": "Nasalis (transverse), Compressor Narium Minor",
+        "FACS Category": "behavioral",
+        "Related Expression": "none"
+    },
+    {
+        "AU": "AU40",
+        "FACS Name": "Sniff",
+        "Muscles": "behavioral",
+        "FACS Category": "none"
+    },
+    {
+        "AU": "AU41",
+        "FACS Name": "Lid Drop",
+        "Muscles": "Levator Palpebrae Superioris (relaxation)",
+        "FACS Category": "behavioral",
+        "Related Expression": "none"
+    },
+    {
+        "AU": "AU42",
+        "FACS Name": "Slit",
+        "Muscles": "Depressor Supercilii",
+        "FACS Category": "behavioral",
+        "Related Expression": "none",
+        "Models": "Different muscular strand than AU4"
+    },
+    {
+        "AU": "AU43",
+        "FACS Name": "Eyes Closed",
+        "Muscles": "Levator Palebrae Superioris (relaxation)",
+        "FACS Category": "behavioral",
+        "Related Expression": "svm, xgb, Py-Feat viz"
+    },
+    {
+        "AU": "AU44",
+        "FACS Name": "Squint",
+        "Muscles": "Corrugator Supercilii",
+        "FACS Category": "behavioral",
+        "Related Expression": "none",
+        "Models": "Different muscular strand than AU4"
+    },
+    {
+        "AU": "AU45",
+        "FACS Name": "Blink",
+        "Muscles": "Levator Palebrae Superioris (relaxation), Orbicularis Oculi (contraction)",
+        "FACS Category": "behavioral",
+        "Related Expression": "none",
+        "Models": "Different muscular strand than AU4"
+    },
+    {
+        "AU": "AU46",
+        "FACS Name": "Wink",
+        "Muscles": "Orbicularis Oculi",
+        "FACS Category": "behavioral",
+        "Related Expression": "none"
+    },
+    {
+        "AU": "AU51",
+        "FACS Name": "Head turn left",
+        "Muscles": "head",
+        "FACS Category": "none"
+    },
+    {
+        "AU": "AU52",
+        "FACS Name": "Head turn right",
+        "Muscles": "head",
+        "FACS Category": "none"
+    },
+    {
+        "AU": "AU53",
+        "FACS Name": "Head up",
+        "Muscles": "head",
+        "FACS Category": "none"
+    },
+    {
+        "AU": "AU54",
+        "FACS Name": "Head down",
+        "Muscles": "head",
+        "FACS Category": "none"
+    },
+    {
+        "AU": "AU55",
+        "FACS Name": "Head tilt left",
+        "Muscles": "head",
+        "FACS Category": "none"
+    },
+    {
+        "AU": "AU56",
+        "FACS Name": "Head tilt right",
+        "Muscles": "head",
+        "FACS Category": "none"
+    },
+    {
+        "AU": "AU57",
+        "FACS Name": "Head forward",
+        "Muscles": "head",
+        "FACS Category": "none"
+    },
+    {
+        "AU": "AU58",
+        "FACS Name": "Head backward",
+        "Muscles": "head",
+        "FACS Category": "none"
+    },
+    {
+        "AU": "AU61",
+        "FACS Name": "Eyes turn left",
+        "Muscles": "Medial Rectus (right eye), Lateral Rectus (left eye)",
+        "FACS Category": "eyes",
+        "Related Expression": "none"
+    },
+    {
+        "AU": "AU62",
+        "FACS Name": "Eyes turn right",
+        "Muscles": "Medial Rectus (left eye), Lateral Rectus (right eye)",
+        "FACS Category": "eyes",
+        "Related Expression": "none"
+    },
+    {
+        "AU": "AU63",
+        "FACS Name": "Eyes up",
+        "Muscles": "Superior Rectus, Inferior Oblique",
+        "FACS Category": "eyes",
+        "Related Expression": "none"
+    },
+    {
+        "AU": "AU64",
+        "FACS Name": "Eyes down",
+        "Muscles": "Inferior Rectus, Superior Oblique",
+        "FACS Category": "eyes",
+        "Related Expression": "none"
+    },
+    {
+        "AU": "AU65",
+        "FACS Name": "Strabismus",
+        "Muscles": "eyes",
+        "FACS Category": "none",
+        "Related Expression": "Misaligned eyes when gazing"
+    },
+    {
+        "AU": "AU66",
+        "FACS Name": "Cross-eyed",
+        "Muscles": "Medial Rectus",
+        "FACS Category": "eyes",
+        "Related Expression": "none"
+    }
+]

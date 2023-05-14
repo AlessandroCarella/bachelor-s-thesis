@@ -8,6 +8,7 @@ from feat import Detector
 import torch
 import numpy as np
 import pickle
+import json
 
 from pickClassifier import pickClassifier, predictProba, getModelPredictionText
 
@@ -142,7 +143,7 @@ def getPredictionText(AUs, userChosenClassifier, timeDiff, bestClassesLastMinute
         AUs2d = np.array(AUs).reshape(1, -1)
         prediction = predictProba(userChosenClassifier, userChosenClassifierObj, AUs2d)
         if prediction is not None:
-            output, bestClassesLastMinute = getModelPredictionText (userChosenClassifier, prediction, timeDiff, bestClassesLastMinute)
+            output, bestClassesLastMinute = getModelPredictionText (userChosenClassifier, prediction, timeDiff, bestClassesLastMinute, dict(AUs))
             return output, bestClassesLastMinute
         else:
             return "\n\n\n\n\n\n\n\n\nErrore con il modello predittivo", bestClassesLastMinute

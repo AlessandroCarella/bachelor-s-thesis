@@ -2,6 +2,8 @@
 import tkinter as tk
 import time
 from collections import Counter
+import json
+from os.path import join, abspath
 
 from classifiers.randomForestClassifier import getRandomForestClassifier
 from classifiers.KnnClassifier import getKnnClassifier
@@ -45,6 +47,39 @@ def getClassifierObj (buttonLabel):
     
     return None
 
+def getAUs ():
+    with open(join(abspath ("src"), "AUs.json")) as f:
+        AUs = json.loads(f.read())
+    return AUs
+
+def getPossibleAUsNames () -> list[str]:
+    possibleAUsNames = []
+    base = "AU"
+
+    for i in range(1, 67):
+        possibleAUsNames.append(base + str(i))
+
+    return possibleAUsNames
+
+def makeAUDescription (AUName:str, AUs:list[str], value:float) -> str:
+    for au in AUs:
+        if au.get("AU") == AUName:
+            outAU = au
+            break
+    if value and value >= 0.5:
+        return outAU.get ("FACS Name") + ", using the muscles: " + outAU.get ("Muscles") + ", with a value of " + str (value) + "; "
+    else:
+        return ""
+
+def getNaturalLanguageDescription (sample:dict) -> str:
+    AUs = getAUs ()
+    possibleAUsNames = getPossibleAUsNames ()
+    naturalLanguageDescription = ""
+    for AUName in possibleAUsNames:
+        if AUName in sample:
+            naturalLanguageDescription += makeAUDescription (AUName, AUs, value = sample [AUName])
+    return naturalLanguageDescription
+
 def getLabelsList ():
     return ['bored', 'confused', 'drowsy', 'engaged', 'frustrated', 'looking away']
 
@@ -67,7 +102,7 @@ def getMostFrequentMoodLastMinute (bestClassesLastMinute):
 
     return mostFrequentValue
 
-def getPredictionTextRandomForestClassifier (prediction, timeDiff, bestClassesLastMinute):
+def getPredictionTextRandomForestClassifier (prediction, timeDiff, bestClassesLastMinute, dictAUs):
     bestClass = ""
     maxProb = 0
     text = ""
@@ -82,29 +117,31 @@ def getPredictionTextRandomForestClassifier (prediction, timeDiff, bestClassesLa
     bestClassesLastMinute = removeOldKeys(bestClassesLastMinute)
     
     return (
-        "\n\n\n\n\nMood rilevato: " + bestClass + 
+        "Mood rilevato: " + bestClass + 
         "\n\nCon i valori:\n" + text + 
         "\n\n\nMood più frequente nell'ultimo minuto: " + getMostFrequentMoodLastMinute(bestClassesLastMinute) + 
-        "\n" + "Tempo passato dalla predizione precedente " + "{:.2f}".format(timeDiff)
+        "\n" + "Tempo passato dalla predizione precedente " + "{:.2f}".format(timeDiff) + 
+        "\n" + "Descrizione in linguaggio naturale:\n" + getNaturalLanguageDescription (dictAUs)
     ), bestClassesLastMinute
 
-def getPredictionNaiveBayesclassifier(prediction, timeDiff, bestClassesLastMinute):
-    return getPredictionTextRandomForestClassifier (prediction, timeDiff, bestClassesLastMinute) #same methods, same ouput format
+def getPredictionNaiveBayesclassifier(prediction, timeDiff, bestClassesLastMinute, dictAUs):
+    return getPredictionTextRandomForestClassifier (prediction, timeDiff, bestClassesLastMinute, dictAUs) #same methods, same ouput format
 
-def getPredictionSVMclassifier(prediction, timeDiff, bestClassesLastMinute):
-    return getPredictionTextRandomForestClassifier (prediction, timeDiff, bestClassesLastMinute) #same methods, same ouput format
+def getPredictionSVMclassifier(prediction, timeDiff, bestClassesLastMinute, dictAUs):
+    return getPredictionTextRandomForestClassifier (prediction, timeDiff, bestClassesLastMinute, dictAUs) #same methods, same ouput format
 
-def getPredictionTextKnnClassifier(prediction, timeDiff, bestClassesLastMinute):
+def getPredictionTextKnnClassifier(prediction, timeDiff, bestClassesLastMinute, dictAUs):
     bestClassesLastMinute = addToBestClassesLastMinute (prediction[0], bestClassesLastMinute)
     bestClassesLastMinute = removeOldKeys(bestClassesLastMinute)
 
     return (
-        "\n\n\n\n\n\n\n\n\nMood rilevato: " + prediction[0] + 
+        "Mood rilevato: " + prediction[0] + 
         "\n\n\n\n\n\n\n\nMood più frequente nell'ultimo minuto: " + getMostFrequentMoodLastMinute(bestClassesLastMinute) + 
-        "\n" + "Tempo passato dalla predizione precedente " + "{:.2f}".format(timeDiff)
+        "\n" + "Tempo passato dalla predizione precedente " + "{:.2f}".format(timeDiff) + 
+        "\n" + "Descrizione in linguaggio naturale:\n" + getNaturalLanguageDescription (dictAUs)
     ), bestClassesLastMinute
 
-def getModelPredictionText (chosenClassifier, prediction, timeDiff, bestClassesLastMinute):
+def getModelPredictionText (chosenClassifier, prediction, timeDiff, bestClassesLastMinute, dictAUs):
     """
     input:
     1 = random forest
@@ -113,13 +150,13 @@ def getModelPredictionText (chosenClassifier, prediction, timeDiff, bestClassesL
     4 = svm
     """
     if chosenClassifier == 1:
-        return getPredictionTextRandomForestClassifier(prediction, timeDiff, bestClassesLastMinute)
+        return getPredictionTextRandomForestClassifier(prediction, timeDiff, bestClassesLastMinute, dictAUs)
     elif chosenClassifier == 2:
-        return getPredictionTextKnnClassifier(prediction, timeDiff, bestClassesLastMinute)
+        return getPredictionTextKnnClassifier(prediction, timeDiff, bestClassesLastMinute, dictAUs)
     elif chosenClassifier == 3:
-        return getPredictionNaiveBayesclassifier(prediction, timeDiff, bestClassesLastMinute)
+        return getPredictionNaiveBayesclassifier(prediction, timeDiff, bestClassesLastMinute, dictAUs)
     elif chosenClassifier == 4:
-        return getPredictionSVMclassifier(prediction, timeDiff, bestClassesLastMinute)
+        return getPredictionSVMclassifier(prediction, timeDiff, bestClassesLastMinute, dictAUs)
     return None
 
 def onButtonClick(button_label, root):
