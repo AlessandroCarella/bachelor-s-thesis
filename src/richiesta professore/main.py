@@ -1,4 +1,4 @@
-from os.path import join, isfile, abspath, dirname, exists
+from os.path import join, isfile, abspath, dirname, exists, basename, splitext
 import os
 import torch
 from feat import Detector
@@ -86,7 +86,8 @@ if __name__ == "__main__":
     dirName = join(dirname(abspath(__file__)), "extractions")
     checkIfDirExistsAndIfNotCreateIt (dirName)
     for videoExtractions in videoExtractions:
-        inputFile = next(iter(videoExtractions.keys()))
+        inputFile = splitext(basename(next(iter(videoExtractions.keys()))))[0]
+        print (inputFile)
         extraction = videoExtractions[inputFile]
         fileName = join (dirName, inputFile)
         with open (fileName + ".txt", "w") as f:

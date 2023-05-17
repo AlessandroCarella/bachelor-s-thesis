@@ -51,15 +51,15 @@ def getEntryText (frame:str, activityOrProcessBeginOrEndStr:str, label:str, inpu
     entryString += '{0:0{1}d}'.format(int(frame), maxNumberOfCharsForFrames)
     entryString += '{0:0{1}d}'.format(getNumberOfFrameUse(frame, outputStrings, maxNumberOfCharsForUseOfFrame), maxNumberOfCharsForUseOfFrame)
     entryString += ","
-    entryString += activityOrProcessBeginOrEndStr
+    entryString += activityOrProcessBeginOrEndStr.lower()
     entryString += ","
-    entryString += label
+    entryString += label.lower()
     entryString += ","
     entryString += inputFile
     entryString += ","
-    entryString += actionUnit
+    entryString += actionUnit.lower()
     entryString += ","
-    entryString += str(getNumberOfBeginOfActivityForAU (actionUnit, outputStrings))
+    entryString += str(getNumberOfBeginOfActivityForAU (actionUnit, outputStrings)).lower()
     entryString += ")."
     return entryString
 
@@ -109,7 +109,7 @@ def getSingleVideoExtraction (singleVideoData:dict, DAiSEE: pd.DataFrame, action
     maxNumberOfCharsForUseOfFrame = len(str(len(singleVideoData)))
 
 
-    inputFile = singleVideoData["input"]["0"]
+    inputFile = splitext(basename(singleVideoData["input"]["0"]))[0]
     del singleVideoData["input"]
     label = findLabel (inputFile, DAiSEE)
     outputStrings = [ #inizializzazione
