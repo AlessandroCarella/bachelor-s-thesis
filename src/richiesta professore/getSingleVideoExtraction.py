@@ -2,6 +2,8 @@ from os.path import normpath, splitext, basename
 import pandas as pd
 import re
 
+from reorderEntries import reorderEntries
+
 def findLabel (videoPath:str, DAiSEE: pd.DataFrame) -> str:
     #return "engaged"
     
@@ -183,4 +185,4 @@ def getSingleVideoExtraction (singleVideoData:dict, DAiSEE: pd.DataFrame, action
             )
         )
         
-    return {splitext(basename(inputFile))[0]:outputStrings}
+    return {splitext(basename(inputFile))[0]:reorderEntries(outputStrings, maxNumberOfCharsForFrames, maxNumberOfCharsForUseOfFrame)}
