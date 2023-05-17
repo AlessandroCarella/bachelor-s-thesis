@@ -47,7 +47,7 @@ def getNumberOfBeginOfActivityForAU (actionUnit:str, outputStrings:list[str]) ->
     return numberOfBeginOfActivityForAU
 
 def getEntryText (frame:str, activityOrProcessBeginOrEndStr:str, label:str, inputFile:str, actionUnit:str, maxNumberOfCharsForFrames:int, maxNumberOfCharsForUseOfFrame:int, outputStrings:list[str]) -> str:
-    entryString = "Entry("
+    entryString = "entry("
     entryString += '{0:0{1}d}'.format(int(frame), maxNumberOfCharsForFrames)
     entryString += '{0:0{1}d}'.format(getNumberOfFrameUse(frame, outputStrings, maxNumberOfCharsForUseOfFrame), maxNumberOfCharsForUseOfFrame)
     entryString += ","
@@ -55,7 +55,7 @@ def getEntryText (frame:str, activityOrProcessBeginOrEndStr:str, label:str, inpu
     entryString += ","
     entryString += label.lower()
     entryString += ","
-    entryString += inputFile
+    entryString += "video" + inputFile
     entryString += ","
     entryString += actionUnit.lower()
     entryString += ","
