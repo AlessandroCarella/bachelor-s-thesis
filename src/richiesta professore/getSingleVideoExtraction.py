@@ -31,10 +31,7 @@ def getNumberOfFrameUse(frame:int, outputStrings:list[str], maxNumberOfCharsForU
     
     return numberOfFrameUse
 
-def getNumberOfBeginOfActivityForAU (actionUnit:str, outputStrings:list[str]) -> int:
-    if len (outputStrings) == 0:
-        return 1
-    
+def getNumberOfActivityForAU (actionUnit:str, outputStrings:list[str]) -> int:
     numberOfBeginOfActivityForAU = 0
     for outputStr in outputStrings:
         outputStrSplit = outputStr.split(",")
@@ -49,6 +46,8 @@ def getNumberOfBeginOfActivityForAU (actionUnit:str, outputStrings:list[str]) ->
     return numberOfBeginOfActivityForAU
 
 def getEntryText (frame:str, activityOrProcessBeginOrEndStr:str, label:str, inputFile:str, actionUnit:str, maxNumberOfCharsForFrames:int, maxNumberOfCharsForUseOfFrame:int, outputStrings:list[str]) -> str:
+    AUlow = actionUnit.lower()
+
     entryString = "entry("
     entryString += '{0:0{1}d}'.format(int(frame), maxNumberOfCharsForFrames)
     entryString += '{0:0{1}d}'.format(getNumberOfFrameUse(frame, outputStrings, maxNumberOfCharsForUseOfFrame), maxNumberOfCharsForUseOfFrame)
@@ -59,9 +58,9 @@ def getEntryText (frame:str, activityOrProcessBeginOrEndStr:str, label:str, inpu
     entryString += ","
     entryString += "video" + inputFile
     entryString += ","
-    entryString += actionUnit.lower()
+    entryString += AUlow
     entryString += ","
-    entryString += str(getNumberOfBeginOfActivityForAU (actionUnit, outputStrings)).lower()
+    entryString += str(getNumberOfActivityForAU (AUlow, outputStrings))
     entryString += ")."
     return entryString
 
