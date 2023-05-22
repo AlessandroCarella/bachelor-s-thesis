@@ -15,17 +15,19 @@ def findLabel (videoPath:str, DAiSEE: pd.DataFrame) -> str:
     #lo stesso valore di label
     return DAiSEE.loc[DAiSEE['input'].str.contains(videoFileName), 'label'].tolist()[0]
 
-def getNumberOfFrameUse(frame:int, outputStrings:list[str], maxNumberOfCharsForUseOfFrame:int) -> int:
+def getNumberOfFrameUse(frame:str, outputStrings:list[str], maxNumberOfCharsForUseOfFrame:int) -> int:
     if len (outputStrings) == 0:
         return 0
     
+    frame = int (frame)
+
     numberOfFrameUse = 0
     for outputStr in outputStrings:
         #es:
         #Entry(000020,begin_of_activity,engaged,v32,au1,1).
         #     0              1             2     3   4  5
         frameAndNumberOfUse = outputStr.split(",")[0]
-        frameTemp = re.sub("[^0-9]", "", frameAndNumberOfUse[:-maxNumberOfCharsForUseOfFrame])
+        frameTemp = int(re.sub("[^0-9]", "", frameAndNumberOfUse[:-maxNumberOfCharsForUseOfFrame]))
         if frameTemp == frame:
             numberOfFrameUse += 1
     
