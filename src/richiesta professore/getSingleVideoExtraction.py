@@ -34,7 +34,7 @@ def getNumberOfFrameUse(frame:str, outputStrings:list[str], maxNumberOfCharsForU
     return numberOfFrameUse
 
 def getNumberOfActivityForAU (actionUnit:str, outputStrings:list[str]) -> int:
-    numberOfBeginOfActivityForAU = 0
+    numberOfBeginOfActivityForAU = 1
     for outputStr in outputStrings:
         outputStrSplit = outputStr.split(",")
         #es:
