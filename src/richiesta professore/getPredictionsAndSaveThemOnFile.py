@@ -20,23 +20,25 @@ def cleanPrediction (predictions: pd.DataFrame) -> pd.DataFrame:
     newPredictions = predictions.filter(regex='^AU')
     return pd.concat([newPredictions, predictions["input"]], axis=1)
 
-def getPredictionsFromVideosPaths (videoPath:list, detector:Detector):
+def getPredictionsFromVideosPaths (videoPath:list, detector:Detector, lastOne:bool) -> pd.DataFrame:
     prediciton = getPrediction (videoPath, detector)#qui ho già la predizione per tutti i frame all'interno del video
     prediciton = cleanPrediction (prediciton)
     
-    with open ((join(dirname(abspath(__file__)), "predictions.json")), "a") as f:
-        f.write(prediciton.to_json(indent=4) + ",\n")
-    
-    return prediciton
+    if not lastOne:
+        with open ((join(dirname(abspath(__file__)), "predictions.json")), "a") as f:
+            f.write(prediciton.to_json(indent=4) + ",\n")
+    else:
+        with open ((join(dirname(abspath(__file__)), "predictions.json")), "a") as f:
+            f.write(prediciton.to_json(indent=4))
 
-def getPredictionsAndSaveThemOnFile (videosPathMain: list, detector:Detector) -> list [dict]:
+def makeAndSavePredictionsOnFile (videosPathMain: list, detector:Detector) -> list [dict]:
     openListOnFile () # i save the predictions on file but the list of the objects generated is not json serializable *
-    videoPredictions = []
     for path in tqdm(videosPathMain):
-        videoPredictions.append(getPredictionsFromVideosPaths(path, detector))
+        try:
+            getPredictionsFromVideosPaths(path, detector, path == videosPathMain[-1])
+        except Exception as e:
+            print (e)
     closeListOnFile() # * so i open and close the list on the file and save each item in append on the file 
-    
-    return videoPredictions
 
 
 def readPredictionsListFromFile () -> list [dict]:
