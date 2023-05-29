@@ -7,7 +7,7 @@ import pandas as pd
 from tqdm import tqdm
 
 from mainUtility import makeAndSavePredictionsOnFile, getDetector, checkIfDirExistsAndIfNotCreateIt, readPredictionsListFromFile
-from alternativeGetSingleVideoExtraction import getSingleVideoExtraction
+from getSingleVideoExtraction import getSingleVideoExtraction
 
 
 def getVideoPaths () -> list[str]:
