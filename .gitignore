@@ -1,6 +1,7 @@
 appunti.txt
 **/datasets/
 
+*.zip
 *.pickle
 /src/sviluppo/tempImg.jpg
 
