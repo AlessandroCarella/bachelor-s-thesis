@@ -48,4 +48,3 @@ def main ():
     for file in listdir(folderPath):
         filePath = join(folderPath, file)
         splitFile (filePath, getActionsDict ())
-main ()

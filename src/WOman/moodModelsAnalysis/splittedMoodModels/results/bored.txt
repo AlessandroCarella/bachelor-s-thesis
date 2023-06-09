@@ -1,0 +1,2 @@
+numero di task: 50
+numero di transizioni: 7051
