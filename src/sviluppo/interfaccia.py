@@ -195,13 +195,14 @@ def handleProgramClose():
 
 if __name__ == '__main__':
     windowClosed = False
+    
+    userChosenClassifier, userChosenClassifierObj = pickClassifier()
 
     canvas, textWidget, root = getGUI()
     cap = initializeWebcam()
 
     imagePath = join(dirname(abspath(__file__)), "tempImg.jpg")
     detector = getDetector()
-    userChosenClassifier, userChosenClassifierObj = pickClassifier()
     bestClassesLastMinute = {}
     lastPredictionTime = time.time()
 

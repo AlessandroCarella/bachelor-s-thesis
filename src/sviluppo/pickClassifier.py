@@ -2,7 +2,7 @@ import tkinter as tk
 import time
 from collections import Counter
 import json
-from os.path import join, abspath
+from os.path import join, abspath, dirname
 
 from classifiers.randomForestClassifier import getRandomForestClassifier
 from classifiers.KnnClassifier import getKnnClassifier
@@ -47,7 +47,8 @@ def getClassifierObj (buttonLabel):
     return None
 
 def getAUs ():
-    with open(join(abspath ("src"), "AUs.json")) as f:
+    x =  (join(abspath(dirname(__file__)), "..", "AUs.json"))
+    with open(x) as f:
         AUs = json.loads(f.read())
     return AUs
 
@@ -161,6 +162,7 @@ def getModelPredictionText (chosenClassifier, prediction, timeDiff, bestClassesL
 def onButtonClick(button_label, root):
     root._button_clicked = button_label # define _button_clicked attribute
     root.quit() # stop the mainloop
+    root.destroy()
 
 def onClose(root):
     root._button_clicked = None
