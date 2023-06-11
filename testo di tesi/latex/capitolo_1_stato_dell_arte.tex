@@ -2,8 +2,8 @@
 
 \section{Studi sull’engagement all’interno degli ambienti di studio}
 Gli studi ritrovati che effettuano quest’analisi o trattano un argomento simile o tangente sono:
-\subsection{Recognizing Cognitive Emotions in E-Learning Environment \cite{RecoCognEmoELearnEnv}:}
-In questo studio gli stati di d’animo che vengono classificati dal loro sistema sono i seguenti:
+\subsection{Recognizing Cognitive Emotions in E-Learning Environment}
+In questo studio \cite{RecoCognEmoELearnEnv} gli stati di d’animo che vengono classificati dal loro sistema sono i seguenti:
 \begin{itemize}
     \item Entusiasmo,
     \item Interesse,
@@ -34,9 +34,9 @@ Naturalmente un sistema che permette di “leggere” con precisione lo stato d�
 
 Un esempio circoscritto all’ambiente di lavoro potrebbe invece essere un’analisi del lavoratore nello svolgimento di un task e la possibilità, da parte di un capo progetto o di un tutor, di poter intervenire esclusivamente nel momento in cui il suo subordinato sta riscontrando dei problemi; in tal modo è permessa al dipendente una crescita professionale adeguata e non seguita al 100\%, così da sfruttare al meglio l’impiego del tempo del tutor.
 
-\subsection {The faces of Engagement: Automatic Recognition of Student Engagement from Facial Expression \cite{FacesOfEngagement}:}
+\subsection {The faces of Engagement: Automatic Recognition of Student Engagement from Facial Expression}
 
-Nello studio, gli stati d’animo organizzati in scala da meno attento/a a più attento/a sono:
+In \cite{FacesOfEngagement}, gli stati d’animo organizzati in scala da meno attento/a a più attento/a sono:
 \begin{itemize}
     \item Not engaged at all (Non coinvolto: che guarda da un’altra parte, che sta ovviamente non pensando al compito, occhi completamente chiusi)
     \item Nominally engaged (Formalmente coinvolto: occhi appena aperti, chiaramente non attento/a al task che sta svolgendo)
@@ -59,9 +59,9 @@ Lo studio si concentra sull’effettuare una stima dell’engagement degli stude
 
 Infine si è investigato sulla correlazione effettiva fra i risultati di queste analisi e la qualità delle performance degli studenti.
 
-\subsection{Facial coding as a mean to enable continuous monitoring of student’s behaviour in e-Learning \cite{FacialCodingContinMonitor}:}
+\subsection{Facial coding as a mean to enable continuous monitoring of student’s behaviour in e-Learning }
 
-Il paper si focalizza sul tracciamento continuo degli studenti, sia per quanto riguarda una vera e propria identificazione degli stessi attraverso il riconoscimento facciale, sia per calcolarne il livello di attenzione ed eventualmente stimarne le emozioni provate durante i corsi MOOCs (Massive Open Online Courses).
+Il paper \cite{FacialCodingContinMonitor} si focalizza sul tracciamento continuo degli studenti, sia per quanto riguarda una vera e propria identificazione degli stessi attraverso il riconoscimento facciale, sia per calcolarne il livello di attenzione ed eventualmente stimarne le emozioni provate durante i corsi MOOCs (Massive Open Online Courses).
 
 Per dirigere l’analisi del livello di attenzione, si è ricorso all’uso della libreria esterna Dlib, la quale consente di creare una mappatura delle caratteristiche facciali dello/a studente; per giunta, la piattaforma include anche un gaze tracker che lascia prevedere la direzione dello sguardo degli studenti durante lo svolgimento del corso.
 
@@ -74,9 +74,9 @@ Questi tre aspetti vengono successivamente congiunti al fine di creare un applic
     \end{center}
 \end{figure}
  
-\subsection{Prediction and Localization of student engagement in the wild \cite{PredLocStudEngagInTheWild}:}
+\subsection{Prediction and Localization of student engagement in the wild}
 
-Questo studio, a differenza di altri, ha come premessa l’utilizzo delle immagini raccolte in ambienti non controllati per la creazione del modello che andrà successivamente ad effettuare la predizione per i nuovi campioni.
+Questo studio \cite{PredLocStudEngagInTheWild}, a differenza di altri, ha come premessa l’utilizzo delle immagini raccolte in ambienti non controllati per la creazione del modello che andrà successivamente ad effettuare la predizione per i nuovi campioni.
 
 Per ambienti controllati, si intende setup di acquisizione dei video e delle immagini grazie ai quali non è possibile riscontrare problemi, quali scarsa illuminazione, occlusione ambientale, etc…
 
@@ -396,60 +396,8 @@ Sulla documentazione della libreria che ho utilizzato per l’estrazione delle A
 
 \newpage
 
-Nella tabella ~\ref{Tab:Tabella_AUs} è riportato un estratto della tabella consultabile interamente al link presentato nel riferimento \cite{PyFeat} con le AUs che vengono estratte per la creazione del mio modello:
+Nella tabella ~\ref{Tab:Tabella_AUs} è riportato un estratto della tabella consultabile interamente al link presentato nel riferimento \cite{PyFeat} con le AUs che vengono estratte per la creazione del mio modello. La tabella è presente alla fine del capitolo.
 
-\newpage
-
-\begin{table}[htb]
-\caption{estratto tabella AUs}
-\label{Tab:Tabella_AUs}
-\centering
-    \begin{adjustbox}{angle=90}
-        \begin{tabular}{|c|l|l|l|}
-            \hline
-            AU1 & Inner Brow Raiser & Frontalis (medial) & sadness, surprise, fear \\
-            \hline
-            AU2 & Outer Brow Raiser & Frontalis (lateral) & surprise, fear \\
-            \hline
-            AU4 & Brow Lowerer & Procerus, Depressor Supercilii, Corrugator Supercilii & sadness, fear, anger \\
-            \hline
-            AU5 & Upper Lid Raiser & Levator Palpebrae Superioris, Superior Tarsal Muscle & surprise, fear, anger \\
-            \hline
-            AU6 & Cheek Raiser & Orbicularis Oculi (orbital) & happiness, disgust, contempt \\
-            \hline
-            AU7 & Lid Tightener & Orbicularis Oculi (palpebral) & fear, anger \\
-            \hline
-            AU9 & Nose Wrinkler & Levator Labii Superioris Alaeque Nasi & disgust \\
-            \hline
-            AU10 & Upper Lip Raiser & Levator Labii Superioris & \\
-            \hline
-            AU11 & Nasolabial Deepener & Zygomaticus Minor & disgust, fear \\
-            \hline
-            AU12 & Lip Corner Puller & Zygomaticus Major & happiness, contempt \\
-            \hline
-            AU14 & Dimpler & Buccinator & contempt \\
-            \hline
-            AU15 & Lip Corner Depressor & Depressor Anguli Oris & sadness, disgust \\
-            \hline
-            AU17 & Chin Raiser & Mentalis & disgust \\
-            \hline
-            AU20 & Lip Stretcher & Risorius, Platysma & fear \\
-            \hline
-            AU23 & Lip Tightener & Orbicularis Oris & anger \\
-            \hline
-            AU24 & Lip Pressor & Orbicularis Oris & \\
-            \hline
-            AU25 & Lip Part & Depressor Labii Inferioris & happiness, surprise, fear \\
-            \hline
-            AU26 & Jaw Drop & Masseter, Temporalis, Medial Pterygoid & fear, surprise \\
-            \hline
-            AU28 & Lip Suck & Orbicularis Oris & \\
-            \hline
-            AU43 & Eyes Closed & Levator Palebrae Superioris (relaxation) & behavioral \\
-            \hline
-        \end{tabular}
-    \end{adjustbox}
-\end{table}
 \newpage
 
 \section{Metodologie di tagging delle immagini del dataset}
@@ -555,3 +503,54 @@ Indubbiamente le classi che non trovano corrispondenza fra i due dataset (Drowsy
 DAiSEE è un dataset realizzato tenendo in considerazione la questione “in-the-wild” e risulta quindi perfetto per lo studio proposto da questa tesi.
 
 Lo student engagement dataset non è stato creato da una fonte autorevole e certificata come il DAiSEE ma, sfogliando le immagini presenti in esso, è possibile notare come gli scenari ripresi in questo dataset (ambienti di studio casalinghi) le immagini al suo interno risultino simili a quelle presentate nel DAiSEE e quindi della tipologia interessata.
+
+\begin{table}[htb]
+\caption{estratto tabella AUs}
+\label{Tab:Tabella_AUs}
+\centering
+    \begin{adjustbox}{angle=90}
+        \begin{tabular}{|c|l|l|l|}
+            \hline
+            AU1 & Inner Brow Raiser & Frontalis (medial) & sadness, surprise, fear \\
+            \hline
+            AU2 & Outer Brow Raiser & Frontalis (lateral) & surprise, fear \\
+            \hline
+            AU4 & Brow Lowerer & Procerus, Depressor Supercilii, Corrugator Supercilii & sadness, fear, anger \\
+            \hline
+            AU5 & Upper Lid Raiser & Levator Palpebrae Superioris, Superior Tarsal Muscle & surprise, fear, anger \\
+            \hline
+            AU6 & Cheek Raiser & Orbicularis Oculi (orbital) & happiness, disgust, contempt \\
+            \hline
+            AU7 & Lid Tightener & Orbicularis Oculi (palpebral) & fear, anger \\
+            \hline
+            AU9 & Nose Wrinkler & Levator Labii Superioris Alaeque Nasi & disgust \\
+            \hline
+            AU10 & Upper Lip Raiser & Levator Labii Superioris & \\
+            \hline
+            AU11 & Nasolabial Deepener & Zygomaticus Minor & disgust, fear \\
+            \hline
+            AU12 & Lip Corner Puller & Zygomaticus Major & happiness, contempt \\
+            \hline
+            AU14 & Dimpler & Buccinator & contempt \\
+            \hline
+            AU15 & Lip Corner Depressor & Depressor Anguli Oris & sadness, disgust \\
+            \hline
+            AU17 & Chin Raiser & Mentalis & disgust \\
+            \hline
+            AU20 & Lip Stretcher & Risorius, Platysma & fear \\
+            \hline
+            AU23 & Lip Tightener & Orbicularis Oris & anger \\
+            \hline
+            AU24 & Lip Pressor & Orbicularis Oris & \\
+            \hline
+            AU25 & Lip Part & Depressor Labii Inferioris & happiness, surprise, fear \\
+            \hline
+            AU26 & Jaw Drop & Masseter, Temporalis, Medial Pterygoid & fear, surprise \\
+            \hline
+            AU28 & Lip Suck & Orbicularis Oris & \\
+            \hline
+            AU43 & Eyes Closed & Levator Palebrae Superioris (relaxation) & behavioral \\
+            \hline
+        \end{tabular}
+    \end{adjustbox}
+\end{table}

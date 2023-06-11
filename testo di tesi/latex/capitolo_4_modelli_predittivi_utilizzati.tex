@@ -653,41 +653,64 @@ In caso di dataset sbilanciati, in cui una classe target è più rappresentata d
     \end{center}
 \end{figure}
 
+\subsection{k-fold Cross-Validation}
+La k-fold cross validation è una tecnica comunemente utilizzata nell'apprendimento automatico e nella valutazione dei modelli predittivi; quest’ultima mira a suddividere il set di dati disponibile in k sottoinsiemi (fold) pari in termini di dimensione e simili in termini di distribuzione dei dati. 
+
+Questo metodo si propone di valutare le prestazioni di un modello predittivo servendosi di un set di dati limitato, consentendo di giudicare il comportamento del modello proponendogli nuovi dati e aiutandolo a stimare l'accuratezza delle previsioni sulle nuove istanze.
+
+Nel processo di validazione il set di dati viene diviso casualmente in k sottoinsiemi di dimensioni simili: solitamente k viene scelto come un numero intero positivo come 5 o 10, ma può variare a seconda del caso; ad esempio, per il mio specifico caso di studio, è stata effettuata una 33-fold validation.
+
+Durante ogni iterazione della cross validation, uno dei fold viene selezionato come set di test, mentre i restanti k-1 fold vengono adottati come set di addestramento. 
+
+Questa procedura viene ripetuta k volte, durante la quale ciascun fold viene utilizzato esclusivamente una volta come set di test. Al termine delle k iterazioni, si ottengono k misure di valutazione delle prestazioni del modello.
+
+Una volta completate, tutti i risultati delle k iterazioni possono essere combinati per ottenere una stima più robusta delle prestazioni del modello. Le misure comunemente utilizzate includono l'accuratezza, la precisione, il recall e l'F1-score.
+
+La k-fold cross validation risulta particolarmente utile quando si dispone di un set di dati limitato e si desidera massimizzare l'utilizzo dei dati disponibili per la valutazione del modello, consentendo così di sfruttare al meglio i dati in modo da ottenere stime più affidabili delle prestazioni del modello.
+
+Un vantaggio importante che la tecnica offre è che ogni istanza del set di dati viene sfruttata sia per l'addestramento che per la valutazione. Ciò permette di ridurre la varianza nella stima delle prestazioni del modello rispetto a una singola divisione di addestramento/test.
+
+La scelta del valore di k può influenzare le prestazioni della cross validation; valori più grandi di k possono ridurre la varianza nella stima delle prestazioni, contemporaneamente aumentando il costo computazionale. Valori più piccoli di k possono portare invece a stime più instabili.
+
+È importante ricordare che essa non può compensare le limitazioni intrinseche del set di dati. Se il set di dati è di scarsa qualità o contiene un forte bias, la cross validation non può garantire prestazioni migliori; è sempre consigliabile quindi eseguire una pulizia dei dati annessa ad una pre-elaborazione adeguata prima di applicare la k-fold cross validation. 
+
+La k-fold cross validation trova ampio utilizzo nella pratica dell'apprendimento automatico per valutare e confrontare diversi modelli. È particolarmente utile quando si tratta di selezionare il miglior modello tra diverse opzioni o quando si desidera confrontare le prestazioni di modelli con diverse configurazioni.
+
+Un'altra considerazione importante da fare quando ci si serve di questa tecnica è la gestione degli insiemi di dati sbilanciati; qualora il set di dati avesse una distribuzione sbilanciata tra le classi, potrebbe essere necessario utilizzare metodi di campionamento stratificato o pesatura delle classi per garantire una valutazione accurata delle prestazioni del modello su tutte le classi.
+
+Inoltre, può essere utilizzata per identificare eventuali problemi di overfitting o underfitting del modello: se le prestazioni sul set di addestramento sono significativamente migliori rispetto quelle del test, potrebbe essere un segnale di overfitting. D'altra parte, se le prestazioni su entrambi i set sono scarse, potrebbe indicare underfitting.
+
+In conclusione, la k-fold cross validation fornisce una stima robusta delle prestazioni del modello utilizzando tutti i dati disponibili e aiuta a selezionare il modello migliore o ad identificare problemi di overfitting o underfitting. È un'importante pratica da seguire durante lo sviluppo e la valutazione dei modelli predittivi.
+
+
 \subsection{Tabella dei risultati}
-Tutte le metriche sono state calcolate a partire dai diversi modelli predittivi attraverso questo metodo:
+Ho effettuato il calcolo delle metriche riportate nella tabella più sotto dopo aver suddiviso il dataset, utilizzando la k-cross fold validation 33 volte.
+Per effettuare la suddivisione del dataset e il calcolo di queste metriche per ognuno dei dataset generati ho utilizzato il metodo \mintinline[bgcolor=bg]{python}{cross_validate} fornito dalla libreria \mintinline[bgcolor=bg]{python}{sklearn.model_selection}.
+Ho quindi calcolato e salvato su file i risultati delle analisi per ognuno di queste metriche:
+\begin{itemize}
+    \item accuracy,
+    \item precision weighted,
+    \item recall weighted, 
+    \item balanced accuracy
+\end{itemize}
+le medie dei risultati ottenuti da ognuno dei classificatori realizzati per ciascuna di queste metriche sono riportate nella seguente tabella:
+\begin{center}
+    \small % or \footnotesize
+    \begin{tabular}{ |c||c|c|c|c| } 
+         \hline
+          & Accuracy & Precision & Recall & Balanced Accuracy\\ 
+         \hline\hline
+         K-Nearest Neighbors& 77.87493\% & 76.43947\% & 77.87493\% & 77.87465\%\\
+         \hline
+         Random forest & 82.25838\% & 81.86107\% & 82.25838\% & 82.25838\%\\
+         \hline
+         Naive bayes& 39.16669\% & 35.96379\% & 39.16669\% & 39.16736\%\\
+         \hline
+         Support vector machine& 54.37561\% & 53.82087\% & 54.37561\% & 54.38249\%\\
+         \hline
+    \end{tabular}
+\end{center}
 
-\begin{minted}[bgcolor=bg]{python} 
-from sklearn.metrics import accuracy_score, precision_score, recall_score, 
-                            balanced_accuracy_score 
-
-def getModelScores(yTest, yPred):
-    acc = accuracy_score(yTest, yPred)
-    prec = precision_score (yTest, yPred, average="weighted") 
-    recall = recall_score(yTest, yPred, average="weighted") 
-    balaAcc = balanced_accuracy_score(yTest, yPred)
-    return acc, prec, recall, balaAcc
-\end{minted}
-dove yTest è il dataframe estrapolato attraverso il metodo getXtrainYTrainXtestYTest precedentemente citato e yPred è la predizione effettuata sul dataframe Xtest, estratto sempre dallo stesso metodo, da parte del modello predittivo.
-
-Ho opportunamente inserito tutte le metriche calcolate all’interno della tabella seguente per porre a confronto i modelli predittivi da me implementati:
-
-\begin{table}[h]
-\centering
-\begin{tabular}{|l|c|c|c|c|}
-\hline
-& Accuracy & Precision & Recall & Balanced Accuracy \\
-\hline
-K-Nearest Neighbors & 78.54\% & 76.96\% & 78.54\% & 78.04\% \\
-\hline
-Random forest & 82.33\% & 82.05\% & 82.33\% & 81.97\% \\
-\hline
-Support vector machine & 55.70\% & 55.47\% & 55.70\% & 55.17\% \\
-\hline
-Naive bayes & 40.16\% & 35.55\% & 40.16\% & 39.49\% \\
-\hline
-\end{tabular}
-\caption{Comparison of classification algorithms}
-\label{tab:classification}
-\end{table}
+Mentre i risultati per ognuno dei dataset sono riportati prima della bibliografia.
 
 Come già evidenziato nel primo capitolo riguardante lo stato dell’arte, dalle analisi effettuate in \cite{FaceExpreRecoImgSeqTwoFoldRandomForestClass} l’algoritmo di random forest risulta essere il più affidabile per effettuare le previsioni su dataset di Action Units col fine di un rilevamento delle emozioni FACS e, come si evince dalla tabella sopra riportata, lo stesso è vero per gli stati d’animo (o moods) che vengono trattati nel mio caso di studio.
