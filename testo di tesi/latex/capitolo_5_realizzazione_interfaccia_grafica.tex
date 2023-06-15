@@ -1,13 +1,15 @@
 \chapter{Realizzazione interfaccia grafica}
 Una volta generati i modelli predittivi per effettuare nuove analisi, ho pensato che creare questo modello senza poi poterne usufruire come un applicativo vero e proprio sarebbe risultato fine a sé stesso.
 
-Ho quindi scelto di creare una semplice interfaccia grafica attraverso la quale poter effettuare delle predizioni sullo stato d’animo della persona ripresa dalla webcam.
+Ho quindi scelto di creare una semplice interfaccia grafica attraverso la quale poter effettuare delle predizioni sullo stato d’animo della persona ripresa da una webcam.
 
-Una volta avviato il programma per l’interfaccia grafica, si presenta una schermata che dà la possibilità di scegliere fra i modelli predittivi creati:
+Una volta avviato il programma per l’interfaccia grafica, si presenta una schermata che dà la possibilità di scegliere fra i modelli predittivi creati \ref{fig:image16}
 
 \begin{figure}
     \begin{center}    
         \includegraphics[width=0.9\linewidth]{images/image51.png}
+        \caption{Prima schermata interfaccia}
+        \label{fig:image16}
     \end{center}
 \end{figure}
 
@@ -27,7 +29,7 @@ def getRandomForestClassifier():
         randomForestClassifier = RandomForestClassifier(
             n_estimators=100, 
             verbose=True, 
-            random_state=69
+            random_state=42
         )
         Xtrain, yTrain, Xtest, yTest = getXtrainYTrainXtestYTest()
         randomForestClassifier.fit(Xtrain, yTrain)
@@ -40,10 +42,12 @@ def getRandomForestClassifier():
 
     return randomForestClassifier
 \end{minted}
-La schermata che si presenta successivamente è questa:
+La schermata che si presenta successivamente è riportata a \ref{fig:image17}.
 \begin{figure}
     \begin{center}    
         \includegraphics[width=0.9\linewidth]{images/image52.png}
+        \caption{Schermata rilevazione mood}
+        \label{fig:image17}
     \end{center}
 \end{figure}
 
@@ -51,13 +55,13 @@ Sulla sinistra è possibile notare la webcam dalla quale vengono estratti i fram
 
 Sulla destra è invece possibile osservare il testo, suddiviso in:
 
-La prima riga, dove è presente il mood rilevato, ossia la label con la percentuale di predizione più alta secondo il modello predittivo precedentemente scelto sull’immagine che è stata catturata in quel momento.
+La prima riga, dove è presente il mood rilevato, ossia la label con la percentuale di predizione più alta, secondo il modello predittivo precedentemente scelto, sull’immagine che è stata catturata in quel momento.
 
 Subito sotto sono presenti tutte le label e le relative percentuali di predizione calcolate.
 
-È poi riportato il mood più frequente nell’ultimo minuto per decidere quale label fra quelle estratte vada riportata qui; ho poi immagazzinato in una struttura dati dizionario (dict di python) ognuna delle label con la percentuale di predizione più alta raccolte nell’ultimo minuto, e le ho utilizzate come chiave; come valori ho invece immagazzinato il timestamp nel quale è stata effettuata la predizione.
+È poi riportato il mood più frequente nell’ultimo minuto; per decidere quale label fra quelle estratte vada riportata qui ho immagazzinato in una struttura dati dizionario (dict di python) ognuna delle label, con la relativa percentuale di predizione più alta, raccolte nell’ultimo minuto, e le ho utilizzate come chiave; come valori ho invece immagazzinato il timestamp nel quale è stata effettuata la predizione.
 
-Ogni minuto questo dizionario viene aggiornato rimuovendo le coppie chiave di valore più “vecchie” di un minuto. 
+Ogni minuto questo dizionario viene aggiornato rimuovendo le coppie chiave valore prelevate più di un minuto prima. 
 \begin{minted}[bgcolor=bg]{python}
 def addToBestClassesLastMinute (bestClass):
     bestClassesLastMinute[time.time()] = bestClass
@@ -87,6 +91,6 @@ mi ha permesso di ottenere intorno alle 100 predizioni al minuto e, di fatti, il
 
 È importante mettere in luce che per effettuare le predizioni l’immagine mostrata sullo schermo viene salvata sul disco, e che le prestazioni dipendono anche dal tipo di disco sul quale viene eseguita l’analisi; ho difatti riscontrato un decremento notevole delle performance nel momento in cui ho provato ad eseguire il programma su un hard disk classico rispetto ad un SSD, tipologia di disco utilizzata in entrambe le macchine sopracitate.
 
-Un’altra differenza importante è data dal fatto che la macchina presentata è dotata di una scheda video di casa Nvdia che può quindi sfruttare la tecnologia CUDA per effettuare l’estrazione delle Action Units dall’immagine prelevata, il che migliora esaurientemente le prestazioni.
+Un’altra differenza importante è data dal fatto che la macchina presentata è dotata di una scheda video Nvdia che può quindi sfruttare la tecnologia CUDA per effettuare l’estrazione delle Action Units dall’immagine prelevata, il che migliora esaurientemente le prestazioni.
 
-Effettuando delle predizioni impostando il parametro del costruttore della classe Detector, offerta da py-feat, a “cpu” ho rilevato un decremento di performance, che porta il delta tempo fra una predizione e l’altra da poco meno di un secondo (~0.6/0.7s) a ~1.6/1.7 secondi.
+Effettuando delle predizioni impostando il parametro del costruttore della classe Detector, offerta da py-feat, a “cpu” ho rilevato un decremento di performance, che porta il delta tempo fra una predizione e l’altra da poco meno di un secondo ($\sim$0.6/0.7s) a $\sim$1.6/1.7 secondi.

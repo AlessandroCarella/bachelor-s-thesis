@@ -1,11 +1,12 @@
 \chapter{Modelli predittivi utilizzati}
 \section{Algoritmi utilizzati per la creazione dei modelli predittivi}
-\subsection{Random forest}
+\subsection{Random Forest}
 \cite{radnomForestIbm}
 
 \begin{figure}
     \begin{center}    
         \includegraphics[width=0.9\linewidth]{images/image10.png}
+        \caption{Rappresentazione di Random Forest}
     \end{center}
 \end{figure}
 
@@ -83,7 +84,7 @@ Ci sono diversi vantaggi e sfide che l'algoritmo random forest presenta quando u
   \item Principali sfide
   \begin{itemize}
     \item È un processo che richiede tempo: gli algoritmi random forest possono gestire grandi set di dati e fornire previsioni più accurate; tuttavia il processo è rallentato dalla computazione dei dati per ogni singolo albero decisionale.
-    \item Richiede più risorse: le random forest, elaborando set di dati più grandi, richiedono più risorse per archiviare questi ultimi.
+    \item Richiede più risorse: le random forest, elaborando set di dati più grandi, richiedono più risorse per elaborare questi ultimi.
     \item Più complesso: la previsione di un singolo albero decisionale è più facile da interpretare rispetto a una foresta di questi.
   \end{itemize}
 \end{itemize}
@@ -95,6 +96,7 @@ Ci sono diversi vantaggi e sfide che l'algoritmo random forest presenta quando u
 \begin{figure}
     \begin{center}    
         \includegraphics[width=0.9\linewidth]{images/image11.jpeg}
+        \caption{Rappresentazione di K-nearest neighbors}
     \end{center}
 \end{figure}
 
@@ -139,49 +141,52 @@ Sebbene sussistano diverse misure di distanza, tra cui è possibile scegliere, l
 \begin{itemize}
     \item Distanza euclidea (p=2): la misura della distanza più comunemente adottata; essa è limitata ai vettori con valori reali. 
     
-    Utilizzando la formula seguente traccia una linea retta tra il punto di query e l'altro punto che si vuole misurare.
-    \begin{figure}
-        \begin{center}    
-            \includegraphics[width=0.45\linewidth]{images/image12.png}
-        \end{center}
-    \end{figure}
-    \item Distanza di Manhattan (p=1): un'altra metrica di distanza particolarmente nota che si propone di misurare il valore assoluto tra due punti. 
-    
-    È anche riconosciuta come distanza del taxi o distanza del blocco cittadino, poiché è comunemente visualizzata con una griglia che illustra come si potrebbe percorrere il tragitto da un indirizzo all'altro attraverso le strade della città.
-    \begin{figure}
-        \begin{center}    
-            \includegraphics[width=0.45\linewidth]{images/image13.png}
-        \end{center}
-    \end{figure}
-    \item Distanza di Minkowski: questa misura della distanza è la forma generalizzata delle metriche di distanza euclidea e di Manhattan. Il parametro, p, nella formula seguente, consente la creazione di altre metriche di distanza.    
-    
-    La distanza Euclidea è rappresentata da questa formula quando p è uguale a due e la distanza di Manhattan è indicata con p uguale a uno.
+    Utilizzando la formula \ref{equation:1} traccia una linea retta tra il punto di query e l'altro punto che si vuole misurare.
+    \begin{equation}
+        d(x, y) = \sqrt{\sum_{i=1}^{n} (y_i - x_i)^2}
+        \label{equation:1}
+    \end{equation}
 
-    \begin{figure}
-        \begin{center}    
-            \includegraphics[width=0.45\linewidth]{images/image14.png}
-        \end{center}
-    \end{figure}
-    \item Distanza di Hamming: questa tecnica viene utilizzata tipicamente con vettori booleani o stringa, identificando i punti in cui i vettori non trovano corrispondenza. 
+    \item Distanza di Manhattan (p=1): trascitta a \ref{equation:2}, è un'altra metrica di distanza particolarmente nota che si propone di misurare il valore assoluto tra due punti. 
+    
+    È anche riconosciuta come distanza del taxi o distanza del blocco cittadino, poiché è comunemente visualizzata come una griglia che illustra come si potrebbe percorrere il tragitto da un indirizzo all'altro attraverso le strade della città.
+    \begin{equation}
+        d(x, y) = \sum_{i=1}^{m} |x_i - y_i|
+        \label{equation:2}
+    \end{equation}
+    
+    \item Distanza di Minkowski: questa misura della distanza è la forma generalizzata delle metriche di distanza euclidea e di Manhattan.
+    
+    La distanza Euclidea è rappresentata dalla formula \ref{equation:3} quando p è uguale a due e la distanza di Manhattan è indicata con p uguale a uno.
+    \begin{equation}
+        \left(\sum_{i=1}^{n} |x_i - y_i|^p\right)^{\frac{1}{p}}
+        \label{equation:3}
+    \end{equation}
+
+    \item Distanza di Hamming: riportata a \ref{equation:4}, questa tecnica viene utilizzata tipicamente con vettori booleani o stringa, identificando i punti in cui i vettori non trovano corrispondenza. 
     
     Di conseguenza, è stata anche definita metrica di sovrapposizione.
-    \begin{center}    
-        \includegraphics[width=0.45\linewidth]{images/image15.png}
-    \end{center}
-    
+    \begin{equation}
+        d_H(x, y) = \sum_{i=1}^{k} |(x_i - y_i)|
+        \label{equation:4}
+    \end{equation}
 \end{itemize}
 
 
 Ad esempio, se avessi le seguenti stringhe, la distanza di Hamming sarebbe due poiché solo due dei valori differiscono.
 \begin{center}    
-    \includegraphics[width=0.8\linewidth]{images/image16.png}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.8\linewidth]{images/image16.png}
+        \caption{Esempio per la distanza di Hamming}
+    \end{figure}
 \end{center}
 
 
 \subsubsection{Calcolare KNN: definizione di k}
 Il valore k nell'algoritmo k-NN definisce quanti vicini verranno controllati per determinare la classificazione di un punto di query specifico. 
 
-Di fatti, se k=1, l'istanza verrà assegnata alla stessa classe del suo singolo neighbors più vicino. 
+Di fatti, se k=1, l'istanza verrà assegnata alla stessa classe del suo singolo neighbor più vicino. 
 
 Definire k può essere un atto di bilanciamento, in quanto valori diversi possono portare a overfitting o underfitting. 
 
@@ -228,64 +233,62 @@ Un classificatore di Bayes è un modello di apprendimento automatico probabilist
 
 
 \subsubsection{Teorema di Bayes}
-Utilizzando il teorema di Bayes, possiamo trovare la probabilità che A accada, conseguentemente all’avvenimento di B. Qui, B è la prova e A è l'ipotesi. 
+Utilizzando il teorema di Bayes, di cui formula \ref{equation:5}, possiamo trovare la probabilità che A accada, conseguentemente all’avvenimento di B. Qui, B è la prova e A è l'ipotesi. 
 
 L'assunzione alla base del teorema è che i predittori e le caratteristiche siano indipendenti: in altre parole, la presenza di una particolare caratteristica non influisce sull'altra.
+\begin{equation}
+    P(A|B) = \frac{P(B|A)P(A)}{P(B)}
+    \label{equation:5}
+\end{equation}
+
+Volendo oﬀrire un esempio al fine di una migliore comprensione, consideriamo il problema di giocare a golf.  Il dataset è rappresentato in \ref{fig:image13}.
 \begin{figure}
     \begin{center}    
-        \includegraphics[width=0.9\linewidth]{images/image17.png}
+        \includegraphics[width=0.7\linewidth]{images/image18.jpeg}
+        \caption{Dataset esempio}
+        \label{fig:image13}
     \end{center}
 \end{figure}
-Volendo oﬀrire un esempio al fine di una migliore comprensione, consideriamo il problema di giocare a golf.  Il dataset è rappresentato come segue.
-\newpage
-\begin{figure}
-    \begin{center}    
-        \includegraphics[width=0.9\linewidth]{images/image18.jpeg}
-    \end{center}
-\end{figure}
+
 Classifichiamo se la giornata si configura adatta per una partita di golf, basandoci sugli attributi di tale giornata. Le colonne rappresentano questi attributi, mentre le righe rappresentano le singole voci.
 
 Prendendo a campione la prima riga del dataset, possiamo osservare che non è adatta per giocare a golf se il cielo è nuvoloso, la temperatura è calda, l'umidità è alta e non c'è vento. Qui facciamo due assunzioni: 
 
 come già detto, consideriamo che questi predittori siano indipendenti (ovvero, se la temperatura è calda, non significa necessariamente che l'umidità sia alta). Un'altra assunzione fatta qui è che tutti i predittori abbiano un eﬀetto uguale sul risultato. Cioè, il fatto che ci sia vento non ha una maggiore importanza nella  decisione di giocare a golf o meno. 
 
-Rifacendosi al secondo esempio, il teorema di Bayes può essere quindi riscritto come segue:
-\newpage
-\begin{figure}
-    \begin{center}    
-        \includegraphics[width=0.8\linewidth]{images/image19.png}
-    \end{center}
-\end{figure}
+Rifacendosi al secondo esempio, il teorema di Bayes può essere quindi riscritto come in \ref{equation:6}.
+\begin{equation}
+    P(y|X) = \frac{{P(X|y)P(y)}}{{P(X)}}
+    \label{equation:6}
+\end{equation}
 La variabile y è la variabile di classe (giocare a golf), la quale rappresenta quanto sia adatta la giornata o meno per giocare a golf. La variabile X rappresenta i parametri/caratteristiche.
 
-X è dato come segue:
-\begin{center}    
-    \includegraphics[width=0.9\linewidth]{images/image20.png}
-\end{center}
+X è dato come \ref{equation:7}:
+\begin{equation}
+    X = (x_1, x_2, x_3, \ldots, x_n)
+    \label{equation:7}
+\end{equation}
 
 
-Qui x1, x2... xn raffigurano le caratteristiche, cioè possono essere mappati su cielo, temperatura, umidità e vento. Sostituendo X ed espandendo utilizzando la regola della catena otteniamo:
-\begin{figure}
-    \begin{center}    
-        \includegraphics[width=0.9\linewidth]{images/image21.jpeg}
-    \end{center}
-\end{figure}
+Qui x1, x2... xn raffigurano le caratteristiche, cioè possono essere mappati su cielo, temperatura, umidità e vento. Sostituendo X ed espandendo utilizzando la regola della catena otteniamo \ref{equation:8}.
+\begin{equation}
+    P(y|x_1,\ldots,x_n) = \frac{{P(x_1|y)P(x_2|y)\ldots P(x_n|y)P(y)}}{{P(x_1)P(x_2)\ldots P(x_n)}}
+    \label{equation:8}
+\end{equation}
 
-Ora è possibile ottenere i valori per ognuno guardando il dataset e sostituendoli nell'equazione. Per tutte le voci nel dataset, il denominatore non cambia, rimane statico. Pertanto, il denominatore può essere rimosso e può essere introdotta una proporzionalità.
-\begin{center}    
-    \includegraphics[width=0.9\linewidth]{images/image22.jpeg}
-\end{center}
+Ora è possibile ottenere i valori per ognuno guardando il dataset e sostituendoli nell'equazione. Per tutte le voci nel dataset, il denominatore non cambia, rimane statico. Pertanto, il denominatore può essere rimosso e può essere introdotta una proporzionalità. Formula \ref{equation:9}.
+\begin{equation}
+    P(y|x_1,\ldots,x_n) = P(y) \prod_{i=1}^{n} P(x_i|y)
+    \label{equation:9}
+\end{equation}
 
+Nel nostro caso, la variabile di classe (y) ha solo due risultati, sì o no. Potrebbero esserci casi in cui la classificazione potrebbe rivelarsi multivariata. Pertanto, sarà necessario trovare la classe y con la massima probabilità. Formula \ref{equation:10}.
+\begin{equation}
+    y = \arg\max_y P(y) \prod_{i=1}^{n} P(x_i|y)
+    \label{equation:10}
+\end{equation}
 
-Nel nostro caso, la variabile di classe (y) ha solo due risultati, sì o no. Potrebbero esserci casi in cui la classificazione potrebbe rivelarsi multivariata. Pertanto, sarà necessario trovare la classe y con la massima probabilità.
-\begin{center}    
-    \includegraphics[width=0.5\linewidth]{images/image23.jpeg}
-\end{center}
-
-Utilizzando questa funzione ci è possibile ottenere la classe, dato il predittore.
-
-
-
+Utilizzando \ref{equation:10} ci è possibile ottenere la classe, dato il predittore.
 
 \subsubsection{Tipi di Classificatori Bayesiani}
 \begin{itemize}
@@ -302,12 +305,11 @@ Utilizzando questa funzione ci è possibile ottenere la classe, dato il preditto
 \item Quando i predittori assumono un valore continuo e non discreto, assumiamo che questi valori siano estratti da una distribuzione gaussiana.
 \end{itemize}
 \end{itemize}
-Poiché il modo in cui i valori sono presenti nel dataset cambia, la formula per la probabilità condizionata cambia in questo caso,
-\begin{figure}
-    \begin{center}    
-        \includegraphics[width=1\linewidth]{images/image24.jpeg}
-    \end{center}
-\end{figure}
+Poiché il modo in cui i valori sono presenti nel dataset cambia, la formula per la probabilità condizionata cambia come in \ref{equation:11}
+\begin{equation}
+    P(x_i|y) = \frac{1}{\sqrt{2\pi\sigma_y^2}} \exp\left(-\frac{(x_i-\mu_y)^2}{2\sigma_y^2}\right)
+    \label{equation:11}
+\end{equation}
 
 \subsubsection{Conclusione}
 Gli algoritmi Bayesiani sono principalmente utilizzati nell'analisi del sentiment, nel filtraggio dello spam, nei reccomender systems, ecc. 
@@ -315,14 +317,14 @@ Gli algoritmi Bayesiani sono principalmente utilizzati nell'analisi del sentimen
 Sono veloci e facili da implementare, ma il loro più grande svantaggio è la necessità che i predittori siano indipendenti. 
 
 Nella maggior parte dei casi reali, i predittori sono dipendenti, il che ostacola le prestazioni del classificatore.
-
+\newpage
 
 \subsection{Support Vector Machine}
 Il support vector machine è favorito maggiormente data la produzione di una significativa accuratezza mediante una minor potenza di calcolo. 
 
 Il Support Vector Machine, abbreviato come SVM, può essere utilizzato sia per compiti di regressione che di classificazione. Tuttavia, viene ampiamente sfruttato negli obiettivi di classificazione.
 \subsubsection{Cosa è il Support Vector Machine?}
-L'obiettivo dell'algoritmo support vector machine è quello di trovare un iperpiano in uno spazio N- dimensionale (N - il numero di caratteristiche) che classifichi distintamente i punti dati.
+L'obiettivo dell'algoritmo support vector machine è quello di trovare un iperpiano in uno spazio N-dimensionale (N - il numero di caratteristiche) che classifichi distintamente i punti dati.
 \begin{figure}[h]
   \begin{minipage}[b]{0.45\linewidth}
     \centering
@@ -332,6 +334,7 @@ L'obiettivo dell'algoritmo support vector machine è quello di trovare un iperpi
     \centering
     \includegraphics[width=\linewidth]{images/image26.png}
   \end{minipage}
+  \caption{Rappresentazione Support Vector Machine}
 \end{figure}
 
 Per separare le due classi di punti dati sono presenti molti iperpiani possibili da cui poter scegliere. Il nostro obiettivo è trovare un piano che possegga il margine massimo, ovvero la massima distanza tra i punti dati di entrambe le classi. Massimizzare la distanza del margine fornisce un rinforzo in modo che i futuri punti dati possano essere classificati con maggiore fiducia.
@@ -346,6 +349,7 @@ Inoltre, la dimensione dell’iperpiano  dipende dal numero di caratteristiche.
 \begin{figure}
     \begin{center}    
         \includegraphics[width=0.9\linewidth]{images/image27.jpeg}
+        \caption{Rappresentazione iperpiani}
     \end{center}
 \end{figure}
 
@@ -354,15 +358,16 @@ Se il numero di caratteristiche di input è 2, l'iperpiano è solo una linea. Se
 \begin{figure}
     \begin{center}    
         \includegraphics[width=0.9\linewidth]{images/image28.jpeg}
+        \caption{Vettori di supporto}
     \end{center}
 \end{figure}
 
 I support vector sono i punti dati più vicini all'iperpiano e inﬂuenzano la posizione e l'orientamento di quest’ultimo. Impiegando i support vector, massimizziamo il margine del classificatore. L’eliminazione  dei support vector cambierà la posizione dell'iperpiano. 
 
 \subsubsection{Intuizione del grande margine}
-Nella regressione logistica, prendiamo l'output della funzione lineare e normalizziamo il valore nell'intervallo  [0,1] utilizzando la funzione sigmoide. 
+Nella regressione logistica, prendiamo l'output della funzione lineare e normalizziamo il valore nell'intervallo  [0,1]. 
 
-Se il valore normalizzato è maggiore di un valore soglia (0,5), gli assegniamo una etichetta 1, altrimenti gli assegniamo un'etichetta 0. 
+Se il valore normalizzato è maggiore di un valore soglia (ad es. 0,5), gli assegniamo una etichetta 1, altrimenti gli assegniamo un'etichetta 0. 
 
 Nell'SVM, prendiamo l'output della funzione lineare e, se quell'output è maggiore di 1, lo identifichiamo con una classe, mentre se l'output è -1, lo identifichiamo con un'altra classe. 
 
@@ -380,43 +385,43 @@ Nell'algoritmo SVM, cerchiamo di massimizzare la distanza tra i punti dati e l'i
     \centering
     \includegraphics[width=\linewidth]{images/image30.jpeg}
   \end{minipage}
+  \caption{Funzione di costo e di aggiornamento del gradiente}
 \end{figure}
 
 Il costo è 0 se il valore previsto e il valore eﬀettivo hanno lo stesso segno. In caso contrario, calcoliamo il valore di perdita. Aggiungiamo anche un parametro di regolarizzazione alla funzione di costo. L'obiettivo del
 parametro di regolarizzazione è di bilanciare la massimizzazione della distanza con la perdita. 
 
-Dopo aver aggiunto il parametro di regolarizzazione, la funzione di costo appare come segue.
-\begin{figure}
-    \begin{center}    
-        \includegraphics[width=0.9\linewidth]{images/image31.jpeg}
-    \end{center}
-\end{figure}
+Dopo aver aggiunto il parametro di regolarizzazione, la funzione di costo appare come in \ref{equation:12}.
+\begin{equation}
+    \min_w \lambda ||w||^2 + \sum_{i=1}^{n} (1 - y_i \langle x_i, w \rangle) +
+    \label{equation:12}
+\end{equation}
 
 Ora che abbiamo ottenuto la funzione di perdita, utilizziamo le derivate parziali rispetto ai pesi per trovare i gradienti. 
 
 Così facendo, possiamo aggiornare i pesi.
-\begin{center}    
+\begin{figure}
+    \centering
     \includegraphics[width=0.9\linewidth]{images/image32.jpeg}
-\end{center}
-
-Quando non vi è alcuna errata classificazione, ovvero il nostro modello prevede correttamente la classe del nostro punto dati, sarà necessario aggiornare solo il gradiente dal parametro di regolarizzazione.
-\begin{figure}
-    \begin{center}    
-        \includegraphics[width=0.5\linewidth]{images/image33.png}
-    \end{center}
+    \caption{Aggiornamento dei pesi}
 \end{figure}
 
-Quando ci si trova di fronte ad una errata classificazione, ossia il nostro modello commette un errore sulla previsione della classe del nostro punto dati, includiamo la perdita insieme al parametro di regolarizzazione per eseguire l'aggiornamento del gradiente.
-\begin{figure}
-    \begin{center}    
-        \includegraphics[width=0.5\linewidth]{images/image34.png}
-    \end{center}
-\end{figure}
+Quando non vi è alcuna errata classificazione, ovvero il nostro modello prevede correttamente la classe del nostro punto dati, sarà necessario aggiornare solo il gradiente dal parametro di regolarizzazione come in \ref{equation:13}.
+\begin{equation}
+    w = w - \alpha \cdot (2\lambda w)
+    \label{equation:13}
+\end{equation}
+
+Quando ci si trova di fronte ad una errata classificazione, ossia il nostro modello commette un errore sulla previsione della classe del nostro punto dati, includiamo la perdita insieme al parametro di regolarizzazione per eseguire l'aggiornamento del gradiente, come in \ref{equation:14}.
+\begin{equation}
+    w = w + \alpha \cdot (y_i \cdot x_i - 2\lambda w)
+    \label{equation:14}
+\end{equation}
 
 \section{Random forest classifier}
 Per effettuare delle predizioni sul dataset ho realizzato un classificatore random forest sul quale effettuare delle query, fornendogli i dati riguardanti le Action Units da nuove immagini, sempre attraverso la libreria py-feat.
 
-Per la creazione del classificatore ho in primis letto il file csv contenente il dataset pre-elaborato (modifiche precedentemente trattate e sulle quali aggiungerò considerazioni, in quanto è risultato efficace applicarne ulteriori per migliorare la precisione del predittore creato), rimosso le colonne non necessarie e, infine, ho diviso il dataset in set di addestramento e di test usando la funzione train\_test\_split della libreria sklearn.model\_selection; tramite l’output di questo metodo ho ricavato i pandas’s dataframes Xtrain, Xtest, yTrain, yTest.
+Per la creazione del classificatore ho in primis letto il file csv contenente il dataset pre-elaborato (modifiche precedentemente trattate e sulle quali aggiungerò considerazioni, in quanto è risultato efficace applicarne ulteriori per migliorare la precisione del predittore creato), rimosso le colonne non necessarie e, infine, ho diviso il dataset in set di addestramento e di test usando la funzione \mintinline[bgcolor=bg]{python}{train_test_split} della libreria \mintinline[bgcolor=bg]{python}{sklearn.model_selection}; tramite l’output di questo metodo ho ricavato i pandas’s dataframes \mintinline[bgcolor=bg]{python}{Xtrain, Xtest, yTrain, yTest}.
 
 Questo è il metodo relativo:
 \begin{minted}[bgcolor=bg]{python}
@@ -437,21 +442,21 @@ def getXtrainYTrainXtestYTest():
         X, 
         y, 
         test_size=0.2, 
-        random_state=69
+        random_state=42
     )
 
     return Xtrain, yTrain 
 \end{minted}
-Una volta ottenuti questi dataset ho creato il classificatore utilizzando l’oggetto a disposizione fornito dalla libreria sklearn.ensable.
+Una volta ottenuti questi dataset ho creato il classificatore utilizzando l’oggetto a disposizione fornito dalla libreria \mintinline[bgcolor=bg]{python}{sklearn.ensable}.
 
-Il RandomForestClassifier viene generato con 100 alberi di decisione e viene addestrato con l’utilizzo dei due dataframe Xtrain e yTrain restituiti dalla funzione getXtrainYTrainXtestYTest().
+Il RandomForestClassifier viene generato con 100 alberi di decisione e viene addestrato con l’utilizzo dei due dataframe \mintinline[bgcolor=bg]{python}{Xtrain} e \mintinline[bgcolor=bg]{python}{yTrain} restituiti dalla funzione getXtrainYTrainXtestYTest().
 
 Il metodo è il seguente:
 \begin{minted}[bgcolor=bg]{python}
 randomForestClassifier = RandomForestClassifier(
     n_estimators=100, 
     verbose=True, 
-    random_state=69
+    random_state=42
 )
 Xtrain, yTrain = getXtrainYTrainXtestYTest ()
 randomForestClassifier.fit(Xtrain, yTrain)
@@ -460,34 +465,31 @@ return randomForestClassifier
 
 Eseguendo dei test attraverso il metodo \mintinline[bgcolor=bg]{python}{score(Xtest, yTest)} offerto dal random forest classifier generato dalla libreria sklearn.ensemble ho potuto calcolare l’accuracy del modello da me generato.
 
-I risultati di questa analisi sono che il random forest classifier ottiene una precisione dell’82,3periodico\% sul dataset di test generato nel metodo \mintinline[bgcolor=bg]{python}{getXtrainYTrainXtestYTest}
+I risultati di questa analisi sono che il random forest classifier ottiene una precisione dell’82,$0.\overline{3}$\% sul dataset di test generato nel metodo \mintinline[bgcolor=bg]{python}{getXtrainYTrainXtestYTest}.
 
-\begin{figure}
-    \begin{center}    
-        \includegraphics[width=0.9\linewidth]{images/image36.png}
-    \end{center}
-\end{figure}
+Oltre alla produzione del classificatore viene anche generato un grafico per la visualizzazione dell’influenza di ognuna delle label sulla predizione, riportato all'immagine \ref{fig:image14}.
 
-Oltre alla produzione del classificatore viene anche generato un grafico per la visualizzazione dell’influenza di ognuna delle label sulla predizione che allego qui di seguito:
+Come è possibile constatare in \ref{fig:image14}, quasi tutte le label influenzano la predizione in modo simile (in un range fra il 7,2\% e l’11,9\%) tranne per la AU43 (Eyes Closed) che, ovviamente, influenza largamente la predizione effettuata dal modello.
 \newpage
+
 \begin{figure}
     \begin{center}    
         \includegraphics[width=1\linewidth]{images/image37.png}
+        \caption{Feature con maggiore importanza per il Random Forest}
+        \label{fig:image14}
     \end{center}
 \end{figure}
-
-Come è possibile constatare, quasi tutte le label influenzano la predizione in modo simile (in un range fra il 7,2\% e l’11,9\%) tranne per la AU43 (Eyes Closed) che, ovviamente, influenza largamente la predizione effettuata dal modello.
 
 \section{K-nearest Neighbors Classifier}
 Un ulteriore classificatore realizzato per effettuare predizioni sul dataset è il K-nearest Neighbors Classifier, attraverso il quale ho effettuato delle query fornendo i dati delle Action Units da nuove immagini.
 
-Come per il random forest classifier, per la creazione del classificatore ho in primis letto il file csv contenente il dataset pre-elaborato, rimosso le colonne non necessarie e, infine, ho diviso il dataset in set di addestramento e di test usando la funzione train\_test\_split della libreria sklearn.model\_selection; tramite l’output di questo metodo ho ricavato i pandas’s dataframes Xtrain, Xtest, yTrain, yTest.
+Come per il Random Forest classifier, per la creazione del classificatore ho in primis letto il file csv contenente il dataset pre-elaborato, rimosso le colonne non necessarie e, infine, ho diviso il dataset in set di addestramento e di test usando la funzione \mintinline[bgcolor=bg]{python}{train_test_split} della libreria \mintinline[bgcolor=bg]{python}{sklearn.model_selection}; tramite l’output di questo metodo ho ricavato i pandas’s dataframes \mintinline[bgcolor=bg]{python}{Xtrain, Xtest, yTrain, yTest}.
 
 Il metodo sopracitato per l’estrazione di questi dataframe è lo stesso riportato in pochi paragrafi precedenti.
 
-Una volta ottenuti questi dataset ho creato il classificatore utilizzando l’oggetto a disposizione fornito dalla libreria sklearn.neighbors.
+Una volta ottenuti questi dataset ho creato il classificatore utilizzando l’oggetto a disposizione fornito dalla libreria \mintinline[bgcolor=bg]{python}{sklearn.neighbors}.
 
-Il K-nearest Neighbors Classifier viene creato impostando il parametro relativo al numero di elementi vicini da utilizzare settato a 1 e viene addestrato con l’utilizzo dei due dataframe Xtrain e yTrain restituiti dalla funzione getXtrainYTrainXtestYTest().
+Il K-nearest Neighbors Classifier viene creato impostando il parametro relativo al numero di elementi vicini da utilizzare settato a 1 e viene addestrato con l’utilizzo dei due dataframe \mintinline[bgcolor=bg]{python}{Xtrain} e \mintinline[bgcolor=bg]{python}{yTrain} restituiti dalla funzione \mintinline[bgcolor=bg]{python}{getXtrainYTrainXtestYTest()}.
 
 Il metodo è il seguente
 \begin{minted}[bgcolor=bg]{python}
@@ -499,7 +501,7 @@ return KnnClassifier
 
 Ho ritenuto opportuno valorizzare il campo con 1, in quanto è risultato il quantitativo necessario per non ottenere delle rilevazioni “ballerine” all’interno dell’interfaccia grafica da me realizzata e, allo stesso tempo, avere il miglior valore di accuracy possibile, calcolato come mostrato successivamente.
 
-Ho poi eseguito il calcolo dell’accuratezza delle predizioni sul dataframe di test realizzato attraverso il seguente codice:
+Ho poi eseguito il calcolo dell’accuracy delle predizioni sul dataframe di test realizzato attraverso il seguente codice:
 \begin{minted}[bgcolor=bg]{python}
 from sklearn.metrics import accuracy_score
 yPred = KnnClassifier.predict(Xtest)
@@ -507,13 +509,7 @@ accuracy = accuracy_score(yTest, yPred)
 print("Accuracy: ", accuracy)
 \end{minted}
 
-ed ho ottenuto il seguente risultato:
-
-\begin{figure}
-    \begin{center}    
-        \includegraphics[width=0.9\linewidth]{images/image38.png}
-    \end{center}
-\end{figure}
+ed ho ottenuto un'accuracy del 78,54\%.
 
 Il classificatore K-nearest neighbors (KNN) determina l'importanza delle caratteristiche basandosi sulla loro influenza sulla metrica di distanza utilizzata per calcolare la vicinanza tra le istanze. 
 
@@ -531,36 +527,32 @@ def visualizeHeatMapCorrelationMatrix(Xtrain):
     plt.show()
 \end{minted}
 
-Il colore di ogni quadrato nella heatmap rappresenta la correlazione tra due caratteristiche. 
+Il colore di ogni quadrato nella heatmap \ref{fig:image15} rappresenta la correlazione tra due caratteristiche. 
 
 Le caratteristiche altamente correlate saranno vicine tra loro nella heatmap, mentre le caratteristiche non correlate risulteranno distanti. 
 
 \begin{figure}
     \begin{center}    
         \includegraphics[width=0.9\linewidth]{images/image39.png}
+        \caption{Heatmap modello KNN generato}
+        \label{fig:image15}
     \end{center}
 \end{figure}
 
 Dalla heatmap riportata è possibile dedurre che, oltre all’ovvia correlazione di ogni Action Units a se stessa, ad esempio, la AU1 e la AU2 sono strettamente correlate, o ancora, AU12 e AU6 sono ancora più strettamente correlate, indi, influenzeranno particolarmente le predizioni risultanti.
 
 
-\section{Support vector machine (SVM) Classifier}
+\section{Support vector machine Classifier}
 Un altro classificatore adoperato per effettuare delle predizioni sul dataset è basato sull’algoritmo Support vector machine.
 
 La modalità di realizzazione è molto simile a quella per i precedenti classificatori, con modalità di utilizzo identica al Random Forest classifier.
 
 Viene sempre letto in memoria il dataset pre elaborato e resamplato, con successiva rimozione delle colonne non necessarie e viene suddiviso in set di addestramento e set di test.
 
-L’oggetto che viene creato per effettuare le predizioni proviene sempre dalla libreria sklearn, in questo caso il modulo sklearn.svm e la sua relativa classe SVC.
+L’oggetto che viene creato per effettuare le predizioni proviene sempre dalla libreria sklearn, in questo caso il modulo \mintinline[bgcolor=bg]{python}{sklearn.svm} e la sua relativa classe \mintinline[bgcolor=bg]{python}{SVC}.
 
 Eseguendo dei test attraverso il metodo \mintinline[bgcolor=bg]
-{python}{score(Xtest, yTest)} offerto dalla classe SVC ho potuto calcolare l’accuracy del modello da me generato:
-
-\begin{figure}
-    \begin{center}    
-        \includegraphics[width=0.9\linewidth]{images/image40.jpeg}
-    \end{center}
-\end{figure}
+{python}{score(Xtest, yTest)} offerto dalla classe SVC ho potuto calcolare l’accuracy del modello da me generato che risulta essere del 55\%.
 
 \section{Naive Bayes Classifier}
 Un ulteriore classificatore di cui mi servo per effettuare delle predizioni sul dataset è basato sull’algoritmo Naive Bayes.
@@ -569,25 +561,19 @@ La modalità di realizzazione è molto simile a quella per i precedenti classifi
 
 Viene sempre letto in memoria il dataset pre elaborato e resamplato, vengono rimosse le colonne non necessarie e viene suddiviso in set di addestramento e set di test.
 
-L’oggetto che viene creato per effettuare le predizioni proviene sempre dalla libreria sklearn, in questo caso il modulo naive\_bayes e la sua relativa classe MultinomialNB.
+L’oggetto che viene creato per effettuare le predizioni proviene sempre dalla libreria sklearn, in questo caso il modulo \mintinline[bgcolor=bg]{python}{sklearn.naive_bayes} e la sua relativa classe \mintinline[bgcolor=bg]{python}{MultinomialNB}.
 
-Eseguendo dei test attraverso il metodo Eseguendo dei test attraverso il metodo \mintinline[bgcolor=bg]
-{python}{score(Xtest, yTest)} offerto dalla classe MultinomialNB ho potuto calcolare l’accuracy del modello da me generato:
+Eseguendo dei test attraverso il metodo \mintinline[bgcolor=bg]
+{python}{score(Xtest, yTest)} offerto dalla classe \mintinline[bgcolor=bg]{python}{MultinomialNB} ho potuto calcolare l’accuracy del modello da me generato che risulta essere del 40\%
 
-\begin{figure}
-    \begin{center}    
-        \includegraphics[width=0.9\linewidth]{images/image41.jpeg}
-    \end{center}
-\end{figure}
+Il ~40\% di accuracy è il valore più alto che sono riuscito ad ottenere modificando i diversi valori presi in input dal costruttore di \mintinline[bgcolor=bg]{python}{MultinomialNB}.
 
-Il ~40\% di accuracy è il valore più alto che sono riuscito ad ottenere modificando i diversi valori presi in input dal costruttore di MultinomialNB.
-
-\subsection{Quale è il miglior modello predittivo?}
+\section{Quale è il miglior modello predittivo?}
 Ho collezionato diverse metriche per valutare quale dei modelli predittivi sviluppati fosse il migliore: 
 \subsection{Accuracy}
-La metrica dell'accuracy è una delle metriche più comuni utilizzate per valutare la performance dei modelli predittivi. Essa misura la percentuale di predizioni corrette rispetto al numero totale di predizioni effettuate. Ad esempio, se un modello ha effettuato 100 predizioni e 80 di queste sono corrette, l'accuracy sarebbe del 80\%.
+La metrica dell'accuracy è una delle metriche più comuni utilizzate per valutare la performance dei modelli predittivi. Essa misura la percentuale di predizioni corrette rispetto al numero totale di predizioni effettuate. Ad esempio, se un modello ha effettuato 100 predizioni e 80 di queste sono corrette, l'accuracy è del 80\%.
 
-L'accuracy è una metrica particolarmente utile in caso, similmente al mio, di classi bilanciate. Ciò significa che il numero di esempi per ogni classe di output è simile. 
+L'accuracy è una metrica particolarmente utile in caso, similmente al mio, di classi bilanciate. Ciò significa che il numero di esempi per ogni classe di output è simile o pari. 
 
 In questo contesto, può fornire una valutazione equilibrata della capacità del modello di predire entrambe le classi in modo corretto. 
 
@@ -595,13 +581,11 @@ Tuttavia, se le classi  non dovessero essere bilanciate, tale metrica potrebbe r
 
 Un'altra considerazione importante quando si utilizza l'accuracy è il tipo di errore che si vuole minimizzare. Ad esempio, se il costo di un falso positivo è molto alto, allora un modello che massimizza l'accuracy potrebbe non essere la scelta migliore.
 
-In formule, l'accuracy si calcola come:
-
-\begin{figure}
-    \begin{center}    
-        \includegraphics[width=0.5\linewidth]{images/image47.png}
-    \end{center}
-\end{figure}
+In formule, l'accuracy si calcola come in \ref{equation:15}
+\begin{equation}
+    \text{Accuracy} = \frac{\text{TP + TN}}{\text{TP + FP + TN + FN}}
+    \label{equation:15}
+\end{equation}
 
 dove TP indica il numero di veri positivi, TN indica il numero di veri negativi, FP indica il numero di falsi positivi e FN indica il numero di falsi negativi.
 
@@ -610,20 +594,19 @@ La metrica di precisione è una delle metriche più comuni utilizzate per valuta
 
 Per calcolare la precisione di un modello predittivo occorre confrontare le predizioni effettuate dal modello con le etichette di classe corrette. La precisione è calcolata dividendo il numero di predizioni corrette per il totale delle predizioni effettuate dal modello. Ad esempio, se un modello predittivo ha effettuato 100 predizioni e 80 di queste predizioni sono corrette, la precisione del modello è del 80\%.
 
-La metrica precision è definita come il rapporto tra il numero di veri positivi (TP) e il numero di tutti i casi predetti positivi (TP + FP). In altre parole, la precisione è la percentuale di volte in cui il modello ha predetto correttamente una classe positiva rispetto a tutte le volte in cui ha predetto quella classe.
+La metrica precision è definita come il rapporto tra il numero di veri positivi (TP) e il numero di tutti i casi predetti positivi (TP + FP) a \ref{equation:16}. In altre parole, la precisione è la percentuale di volte in cui il modello ha predetto correttamente una classe positiva rispetto a tutte le volte in cui ha predetto quella classe.
 
 Pur considerandosi utile, presenta alcune limitazioni. In particolare, la precisione non tiene conto dei falsi negativi, ovvero dei casi in cui il modello ha sbagliato a predire una classe positiva. Inoltre può essere influenzata dal numero di casi positivi e negativi presenti nel set di dati.
 
-\begin{figure}
-    \begin{center}    
-        \includegraphics[width=0.5\linewidth]{images/image48.jpeg}
-    \end{center}
-\end{figure}
+\begin{equation}
+    \text{Precision} = \frac{\text{TP}}{\text{TP + FP}}
+    \label{equation:16}
+\end{equation}
 
 \subsection{Recall}
 La metrica recall è una misura impiegata per la valutazione della capacità di un modello predittivo di identificare correttamente i veri positivi tra tutti i positivi effettivi. In altre parole, la recall comunica quanti dei casi positivi presenti in un insieme sono stati correttamente individuati dal modello.
 
-Per calcolare la recall si divide il numero di veri positivi per la somma dei veri positivi e dei falsi negativi. In questo modo otteniamo una percentuale che fa emergere quanti dei casi positivi sono stati individuati dal modello.
+Per calcolare la recall si divide il numero di veri positivi per la somma dei veri positivi e dei falsi negativi come in \ref{equation:17}. In questo modo otteniamo una percentuale che fa emergere quanti dei casi positivi sono stati individuati dal modello.
 
 Una delle principali ragioni dell’importanza di tale metrica è che ci permette di valutare la capacità del modello di individuare correttamente i casi positivi, anche se questo può comportare l’avere un alto numero di falsi positivi.
 
@@ -631,14 +614,13 @@ Un altro aspetto da considerare quando si utilizza la recall come metrica è che
 
 Infine, è importante notare che la recall non ci comunica nulla sulla capacità del modello di classificare correttamente i casi negativi. Pertanto, è sempre importante considerare anche altre metriche come la precisione e l'accuratezza complessiva del modello quando si valutano le prestazioni complessive.
 
-\begin{figure}
-    \begin{center}    
-        \includegraphics[width=0.5\linewidth]{images/image49.jpeg}
-    \end{center}
-\end{figure}
+\begin{equation}
+    \text{Recall} = \frac{\text{TP}}{\text{TP + FN}}
+    \label{equation:17}
+\end{equation}
 
 \subsection{Balanced Accuracy}
-La metrica di Balanced Accuracy (o accuratezza bilanciata) è una misura di valutazione della performance di un modello predittivo che tiene conto della distribuzione bilanciata delle classi target all'interno del dataset di test. In altre parole, è una misura che considera l'accuratezza del modello in modo equilibrato per entrambe le classi target, evitando così di favorire una classe rispetto all'altra.
+La metrica di Balanced Accuracy (o accuratezza bilanciata), in formula a \ref{equation:18}, è una misura di valutazione della performance di un modello predittivo che tiene conto della distribuzione bilanciata delle classi target all'interno del dataset di test. In altre parole, è una misura che considera l'accuratezza del modello in modo equilibrato per entrambe le classi target, evitando così di favorire una classe rispetto all'altra.
 
 Per calcolare la metrica di Balanced Accuracy, si prende in considerazione la media aritmetica tra l'accuratezza della classe positiva (TPR) e quella della classe negativa (TNR), ovvero:
 Balanced Accuracy = (TPR + TNR) / 2
@@ -647,13 +629,12 @@ Dove TPR (True Positive Rate) rappresenta la proporzione di veri positivi rispet
 
 In caso di dataset sbilanciati, in cui una classe target è più rappresentata dell'altra, la metrica di Balanced Accuracy risulta essere più informativa rispetto alla semplice accuratezza (Accuracy) in quanto fornisce una valutazione più equilibrata delle performance del modello per entrambe le classi target.
 
-\begin{figure}
-    \begin{center}    
-        \includegraphics[width=0.9\linewidth]{images/image50.jpeg}
-    \end{center}
-\end{figure}
+\begin{equation}
+    \text{Balanced Accuracy} = \frac{1}{2} \left( \frac{\text{TP}}{\text{TP + FN}} + \frac{\text{TN}}{\text{TN + FP}} \right)
+    \label{equation:18}
+\end{equation}
 
-\subsection{k-fold Cross-Validation}
+\subsection{K-fold Cross-Validation}
 La k-fold cross validation è una tecnica comunemente utilizzata nell'apprendimento automatico e nella valutazione dei modelli predittivi; quest’ultima mira a suddividere il set di dati disponibile in k sottoinsiemi (fold) pari in termini di dimensione e simili in termini di distribuzione dei dati. 
 
 Questo metodo si propone di valutare le prestazioni di un modello predittivo servendosi di un set di dati limitato, consentendo di giudicare il comportamento del modello proponendogli nuovi dati e aiutandolo a stimare l'accuratezza delle previsioni sulle nuove istanze.
@@ -684,18 +665,25 @@ In conclusione, la k-fold cross validation fornisce una stima robusta delle pres
 
 
 \subsection{Tabella dei risultati}
-Ho effettuato il calcolo delle metriche riportate nella tabella più sotto dopo aver suddiviso il dataset, utilizzando la k-cross fold validation 33 volte.
+Ho effettuato il calcolo delle metriche riportate nella tabella più sotto dopo aver suddiviso il dataset, utilizzando la 33-cross fold validation.
 Per effettuare la suddivisione del dataset e il calcolo di queste metriche per ognuno dei dataset generati ho utilizzato il metodo \mintinline[bgcolor=bg]{python}{cross_validate} fornito dalla libreria \mintinline[bgcolor=bg]{python}{sklearn.model_selection}.
-Ho quindi calcolato e salvato su file i risultati delle analisi per ognuno di queste metriche:
+Ho quindi calcolato e salvato su file i risultati delle analisi per ognuna delle metriche sopracitate:
 \begin{itemize}
     \item accuracy,
     \item precision weighted,
     \item recall weighted, 
     \item balanced accuracy
 \end{itemize}
-le medie dei risultati ottenuti da ognuno dei classificatori realizzati per ciascuna di queste metriche sono riportate nella seguente tabella:
-\begin{center}
+le medie dei risultati ottenuti da ognuno dei classificatori realizzati per ciascuna di queste metriche sono riportate nella tabella \ref{tab:1}.
+
+Mentre i risultati per ognuno dei dataset sono riportati al capitolo \ref{chap:tabelle_risultati_analisi}.
+
+Come già evidenziato nel primo capitolo riguardante lo stato dell’arte, dalle analisi effettuate in \cite{FaceExpreRecoImgSeqTwoFoldRandomForestClass} l’algoritmo di random forest risulta essere il più affidabile per effettuare le previsioni su dataset di Action Units col fine di un rilevamento delle emozioni FACS e, come si evince dalla tabella sopra riportata, lo stesso è vero per gli stati d’animo (o moods) che vengono trattati nel mio caso di studio.
+
+\begin{table}
     \small % or \footnotesize
+    \caption{Tabella media risultati metriche}
+    \label{tab:1}
     \begin{tabular}{ |c||c|c|c|c| } 
          \hline
           & Accuracy & Precision & Recall & Balanced Accuracy\\ 
@@ -709,8 +697,5 @@ le medie dei risultati ottenuti da ognuno dei classificatori realizzati per cias
          Support vector machine& 54.37561\% & 53.82087\% & 54.37561\% & 54.38249\%\\
          \hline
     \end{tabular}
-\end{center}
+\end{table}
 
-Mentre i risultati per ognuno dei dataset sono riportati prima della bibliografia.
-
-Come già evidenziato nel primo capitolo riguardante lo stato dell’arte, dalle analisi effettuate in \cite{FaceExpreRecoImgSeqTwoFoldRandomForestClass} l’algoritmo di random forest risulta essere il più affidabile per effettuare le previsioni su dataset di Action Units col fine di un rilevamento delle emozioni FACS e, come si evince dalla tabella sopra riportata, lo stesso è vero per gli stati d’animo (o moods) che vengono trattati nel mio caso di studio.

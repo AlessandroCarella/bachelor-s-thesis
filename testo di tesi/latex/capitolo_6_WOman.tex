@@ -68,11 +68,13 @@ L'argomento C dei due predicati è uno storico che riporta gli identificatori de
 
 È un multi insieme perché un task/transizione può verificarsi più volte nello stesso caso; esso può essere sfruttato per calcolare statistiche sul loro utilizzo e per decrementare la ridondanza, imponendo che la sequenza di transizioni osservata durante il funzionamento del modello si sia verificata almeno in un caso di addestramento. 
 
-Un modello è espresso come un insieme (da interpretare come una congiunzione) di atomi costruiti su questi predicati e viene costruito come riportato nell'Algoritmo seguente:
+Un modello è espresso come un insieme (da interpretare come una congiunzione) di atomi costruiti su questi predicati e viene costruito come riportato nell'Algoritmo all'immagine \ref{fig:image18}.
 
 \begin{figure}
     \begin{center}    
         \includegraphics[width=0.9\linewidth]{images/53.png}
+        \caption{Pseudocodice WOman}
+        \label{fig:image18}
     \end{center}
 \end{figure}
  
@@ -85,7 +87,7 @@ Pertanto, devi selezionare ed eliminare da $c$ gli altri atomi $next/2$ che si r
 
 Per quanto riguarda la selezione degli atomi next/2, molti atomi next(s, si) indicano che l'esecuzione del task associato allo step s è seguita dall'esecuzione parallela dei task associati agli step si, quindi i task associati ai si devono essere inclusi in O. 
 
-Allo stesso modo, molti atomi next(sj, s) indicano che l'esecuzione di vari task paralleli associati agli step sj converge nell'esecuzione del task associato allo step s, quindi i task associati ai sj devono essere inclusi in I.
+Allo stesso modo, molti atomi next(sj, s) indicano che l'esecuzione di vari task paralleli associati agli step sj converge nell'esecuzione del task associato allo step s, quindi i task associati ai sj devono essere inclusi in $I$.
 
 Per ciascun si (rispettivamente, sj), la stessa procedura deve essere iterata per trovare altri atomi next(sh, si) (next(sj, sk), rispettivamente), e così via fino alla convergenza. 
 
@@ -97,7 +99,7 @@ Infatti, diversi nodi transition/2 possono combinare un dato task in modi divers
 
 Nel complesso, i modelli appresi da WoMan sono un superset stretto di quelli che possono essere espressi dalle reti di Petri; tuttavia, quando un modello WoMan rientra nell'intervallo esprimibile dalle reti di Petri, può essere facilmente e automaticamente tradotto in tale formalismo.
 
-WoMan ha la facoltà di gestire anche il rumore; di fatti, le probabilità delle transizioni sono proporzionali al numero di casi in cui si sono effettivamente verificate, ovvero alla cardinalità del multiset associato di casi: quando viene elaborato un nuovo caso di addestramento, l'aggiornamento di questi multisets comporta anche l'aggiornamento dei pesi come effetto collaterale. 
+WOman ha la facoltà di gestire anche il rumore; di fatti, le probabilità delle transizioni sono proporzionali al numero di casi in cui si sono effettivamente verificate, ovvero alla cardinalità del multiset associato di casi: quando viene elaborato un nuovo caso di addestramento, l'aggiornamento di questi multisets comporta anche l'aggiornamento dei pesi come effetto collaterale. 
 
 Pertanto, sebbene i casi rumorosi siano effettivamente incorporati nel modello, imporre una tolleranza al rumore $N \in [0,1]$ significa semplicemente ignorare tutte le transizioni la cui frequenza è inferiore a $N$.
 
@@ -119,11 +121,11 @@ Anche nella fase di apprendimento, è possibile gestire più routine contemporan
 
 \section{Realizzazione file per l’osservazione e la predizione dei mood attraverso il sistema WOman}
 
-Per la realizzazione di questi file ho proseguito in questo modo:
+Per la realizzazione di questi file ho proseguito nel seguente modo:
 \begin{itemize}
-    \item Ho in inizialmente ridotto la pull di mood da poter analizzare in quanto solo 2 confused, engaged, bored e frustrated sono presenti all’interno del dataset DAiSEE \cite{DAiSEE} che, a differenza dello student-engagement-dataset \cite{StudEngagDataset}, il quale presenta solo immagini, è composto solo da video.
+    \item Ho inizialmente ridotto la pull di mood di due in quanto solo confused, engaged, bored e frustrated sono presenti all’interno del dataset DAiSEE \cite{DAiSEE} che, a differenza dello student-engagement-dataset \cite{StudEngagDataset}, il quale presenta solo immagini, è composto solo da video.
     \item Successivamente ho scomposto il video utilizzando sempre il metodo \mintinline[bgcolor=bg]{python}{detector.detect_video(videoPath)}; come è possibile notare, il parametro \mintinline[bgcolor=bg]{python}{skip_frames} non è valorizzato. Quando questo parametro non è valorizzato il valore diventa \mintinline[bgcolor=bg]{python}{None}, ovvero non viene saltato nessuno dei frame del video.
-    Effettuo quindi un’analisi su ognuno dei frame dei video analizzati, rielaboro l’output di queste ed ottengo l’input per il sistema WOman.
+    Effettuo quindi un’analisi su ognuno dei frame dei video analizzati, rielaboro l’output di queste ed ottengo i file di input per il sistema WOman.
     \item Ognuna delle linee dei file di input prodotti è così strutturata: (T, E, W, P, A, O), dove: 
     \begin{itemize}
         \item T è suddiviso in \colorbox{yellow}{frame in cui avviene l'attivazione della singola action} \colorbox{yellow}{units} e \colorbox{green}{numero di utilizzo di questo frame},
@@ -150,26 +152,26 @@ entry(00302,end_of_activity,confused,video987736015,au23,1).
 entry(00303,begin_of_activity,confused,video987736015,au24,2).
 \end{minted}
 
-Una volta realizzati questi file li ho consegnati al professore di modo che potesse fornirli al sistema.
+Una volta realizzati questi file li ho consegnati al professore di modo che potesse darli in input al sistema.
 
-Ho analizzato 50 file per ognuna delle label all’interno di DAiSEE e il dataset risultato, in formato json, è così strutturato:
+Ho analizzato 50 file per ognuna delle label all’interno di DAiSEE e il dataset risultante, in formato json, è così strutturato:
 \begin{minted}[bgcolor=bg]{json}
 [
     {
-        "AU01": {"valore frame per frame"},
-        "AU02": {"valore frame per frame"},
+        "AU01": {"dizionario con i valori frame per frame"},
+        "AU02": {"dizionario con i valori frame per frame"},
         "…": "tutte le Action Units utilizzate da py-feat e 
                 precedentemente citate"
-        "AU28": {"valore frame per frame"},
-        "AU43": {"valore frame per frame"},
-        "input": {"valore frame per frame"},
+        "AU28": {"dizionario con i valori frame per frame"},
+        "AU43": {"dizionario con i valori frame per frame"},
+        "input": {"dizionario con i valori frame per frame"},
         "label": "la label relativa al video"
     },
     "…":{"gli altri valori"}
 ]
 \end{minted}
 
-La label per ognuno dei video è stata estratta, attraverso il file “AllLabels” contenuto all’interno del dataset DAiSEE; il file è strutturato come segue:
+La label per ognuno dei video è stata estratta attraverso il file “AllLabels” contenuto all’interno del dataset DAiSEE; il file è strutturato come segue:
 \begin{minted}[bgcolor=bg]{python}
 ClipID,Boredom,Engagement,Confusion,Frustration 
 1100011002.avi,0,2,0,0
@@ -191,124 +193,158 @@ ClipID,Boredom,Engagement,Confusion,Frustration
 \item un valore fra 0 e 3 per la label confused,
 \item un valore fra 0 e 3 per la label frustrated,
 \end{itemize} 
-Hai fini del mio studio ho deciso di assegnare una singola label ad ognuno dei video in base al valore più alto fra quelli presenti.
+Ai fini del mio studio ho deciso di assegnare una singola label ad ognuno dei video in base al valore più alto fra quelli presenti.
 
-Il numero di 50 file per ognuno dei mood è stato scelto in quanto era il numero migliore per quanto riguarda il rapporto numero di dati da utilizzare e tempo per generare questi dati:
+Il numero di 50 file per ognuno dei mood è stato scelto in quanto rappresentava il numero migliore  in merito al rapporto numero di dati da utilizzare e tempo per generare questi dati:
 
-ogni video di quelli presenti all’interno del dataset \cite{DAiSEE} sono lunghi fra i 5 e 6 secondi, che diventano quindi fra i 270 e i 300 frame da analizzare; effettuando un test sommario sulla durata dell’analisi per un video di 300 frames ci sono voluti 192.60754 secondi, sostituendo la media del numero di frame nei video (285) a quelli del video analizzato ottengo un tempo di analisi medio di 182,97716 secondi.
+ogni video di quelli presenti all’interno del dataset \cite{DAiSEE} è lungo circa 5/6 secondi, i quali diventano quindi fra i 270 e i 300 frame da analizzare; effettuando un test sommario sulla durata dell’analisi, per un video di 300 frames sono stati necessari 192.60754 secondi, sostituendo la media del numero di frame nei video (285) a quelli del video analizzato ottengo un tempo di analisi medio di 182,97716 secondi.
 
-Moltiplicando questo valore per 200 ottengo 10,16539 ore alle quali vanno aggiunte le ore per scrivere su disco ognuna delle analisi e per generare i file con le entry riportate sopra. C’è poi da considerare la questione di surriscaldamento e relativo thermal throttling; il numero sopra riportato è stato ottenuto dall’esecuzione dell’analisi di un singolo video, è ragionevole pensare che, dopo aver raggiunto una temperatura abbastanza alta, il tempo di esecuzione delle singole analisi aumenti. 
+Moltiplicando questo valore per 200 ottengo 10,16539 ore alle quali vanno aggiunte le ore per scrivere su disco ognuna delle analisi e per generare i file con le entry riportate sopra. 
 
-Viene da sé che non è sostenibile, sia per quanto riguarda il tempo da dedicare a questa operazione sia a livello di costi, l’analisi di molti altri video, come si è poi rivelato necessario e che, da quanto si evince da \cite{WOman} invece, non avrebbero dovuto essere necessari. 
+C’è poi da considerare la questione di surriscaldamento e relativo thermal throttling; il numero sopra riportato è stato ottenuto dall’esecuzione dell’analisi di un singolo video, è ragionevole pensare che, dopo aver raggiunto una temperatura abbastanza alta, il tempo di esecuzione delle singole analisi aumenti. 
+
+Viene da sé che l’analisi di molti altri video non è sostenibile, sia per quanto riguarda il tempo da dedicare a questa operazione sia a livello di costi, come si è poi rivelato necessario e che, da quanto si evince da \cite{WoMan} invece, non sarebbero dovuti essere necessari. 
+
+Il tempo effettivo necessario per l'elaborazione dei video è stato di $\sim$ 36 ore.
 
 \section{Generazione dei modelli workflow attraverso WOman}
-Una volta generati i file con le entry ho fornito questi al professore che ha eseguito il framework dando in input i file risultanti per tutti i video di ognuno dei video uniti in sequenza.
+Una volta generati i file con le entry, ho fornito questi al professore che ha eseguito il framework dando in input i file risultanti per i video dei singoli mood uniti in singoli file, uno per ogni mood.
 
-Mi sono stati forniti due file per ognuno dei mood:
+Mi sono stati forniti due file di output per ognuno dei mood:
 \begin{itemize}
-\item il primo contiene il numero di task e di transition per ognuno dei casi (o activity) analizzati dal sistema che stanno a segnalare il numero di nuove task e di transizioni effettuate ad ogni nuovo video analizzato dal sistema per lo specifico workflow (o mood).
-\item nel secondo è presente invece il modello generato per ogni mood
+\item il primo contiene il numero di task e di transition per ognuno dei casi (o activity) analizzati dal sistema che stanno a segnalare il numero di nuovi task e di transizioni effettuate ad ogni nuovo video analizzato dal sistema per lo specifico workflow (o mood).
+\item nel secondo è presente invece il modello generato per ogni mood.
 \end{itemize}
 
-Riporto qui i grafici generati per il primo tipo di tipo di file:
+Riporto i grafici generati per il primo tipo di file alle immagini \ref{fig:image19},  \ref{fig:image20},  \ref{fig:image21},  \ref{fig:image22},  \ref{fig:image23},  \ref{fig:image24},  \ref{fig:image25},  \ref{fig:image26}.
 \newpage
 \begin{figure}  
     \centering
     \includegraphics[width=1\linewidth]{images/bored New Tasks.png}
+    \caption{Bored New Tasks}
+    \label{fig:image19}
 \end{figure}
 \begin{figure}
     \centering   
     \includegraphics[width=1\linewidth]{images/bored NewTransitions.png}
+    \caption{Bored New Transitions}
+    \label{fig:image20}
 \end{figure}\clearpage
 \begin{figure}
     \centering   
     \includegraphics[width=1\linewidth]{images/confused New Tasks.png}
+    \caption{Confused New Tasks}
+    \label{fig:image21}
 \end{figure}
 \begin{figure}
     \centering   
     \includegraphics[width=1\linewidth]{images/confused NewTransitions.png}
+    \caption{Confused New Transitions}
+    \label{fig:image22}
 \end{figure}\clearpage
 \begin{figure}
     \centering   
     \includegraphics[width=1\linewidth]{images/engaged New Tasks.png}
+    \caption{Engaged New Tasks}
+    \label{fig:image23}
 \end{figure}
 \begin{figure}
     \centering   
     \includegraphics[width=1\linewidth]{images/engaged NewTransitions.png}
+    \caption{Engaged New Transitions}
+    \label{fig:image24}
 \end{figure}\clearpage
 \begin{figure}
     \centering   
     \includegraphics[width=1\linewidth]{images/frustrated New Tasks.png}
+    \caption{Frustrated New Tasks}
+    \label{fig:image25}
 \end{figure}
 \begin{figure}
     \centering   
     \includegraphics[width=1\linewidth]{images/frustrated NewTransitions.png}
+    \caption{Frustrated New Transitions}
+    \label{fig:image26}
 \end{figure}\clearpage
 
-Come è possibile notare dai grafici sopra riportati:
+Come è possibile notare dai grafici:
 
-per quanto riguarda le task, dopo pochi video il numero di nuove task trovate scende a 0.
+per quanto riguarda i task, dopo pochi video il numero di nuovi task trovati scende a 0.
 
-mentre per quanto riguarda le transizioni non c’è una convergenza vera e propria con 50 video ma è presente un accenno di un progressivo abbassamento dei picchi.
+Mentre per quanto riguarda le transizioni non c’è una convergenza vera e propria con 50 video ma è presente un accenno di un progressivo abbassamento dei picchi.
 
 Vengono in mente più possibili soluzioni da provare per risolvere questa problematica:
 \begin {itemize}
-\item cambiare dataset per ottenerne un altro che contenga dei video nei quali sono presenti solo frame molto specifici in relazione al singolo mood e non anche frame che presentano altre espressioni facciali (che comunque sfociano nel mood categorizzato) come in DAiSEE.
-Per fare questo, oltre a trovare un altro dataset con questi dati, si potrebbe, con l’aiuto di un esperto, tagliare i video già presenti per ottenere dei video con all’interno solo i frame interessati.
-\item un altro approccio potrebbe essere fornire un numero maggiore di dati fino ad arrivare a 0 nuove transizioni; per quanto riguarda questo approccio ho provato a trovare, attraverso la regressione lineare, una linea che descrivesse l’andamento dei vari grafici tracciati utilizzando, sull’asse delle ascisse, il conto delle transizioni e, sull’asse delle ordinate, il numero di transizioni in quel momento (quindi come nei grafici riportati sopra).
+\item cambiare dataset per averne uno che contenga dei video nei quali sono presenti solo frame molto specifici in relazione al singolo mood e non anche frame che presentano altre espressioni facciali (che comunque sfociano nel mood categorizzato) come in DAiSEE.
+Per fare ciò, oltre a trovare un altro dataset con questi dati, si potrebbe, con l’aiuto di un esperto, modificare i video già presenti per ottenere dei video con all’interno solo i frame interessati.
+\item un altro approccio potrebbe essere fornire un numero maggiore di dati fino ad arrivare a 0 nuove transizioni; per quanto riguarda questo modus operandi ho provato a trovare, attraverso la regressione lineare, una linea che descrivesse l’andamento dei vari grafici tracciati utilizzando, sull’asse delle ascisse, il conto delle transizioni e, sull’asse delle ordinate, il numero di transizioni in quel momento (quindi come nei grafici riportati sopra).
 
 Ho trovato la linea sopracitata e ho generato anche i valori successivi fino ad arrivare al primo valore pari o minore a 0. 
 
-Essendo stato rilevato dal metodo utilizzando un trend negativo non sono presenti valori maggiori di 0 dopo il primo valore minore o uguale a 0.
+Essendo stato rilevato, dal metodo utilizzando, un trend negativo, non sono presenti valori maggiori di 0 dopo il primo valore minore o uguale a 0. È ovvio che questo valore, in uno scenario reale, potrebbe rialzarsi per poi, gradualmente, arrivare a zero e che i dati riportati di seguito non sono affidabili al 100\% ma danno solo una vaga indicazione di quanti altri video potrebbero essere necessari. 
 
-Il numero di passaggi successivi calcolato è riportato nell’immagine qui sotto:
+Il numero di passaggi successivi calcolato è riportato nell’immagine \ref{fig:image27}
 \begin{figure}
     \begin{center}    
         \includegraphics[width=1\linewidth]{images/passaggi aggiuntivi.png}
+        \caption{Numero di video aggiuntivi necessari per ogni mood}
+        \label{fig:image27}
     \end{center}
 \end{figure}
-Qui invece riporto i grafici generati con i nuovi possibili valori trovati:
+
+Riporto i grafici generati con i nuovi possibili valori trovati nelle immagini \ref{fig:image28}, \ref{fig:image29}, \ref{fig:image30}, \ref{fig:image31}.
 \begin{figure}
     \begin{center}    
         \includegraphics[width=1\linewidth]{images/bored prediction values.png}
+        \caption{Valori predetti per il mood Bored}
+        \label{fig:image28}
     \end{center}
 \end{figure}
 \begin{figure}
     \begin{center}    
         \includegraphics[width=1\linewidth]{images/confused prediction values.png}
+        \caption{Valori predetti per il mood Confused}
+        \label{fig:image29}
     \end{center}
 \end{figure}\clearpage
 \begin{figure}
     \begin{center}    
         \includegraphics[width=1\linewidth]{images/engaged prediction values.png}
+        \caption{Valori predetti per il mood Engaged}
+        \label{fig:image30}
     \end{center}
 \end{figure}
 \begin{figure}
     \begin{center}    
         \includegraphics[width=1\linewidth]{images/frustrated prediction values.png}
+        \caption{Valori predetti per il mood Frustrated}
+        \label{fig:image31}
     \end{center}
 \end{figure}\clearpage
 \end{itemize}
 \newpage
 
-Dalla seconda categoria di file con i modelli generati per ogni mood e dai file da me generati con all’interno le estrazioni create dai video ho estratto invece i seguenti dati:
+Dalla seconda categoria di file con i modelli generati per ogni mood e dai file da me generati con all’interno le estrazioni create dai video ho estratto invece i dati alla tabella \ref{tab:2}.
 
 
 \begin{table}
     \small
+    \caption{Tabella media risultati metriche}
+    \label{tab:2}
     \centering
     \begin{tabular}{|c|p{2.8cm}|p{2.8cm}|p{2.8cm}|p{2.8cm}|}
         \hline
         Mood       &   Numero di \newline attività &   Numero di eventi &   Numero di task &   Numero di \newline transizioni \\
         \hline
-        bored      &                 50 &          33103 &            50 &                7051 \\
+        bored      &              33103 &          33153 &            50 &                7051 \\
         \hline
-        confused   &                 50 &          36350 &            50 &                7905 \\
+        confused   &              36350 &          36400 &            50 &                7905 \\
         \hline
-        engaged    &                 50 &          36601 &            50 &                7624 \\
+        engaged    &              36601 &          36651 &            50 &                7624 \\
         \hline
-        frustrated &                 50 &          33407 &            50 &                7727 \\
+        frustrated &              33407 &          33457 &            50 &                7727 \\
         \hline
     \end{tabular}
 \end{table}
+
 

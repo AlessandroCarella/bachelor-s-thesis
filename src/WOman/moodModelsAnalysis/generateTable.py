@@ -37,8 +37,9 @@ def getActivitesAndEvents (table):
         activityCounter = 0
         for line in fileLines:
             if "begin_of_process" in line:
-                activityCounter += 1
+                eventCounter += 1
             elif "begin_of_activity" in line:
+                activityCounter += 1
                 eventCounter += 1
 
         mood = file.replace ("merged", "").replace (".txt", "").lower() 

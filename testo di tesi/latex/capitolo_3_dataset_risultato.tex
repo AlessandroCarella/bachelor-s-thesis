@@ -16,7 +16,7 @@ Le labels risultanti e il numero di sample per ognuna di queste sono:
 con un totale di 74322 immagini (o frame estratti da video) per le quali sono stati generati i dati relativi alle Action Units.
 
 \section{Generazione descrizione in linguaggio naturale}
-Sotto richiesta del professore ho aggiunto una descrizione in linguaggio naturale di ogni immagine utilizzando il seguente codice:
+Ho aggiunto una descrizione in linguaggio naturale di ogni immagine utilizzando il seguente codice:
 
 \begin{minted}[bgcolor=bg]{python}
 if value and value >= 0.5:
@@ -27,18 +27,18 @@ else:
 \end{minted}
 Questo algoritmo verifica inizialmente che il valore dell’Action Unit passato in input al metodo (non riportato interamente in quanto prevede azioni preliminari trascurabili) sia presente e, successivamente, in caso fosse provvista di un valore maggiore o uguale a 0.5 (il range di valori è fra 0 e 1) restituisce la stringa che ho descritto nello spazio sottostante; in caso contrario restituirà una stringa vuota.
 
-La frase restituita dall’algoritmo, nel caso in cui il valore sia maggiore o uguale a 0.5, è composta dal \colorbox{yellow}{nome FACS} della relativa \colorbox{yellow}{Action Unit}, con la successiva aggiunta del \colorbox{blue}{muscolo analizzato da questa Action Unit} e il \colorbox{green}{valore che è stato prelevato}.
+La frase restituita dall’algoritmo, nel caso in cui il valore sia maggiore o uguale a 0.5, è composta dal \colorbox{yellow}{nome FACS} della relativa \colorbox{yellow}{Action Unit}, con la successiva aggiunta del \colorbox{pink}{muscolo analizzato da questa Action Unit} e il \colorbox{green}{valore che è stato prelevato}.
 
 La frase presente nel dataset per ognuno dei samples è il risultato del concatenamento delle frasi generate per ogni Action Unit e separate da un “;”, ad esempio:
 
-\colorbox{yellow}{Upper Lip Raiser}, using the muscles: \colorbox{blue}{Levator Labii Superioris}, with a value of \colorbox{green}{0.6412415504}; \colorbox{yellow}{Dimpler}, using the muscles: \colorbox{blue}{Buccinator}, with a value of \colorbox{green}{0.6336596608}; \colorbox{yellow}{Chin Raiser}, using the muscles: \colorbox{blue}{Mentalis}, with a value of \colorbox{green}{0.6474888921}; \colorbox{yellow}{Lip Pressor}, using the muscles: \colorbox{blue}{Orbicularis Oris}, with a value of \colorbox{green}{0.582298696};
+\colorbox{yellow}{Upper Lip Raiser}, using the muscles: \colorbox{pink}{Levator Labii Superioris}, with a value of \colorbox{green}{0.6412415504}; \colorbox{yellow}{Dimpler}, using the muscles: \colorbox{pink}{Buccinator}, with a value of \colorbox{green}{0.6336596608}; \colorbox{yellow}{Chin Raiser}, using the muscles: \colorbox{pink}{Mentalis}, with a value of \colorbox{green}{0.6474888921}; \colorbox{yellow}{Lip Pressor}, using the muscles: \colorbox{pink}{Orbicularis Oris}, with a value of \colorbox{green}{0.582298696};
 
 
 \section{Estrazione delle Action Units utilizzando la libreria Py-feat}
 Prima di poter effettuare delle predizioni è necessaria la creazione di un oggetto Detector fornito dalla libreria.
 \begin{minted}[bgcolor=bg]{python}
 device = "cuda" if torch.cuda.is_available() else "cpu"
-    return Detector(
+return Detector(
     device=device,
     face_model="retinaface",
     landmark_model="mobilefacenet",
@@ -51,15 +51,15 @@ Come è possibile notare nel codice, durante la creazione dell’oggetto Detecto
 
 Per controllare che sia effettivamente possibile utilizzare questa funzionalità è stata usata la libreria torch per python.
 
-Il parametro face\_model imposta il modello di rilevamento del viso da utilizzare. Ho ritenuto opportuno impostarlo su "retinaface", popolare modello di rilevamento del viso che utilizza una CNN (Convolutional Neural Networks).
+Il parametro \mintinline[bgcolor=bg]{python}{face_model} imposta il modello di rilevamento del viso da utilizzare. Ho ritenuto opportuno impostarlo su \mintinline[bgcolor=bg]{python}{"retinaface"}, popolare modello di rilevamento del viso che utilizza una CNN (Convolutional Neural Networks).
 
-Il parametro landmark\_model imposta il modello di rilevamento dei landmark facciali da utilizzare. Qui è impostato su "mobilefacenet", un Single-stage dense face localisation in the wild ottenuto dagli autori della libreria da \cite{Chen2018MobileFaceNets} .
+Il parametro \mintinline[bgcolor=bg]{python}{landmark_model} imposta il modello di rilevamento dei landmark facciali da utilizzare. Qui è impostato su \mintinline[bgcolor=bg]{python}{"mobilefacenet"}, un Single-stage dense face localisation in the wild ottenuto dagli autori della libreria da \cite{Chen2018MobileFaceNets} .
 
-Il parametro au\_model prepara il modello utilizzato alla rilevazione automatica dell'unità d'azione (AU) facciale. Il modello è un classificatore Extreme Gradient Boosting (XGB) estratto, dagli autori di py-feat da i datasets BP4D, DISFA, CK+, UNBC-McMaster shoulder pain, e AFF-Wild2 e basato sul lavoro di \cite{ChenG16}.
+Il parametro \mintinline[bgcolor=bg]{python}{au_model} prepara il modello utilizzato alla rilevazione automatica dell'unità d'azione (AU) facciale. Il modello è un classificatore Extreme Gradient Boosting (\mintinline[bgcolor=bg]{python}{"xgb"}) estratto, dagli autori di py-feat da i datasets BP4D, DISFA, CK+, UNBC-McMaster shoulder pain, e AFF-Wild2 e basato sul lavoro di \cite{ChenG16}.
 
-Il parametro emotion\_model avvia il modello utilizzato per la rilevazione delle emozioni dalle espressioni facciali, ovvero "resmasknet", implementato utilizzando il lavoro di \cite{FacialExprRecoUseResMaskNet}.
+Il parametro \mintinline[bgcolor=bg]{python}{emotion_model} avvia il modello utilizzato per la rilevazione delle emozioni dalle espressioni facciali, ovvero \mintinline[bgcolor=bg]{python}{"resmasknet"}, implementato utilizzando il lavoro di \cite{FacialExprRecoUseResMaskNet}.
 
-Il parametro facepose\_model stabilisce il modello utilizzato per la stima della posa della testa "img2pose", implementato utilizzando il lavoro di \cite{img2pose}.
+Il parametro \mintinline[bgcolor=bg]{python}{facepose_model} stabilisce il modello utilizzato per la stima della posa della testa \mintinline[bgcolor=bg]{python}{"img2pose"}, implementato utilizzando il lavoro di \cite{img2pose}.
 
 \subsection{Dati ulteriori alle action units estratti da py-feat}
 Py-feat permette di estrarre i valori delle Action units attraverso il metodo \mintinline[bgcolor=bg]{python}{detector.detect_image(imagePath)} che prende in input il percorso di un’immagine e restituisce i valori estratti; i valori estratti da questo metodo non si limitano alle Action Units da me utilizzate poiché vengono calcolati anche altri valori, quali:
@@ -75,13 +75,13 @@ Py-feat permette di estrarre i valori delle Action units attraverso il metodo \m
 \item Pitch: l'angolo di inclinazione del volto (inclinazione su o giù) rilevato dal modello di posizione del volto
 \item Roll: l'angolo di rollio del volto (inclinazione a sinistra o destra) rilevato dal modello di posizione del volto
 \item Yaw: l'angolo di imbardata del volto (girare a sinistra o destra) rilevato dal modello di posizione del volto
-\item anger, disgust, fear, happiness, sadness, surprise, neutral: i punteggi di probabilità delle classi di emozioni rilevate come previsto dal modello di emozione.
+\item anger, disgust, fear, happiness, sadness, surprise, neutral: i punteggi di probabilità delle classi di emozioni rilevate come previsto dal modello interno alla libreria
 \item input: il percorso dell'immagine di input
-\item frame: l'indice del frame elaborato (se si sta elaborando più di un frame)
+\item frame: l'indice del frame elaborato (se si stanno elaborando più di un frame)
 \end{itemize}
 
 \subsection{Estrazione Action Units dalle immagini}
-I risultati ottenuti sono poi stati traslocati nel formato json mediante il metodo \mintinline[bgcolor=bg]{python}{detector.detect_image(imagePath).to_json()}, aggregati e salvati su un file, sempre in questo formato, così da poterli mostrare più chiaramente; successivamente questo file è stato trasformato in formato csv per una lettura più veloce da parte della libreria pandas.
+I risultati ottenuti sono poi stati convertiti nel formato json mediante il metodo \mintinline[bgcolor=bg]{python}{detector.detect_image(imagePath).to_json()}, aggregati e salvati su un file, sempre in questo formato, così da poterli mostrare più chiaramente; successivamente questo file è stato trasformato in formato csv per una lettura più veloce da parte della libreria pandas.
 
 \subsection{Estrazione Action Units dai video}
 Per quanto riguarda i video analizzati dal dataset DAiSEE la libreria offre il metodo \mintinline[bgcolor=bg]{python}{detector.detect_video(videoPath, skip_frames)}.
@@ -112,6 +112,7 @@ Le analisi dei video sono organizzate in modo diverso rispetto alle analisi per 
     "240.0": 310.235639881,
     "270.0": 312.9242931548
 },
+...
 \end{minted}
 
 \subsection{Pulizia dei dati}
@@ -134,7 +135,7 @@ Una volta ottenuti tutti i dati in un singolo file json (e parallelamente nel fi
 \begin{itemize}
     \item pulizia dei valori nulli:
     \begin{itemize}
-        \item o	sono state rimosse le righe dei datasets risultanti dalle analisi, attraverso il codice: \mintinline[bgcolor=bg]{python}{df = df.dropna(subset=['AU01'])}.
+        \item sono state rimosse le righe dei datasets risultanti dalle analisi, attraverso il codice: \mintinline[bgcolor=bg]{python}{df = df.dropna(subset=['AU01'])}.
         
         Il codice presentato rimuove ogni riga dove il valore della colonna \mintinline[bgcolor=bg]{python}{AU01} è nullo.
         
@@ -147,25 +148,27 @@ nullVals = df.isnull()
 print("Numero di valori nulli per ogni colonna:")
 print(nullVals.sum())
         \end{minted}
-        che dà in output:
+        l'output è riportato all'immagine \ref{fig:image8}:
         
         \begin{figure}
             \begin{center}    
-                \includegraphics[width=0.7\linewidth]{images/image35.png}
+                \includegraphics[width=0.6\linewidth]{images/image35.png}
+                \caption{Numero di valori nulli ancora presenti nel dataset risultato}
+                \label{fig:image8}
             \end{center}
         \end{figure}
-        Come è possibile osservare dall’immagine, il dataset risultato non presenta valori nulli.
+        Come è possibile osservare dall’immagine \ref{fig:image8}, il dataset risultato non presenta valori nulli.
     \end{itemize}
     \item aggiunta del valore di frame per ognuna delle analisi dei video:
     \begin{itemize}
-        \item ogni analisi dei singoli frame di un video presentava lo stesso percorso di input (il file video associato); di conseguenza ho aggiunto alla fine del valore della colonna di input il frame dal quale sono state estratte le analisi.
+        \item ogni analisi dei singoli frame di un video presentava lo stesso percorso di input (il file video associato); di conseguenza ho aggiunto alla fine del valore della colonna di input il frame dal quale sono state estratte le analisi
     \end{itemize}
     \item rimozione delle colonne che non riguardano le Action Units
     \item aggiunta colonne al dataset
     \begin{itemize}
         \item label:
         \begin{itemize}
-            \item le analisi inizialmente estrapolate non presentavano già le relative label; è stato quindi opportuno aggiungere.
+            \item le analisi inizialmente estrapolate non presentavano già le relative label; è stato quindi opportuno aggiungere
         \end{itemize}
         \item numLabel
         \begin{itemize}
@@ -186,22 +189,28 @@ print(nullVals.sum())
 \section{Resampling del dataset per migliorare la precisione delle predizioni} 
 Il dataset risultato da me realizzato presenta una notevole complicazione: se decidessi di effettuare delle predizioni attraverso uno dei classificatori generati direttamente dal dataset as-his, il numero di campioni (samples) per ognuno dei valori della colonna labels risulterebbe sbilanciato.
 
-Per sbilanciato intendo il fatto che sono presenti molti valori per alcune delle classi (labels), e troppi pochi, a confronto, per altri.
+Per sbilanciato intendo il fatto che sono presenti molti valori per alcune delle classi (mood), e troppi pochi, a confronto, per altri, come possibile notare nell'immagine \ref{fig:image34}.
 \begin{figure}
     \begin{center}    
-        \includegraphics[width=0.23\linewidth]{images/image42.png}
+        \includegraphics[width=0.2\linewidth]{images/image42.png}
+        \caption{Numero di sample per ogni mood nel dataset iniziale}
+        \label{fig:image34}
     \end{center}
 \end{figure}
 
-In questi grafici è possibile riscontrare la differenza fra il numero di elementi per ogni valore unico nella colonna label:
+Nei grafici \ref{fig:image9} \ref{fig:image10} è possibile riscontrare la differenza fra il numero di elementi per ogni valore unico nella colonna label:
 \begin{figure}
     \begin{center}    
         \includegraphics[width=0.75\linewidth]{images/image43.png}
+        \caption{Grafico a torta del numero di samples per ogni mood}
+        \label{fig:image9}
     \end{center}
 \end{figure}
 \begin{figure}
     \begin{center}    
         \includegraphics[width=0.75\linewidth]{images/image44.png}
+        \caption{Grafico a barre del numero di samples per ogni mood}
+        \label{fig:image10}
     \end{center}
 \end{figure}
 
@@ -213,11 +222,12 @@ Ciò può essere effettuato in modo casuale, pur essendo possibile utilizzare te
 
 Il codice utilizzato per effettuare l’undersampling dei sample per ognuna delle labels è il seguente:
 \begin{minted}[bgcolor=bg, fontsize=\scriptsize]{python}
+import pandas as pd
 def undersampleDataset(df, columnName, valueToDownSample, numberOfSamplesAfter):
     if len(df[df[columnName] == valueToDownSample]) > numberOfSamplesAfter:
         engagedIndices = df[df[columnName] == valueToDownSample].index
         tempDf = df.loc[engagedIndices]
-        tempDfUndersampled = tempDf.sample(n=numberOfSamplesAfter, random_state=69)
+        tempDfUndersampled = tempDf.sample(n=numberOfSamplesAfter, random_state=42)
         return pd.concat([df.drop(engagedIndices), tempDfUndersampled])
     return df
 \end{minted}
@@ -227,6 +237,8 @@ Sussistono molte tecniche per l'oversampling, tra cui la duplicazione casuale de
 
 Il codice utilizzato per effettuare l’oversampling dei sample per ognuna delle labels è il seguente:
 \begin{minted}[bgcolor=bg, fontsize=\scriptsize]{python}
+import pandas as pd
+from sklearn.utils import resample
 def oversampleDataset(df, columnName, valueToOversample, numberOfSamplesAfter):
     if len(df[df[columnName] == valueToOversample]) < numberOfSamplesAfter:
         engagedIndices = df[df[columnName] == valueToOversample].index
@@ -235,7 +247,7 @@ def oversampleDataset(df, columnName, valueToOversample, numberOfSamplesAfter):
             tempDf, 
             replace=True, 
             n_samples=numberOfSamplesAfter, 
-            random_state=69
+            random_state=42
         )
         return pd.concat([df.drop(engagedIndices), tempDfOversampled])
     return df
@@ -268,8 +280,6 @@ def resampleDataset ():
             label, 
             numberOfValuesForEachLabel
         )
-
-    visualizeDataFrameChart(df)
 
    df.to_csv(newDatasetPath, index=False)
 \end{minted}
@@ -318,14 +328,18 @@ Quasi sempre veniva rilevato che la persona ripresa nell’immagine aveva delle 
 
 Dopo aver messo in pratica vari test, sono giunto alla conclusione di eseguire un resample al fine di ottenere 2000 istanze per ogni label, in quanto questo sembra il numero di sample in grado di far conseguire risultati più corenti nel tempo; i risultati relativi ottenuti sono riportati nell’ultimo capitolo. 
 
-Di seguito riporto i grafici riguardanti il dataset presentati all’inizio, generati dopo aver effettuato il resampling:
+Di seguito riporto i grafici \ref{fig:image11} e \ref{fig:image12} riguardanti il dataset presentati all’inizio, generati dopo aver effettuato il resampling:
 \begin{figure}
     \begin{center}    
         \includegraphics[width=1\linewidth]{images/image45.png}
+        \caption{Grafico a torta del numero di samples per ogni mood post resampling}
+        \label{fig:image11}
     \end{center}
 \end{figure}
 \begin{figure}
     \begin{center}    
         \includegraphics[width=1\linewidth]{images/image46.png}
+        \caption{Grafico a barre del numero di samples per ogni mood post resampling}
+        \label{fig:image12}
     \end{center}
 \end{figure}

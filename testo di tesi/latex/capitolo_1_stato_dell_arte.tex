@@ -3,7 +3,7 @@
 \section{Studi sull’engagement all’interno degli ambienti di studio}
 Gli studi ritrovati che effettuano quest’analisi o trattano un argomento simile o tangente sono:
 \subsection{Recognizing Cognitive Emotions in E-Learning Environment}
-In questo studio \cite{RecoCognEmoELearnEnv} gli stati di d’animo che vengono classificati dal loro sistema sono i seguenti:
+In questo studio (\cite{RecoCognEmoELearnEnv}) gli stati di d’animo che vengono classificati dal loro sistema sono i seguenti:
 \begin{itemize}
     \item Entusiasmo,
     \item Interesse,
@@ -32,11 +32,11 @@ l’attività di apprendimento.
 
 Naturalmente un sistema che permette di “leggere” con precisione lo stato d’animo di uno studente/studentessa o persino di un’intera classe, e quindi capire se questi si trovino nello stato di flow che possa permettere una migliore performance, è uno strumento utile per qualsiasi insegnante.
 
-Un esempio circoscritto all’ambiente di lavoro potrebbe invece essere un’analisi del lavoratore nello svolgimento di un task e la possibilità, da parte di un capo progetto o di un tutor, di poter intervenire esclusivamente nel momento in cui il suo subordinato sta riscontrando dei problemi; in tal modo è permessa al dipendente una crescita professionale adeguata e non seguita al 100\%, così da sfruttare al meglio l’impiego del tempo del tutor.
+Un esempio circoscritto all’ambiente di lavoro potrebbe invece essere un’analisi del lavoratore nello svolgimento di un task e la possibilità, da parte di un capo progetto o di un tutor, di poter intervenire esclusivamente nel momento in cui il suo subordinato stia riscontrando dei problemi; in tal modo è permessa al dipendente una crescita professionale adeguata e non seguita al 100\%, così da sfruttare al meglio l’impiego del tempo del tutor.
 
 \subsection {The faces of Engagement: Automatic Recognition of Student Engagement from Facial Expression}
 
-In \cite{FacesOfEngagement}, gli stati d’animo organizzati in scala da meno attento/a a più attento/a sono:
+In \cite{FacesOfEngagement}, gli stati d’animo organizzati in scala da meno attento/a a più attento/a, sono:
 \begin{itemize}
     \item Not engaged at all (Non coinvolto: che guarda da un’altra parte, che sta ovviamente non pensando al compito, occhi completamente chiusi)
     \item Nominally engaged (Formalmente coinvolto: occhi appena aperti, chiaramente non attento/a al task che sta svolgendo)
@@ -45,6 +45,12 @@ In \cite{FacesOfEngagement}, gli stati d’animo organizzati in scala da meno at
     \item Clip/frame non chiaro (l’immagine analizzata non contiene una persona o comunque non è possibile effettuare un’identificazione)
 \end{itemize}
 
+Lo studio si concentra sull’effettuare una stima dell’engagement degli studenti. 
+
+È stato inizialmente sviluppato un metodo per rilevare automaticamente l’engagement, si è poi indagato su quali segnali siano utilizzati nel riconoscimento automatico effettuato dal computer per poi individuare quali strumenti vengano adoperati dagli insegnanti per risolvere il medesimo task.
+
+Infine si è investigato sulla correlazione effettiva fra i risultati di queste analisi e la qualità delle performance degli studenti.
+
 \begin{figure}
     \begin{center}    
         \includegraphics[width=0.4\linewidth]{images/2.png}
@@ -52,35 +58,29 @@ In \cite{FacesOfEngagement}, gli stati d’animo organizzati in scala da meno at
     \end{center}
 \end{figure}
 
-
-Lo studio si concentra sull’effettuare una stima dell’engagement degli studenti. 
-
-È stato inizialmente sviluppato un metodo per rilevare automaticamente l’engagement, si è poi indagato su quali segnali siano utilizzati nel riconoscimento automatico effettuato dal computer per poi individuare quali strumenti vengano adoperati dagli insegnanti per risolvere il medesimo task.
-
-Infine si è investigato sulla correlazione effettiva fra i risultati di queste analisi e la qualità delle performance degli studenti.
-
 \subsection{Facial coding as a mean to enable continuous monitoring of student’s behaviour in e-Learning }
 
 Il paper \cite{FacialCodingContinMonitor} si focalizza sul tracciamento continuo degli studenti, sia per quanto riguarda una vera e propria identificazione degli stessi attraverso il riconoscimento facciale, sia per calcolarne il livello di attenzione ed eventualmente stimarne le emozioni provate durante i corsi MOOCs (Massive Open Online Courses).
 
 Per dirigere l’analisi del livello di attenzione, si è ricorso all’uso della libreria esterna Dlib, la quale consente di creare una mappatura delle caratteristiche facciali dello/a studente; per giunta, la piattaforma include anche un gaze tracker che lascia prevedere la direzione dello sguardo degli studenti durante lo svolgimento del corso.
 
-Questi tre aspetti vengono successivamente congiunti al fine di creare un applicativo web per l’apprendimento attraverso il quale, alla fine di ogni lezione, è possibile visionare in quale percentuale della durata del corso le persone hanno adempito alle metriche sopracitate.
+Questi tre aspetti vengono successivamente congiunti al fine di creare un applicativo web per l’apprendimento, attraverso il quale, alla fine di ogni lezione, è possibile visionare in quale percentuale della durata del corso le persone hanno adempito alle metriche citate nell'immagine \ref{fig:image32}.
 
 \begin{figure}
     \begin{center}    
         \includegraphics[width=1\linewidth]{images/3.png}
-        \caption{Esempio output del programma}
+        \caption{Esempio di output del programma}
+        \label{fig:image32}
     \end{center}
 \end{figure}
  
 \subsection{Prediction and Localization of student engagement in the wild}
 
-Questo studio \cite{PredLocStudEngagInTheWild}, a differenza di altri, ha come premessa l’utilizzo delle immagini raccolte in ambienti non controllati per la creazione del modello che andrà successivamente ad effettuare la predizione per i nuovi campioni.
+Lo studio \cite{PredLocStudEngagInTheWild}, a differenza di altri, ha come premessa l’utilizzo delle immagini raccolte in ambienti non controllati per la creazione del modello che andrà successivamente ad effettuare la predizione per i nuovi campioni.
 
 Per ambienti controllati, si intende setup di acquisizione dei video e delle immagini grazie ai quali non è possibile riscontrare problemi, quali scarsa illuminazione, occlusione ambientale, etc…
 
-Per attuare ciò, sono stati sottoposti ad analisi molti studi precedentemente effettuati, per convenire al raccoglimento di campioni attraverso la visione, da parte dei soggetti, di video educazionali, categorizzando poi i vari video ed immagini ottenute in una scala, con valore da 0 a 3:
+Per attuare ciò, sono stati sottoposti ad analisi molti studi precedentemente effettuati, per convenire al raccoglimento di campioni attraverso la fruizione, da parte dei soggetti, di video educazionali, categorizzando poi i vari video ed immagini ottenute in una scala, con valore da 0 a 3:
 \begin{itemize}
     \item 0 \textrightarrow per niente interessato (il soggetto non sembra interessato e guarda spesso al di fuori dello schermo)
     \item 1 \textrightarrow poco interesse (il soggetto apre a malapena gli occhi, si muove in modo irrequieto sulla sedia)
@@ -101,7 +101,7 @@ Hanno poi sfruttato un framework che esegue il riconoscimento dell’engagement 
 \begin{figure}
     \begin{center}    
         \includegraphics[width=0.8\linewidth]{images/4.png}
-        \caption{Esempio di campioni dal loro dataset}
+        \caption{Esempio di campioni dal dataset utilizzato in \cite{PredLocStudEngagInTheWild}}
     \end{center}
 \end{figure}
 
@@ -145,11 +145,12 @@ Le sei espressioni facciali di base:
 \end{itemize}
 possono essere descritte utilizzando le AUs, codificate in base ai coinvolgimenti muscolari facciali.
 
-Il processo di estrazione delle caratteristiche di movimento di un’espressione facciale è illustrato in figura:
+Il processo di estrazione delle caratteristiche di movimento di un’espressione facciale è illustrato nella figura \ref{fig:image1}.
 \begin{figure}
     \begin{center}    
         \includegraphics[width=1\linewidth]{images/14.png}
         \caption{Processo di estrazione dinamica delle feature delle espressioni facciali}
+        \label{fig:image1}
     \end{center}
 \end{figure}
 
@@ -165,7 +166,7 @@ Per la classificazione combina i risultati degli alberi decisionali per fornire 
 
 Questo algoritmo ha la capacità di gestire errori di bilanciamento nella popolazione delle classi in dati sbilanciati.
 
-Per validare i risultati, i ricercatori hanno condotto degli esperimenti sui datasets Cohn-Kanade e Oulu-CAISA VIS servendosi solo delle sequenze di immagini contenti una vista frontale o girata a 30 gradi dei soggetti.
+Per validare i risultati, i ricercatori hanno condotto degli esperimenti sui datasets Cohn-Kanade \cite{CohnKanadeDatabase} e Oulu-CAISA VIS \cite{OuluCasia} servendosi solo delle sequenze di immagini contenti una vista frontale o girata a 30 gradi dei soggetti.
 Nel primo dataset sono categorizzate 7 espressioni (anger, contempt, disgust, fear, happy, sadness and surprise), con soggetti di età compresa fra i 18 e i 50 anni.
 
 Il secondo dataset contiene samples ripresi in diverse condizioni di luce; nonostante ciò, sono state incluse solo le immagini con condizioni di illuminazione favorevoli (luce forte o buona illuminazione).
@@ -178,17 +179,21 @@ Tale metodo viene messo a confronto con una rete bayesiana; questo modello predi
 
 Il metodo proposto dal paper, basato sulle AUs, può invece incrementare il tasso di riconoscimento medio all’89,37\%. 
 
-I risultati riportati nella tabella dell’immagine sottostante raffigurano il tasso di riconoscimento per la rilevazione dell'espressione facciale basata sulle AUs utilizzando il random forest. 
+I risultati riportati nella tabella dell’immagine \ref{fig:image2} raffigurano il tasso di riconoscimento per la rilevazione dell'espressione facciale basata sulle AUs utilizzando il random forest. 
 \begin{figure}
     \begin{center}    
         \includegraphics[width=0.7\linewidth]{images/15.png}
+        \caption{Matrice di confusione del riconoscimento delle espressioni basato su Action Units usando Random Forest}
+        \label{fig:image2}
     \end{center}
 \end{figure}
 
-Confrontando i risultati della Tabella riportata nell’immagine qui sotto, dove sono raffigurati i tassi di riconoscimento della rete bayesiana, le prestazioni migliorano significativamente. 
+Confrontando i risultati della Tabella riportata nell’immagine \ref{fig:image3}, dove sono raffigurati i tassi di riconoscimento della rete bayesiana, le prestazioni migliorano significativamente. 
 \begin{figure}
     \begin{center}    
         \includegraphics[width=0.7\linewidth]{images/16.png}
+        \caption{Matrice di confusione del riconoscimento delle espressioni basato su Action Units usando Rete Bayesiana}
+        \label{fig:image3}
     \end{center}
 \end{figure}
 
@@ -198,15 +203,17 @@ Una possibile spiegazione è che la tristezza e la paura sono di solito poco evi
 
 Per giunta, i tassi di successo di emozioni come la rabbia, la sorpresa e il disgusto sono stati significativamente migliorati sfruttando il framework proposto. 
 
-Per confermare l'efficacia del metodo, sono stati selezionati casualmente un set di training ed un set di testing dal dataset, per poi ripetere l'esperimento nove volte. Tutti i risultati sono riportati qui di seguito. 
+Per confermare l'efficacia del metodo, sono stati selezionati casualmente un set di training ed un set di testing dal dataset, per poi ripetere l'esperimento nove volte. Tutti i risultati sono riportati qui di seguito nell'immagine \ref{fig:image4}. 
 \begin{figure}
     \begin{center}    
         \includegraphics[width=1\linewidth]{images/17.png}
+        \caption{Tasso di riconoscimento in percentule per le nove selezioni randomiche del training e test set}
+        \label{fig:image4}
     \end{center}
 \end{figure}
 
 È stato dimostrato che il sistema ha una prestazione stabile utilizzando set di training e testing diversi. 
-Il tasso di riconoscimento medio è significativamente più alto del metodo di confronto [15].
+Il tasso di riconoscimento medio è significativamente più alto del metodo di confronto \cite{LearnExpresSpatTempManiFoldDynamFaceExpressReco}.
 
 Un altro studio utilizzato per la predizione delle emozioni attraverso l’analisi delle Action Units è \cite{InferEmoFaceAUs}.
 In questo studio viene proposto un metodo per mappare le AUs a sei emozioni:
@@ -241,10 +248,12 @@ Il metodo proposto è stato testato su vari datasets:
 
 è stata poi effettuata una comparazione fra il metodo proposto e altri precedentemente presentati e si sono notati dei miglioramenti, sia sui datasets di benchmark che per quelli in-the-wild.\newpage
 
-La procedura proposta basa il rilevamento delle AUs sul metodo offerto da \cite{RecoFaceExprMachLearnAppSpontBehav} e a seguire le Action Units vengono mappate con il metodo indicato nel paper.
+La procedura proposta basa il rilevamento delle AUs sul metodo offerto da \cite{RecoFaceExprMachLearnAppSpontBehav} e a seguire le Action Units vengono mappate con il metodo indicato nel paper, ed è visibile nell'immagine \ref{fig:image33}.
 \begin{figure}
     \begin{center}    
         \includegraphics[width=0.7\linewidth]{images/18.png}
+        \caption{Metodo di mappatura delle Action Units di \cite{RecoFaceExprMachLearnAppSpontBehav}}
+        \label{fig:image33}
     \end{center}
 \end{figure}
 
@@ -258,7 +267,7 @@ L’idea sulla quale il modello sviluppato in questo paper si fonda è che diver
 
 È per questo che il loro metodo si concentra maggiormente sul trovare la correlazione fra le singole AUs e le emozioni che sulla diretta predizione di queste.
 
-La relazione fra le Action Units e le sei emozioni si ottiene mediante un'analisi statistica del dataset di riferimento (CK+), etichettato sia per le emozioni che per le AUs. Le relazioni vengono acquisite sotto forma di una matrice relazionale derivata utilizzando un concetto chiamato discriminative power [17]. 
+La relazione fra le Action Units e le sei emozioni si ottiene mediante un'analisi statistica del dataset di riferimento (CK+), etichettato sia per le emozioni che per le AUs. Le relazioni vengono acquisite sotto forma di una matrice relazionale derivata utilizzando un concetto chiamato discriminative power \cite{AutoInfereComplMentStatesVid}. 
 
 Il discriminative power è definito come:
 \[
@@ -268,23 +277,26 @@ dove P(Yj |Xi) è la probabilità dell'azione $Yj$, dopo che $Xi$ è avvenuta, e
 
 La matrice relazionale viene ottenuta normalizzando H su tutte le AU per ciascuna delle emozioni. Pertanto, si ottengono pesi di associazione non lineari per ciascuna delle Action Unit, in base alla loro rilevanza per le emozioni calcolate servendosi dell'equazione sopra riportata.
 
-La figura qui di seguito riporta la matrice di relazione calcolata per le sei emozioni. Qui, i valori positivi, rappresentati in bianco, indicano l'alta probabilità per un'AU di appartenere ad un'emozione; d’altra parte, i valori negativi, rappresentati in nero, indicano l'alta probabilità per un'AU di non essere associata ad un'emozione. 
+La figura \ref{fig:image5} riporta la matrice di relazione calcolata per le sei emozioni. Qui, i valori positivi, rappresentati in bianco, indicano l'alta probabilità per un'AU di appartenere ad un'emozione; d’altra parte, i valori negativi, rappresentati in nero, indicano l'alta probabilità per un'AU di non essere associata ad un'emozione. 
 
 Ad esempio, l'emozione happy è associata positivamente alle AU6, AU7, AU12, AU26 e negativamente alle AU1, AU2, AU5, AU9. 
 
 I risultati sperimentali presentati dallo studio dimostrano che la matrice di relazione derivata è efficiente nell'identificazione delle azioni facciali altamente rilevanti e i loro pesi di associazione per le varie emozioni, e può quindi prevedere correttamente le emozioni.
 \begin{figure}
     \begin{center}    
-        \includegraphics[width=0.7\linewidth]{images/19.png}
+        \includegraphics[width=0.6\linewidth]{images/19.png}
+        \caption{Matrice di relazione calcolata sulle sei emozioni}
+        \label{fig:image5}
     \end{center}
 \end{figure}
 
 Per ciascuna emozione sono state selezionate le prime N entrate da AU altamente discriminanti e queste sono state salvate come stringhe di template per i futuri abbinamenti delle Action Units. 
 
-La lunghezza di stringa di template utilizzata è di cinque per gli esperimenti condotti dai ricercatori dello studio.\newpage
+La lunghezza delle stringhe di template utilizzata è di cinque per gli esperimenti condotti dai ricercatori dello studio.\newpage
 \begin{figure}
     \begin{center}    
-        \includegraphics[width=0.9\linewidth]{images/20.png}
+        \includegraphics[width=1\linewidth]{images/20.png}
+        \caption{Esempio di stringa template}
     \end{center}
 \end{figure}
 
@@ -298,16 +310,20 @@ Ad esempio, nella stringa “ACTTGCG”, “ACT”, “ATTC” e “ACTTGC” so
 
 LCS permette "inserzioni", "eliminazioni" e "sostituzioni" delle singole AUs tra le stringhe. Questa caratteristica di LCS si è rivelata idonea per la predizione delle emozioni da stringhe di Action Units.
 
-Per fare un esempio, data un'immagine di test, possono essere predette le combinazioni di AUs riportate nell’immagine sotto.
+Per fare un esempio, data un'immagine di test, possono essere predette le combinazioni di AUs riportate nell’immagine \ref{fig:image6}.
 
 In questo caso, la proprietà di eliminazione diventa importante per la mappatura delle diverse stringhe di Action Units come {AU12} o {AU6, AU12} o {AU6, AU12, AU26} all'emozione happy, poiché tutte indicano l’emozione di felicità pur mancando, alcune delle AU, nelle stringhe. 
 
 Allo stesso modo, l'inserzione ha un ruolo nell’eliminazione delle AU rilevate erroneamente, come {AU1, AU4}, che comunque mappano l'emozione nella figura alla stringa di template che rappresenta l’emozione happy. 
 
-Inoltre, permettere le sostituzioni aiuta a correggere gli errori di rilevazione che coinvolgono AU visivamente simili come AU12, AU20, AU23, e a predire l'emozione con un alto valore di confidenza. Viene evitata anche la mappatura errata di molte emozioni quando la stringa di test presenta errori considerevoli.
+Inoltre, permettere le sostituzioni aiuta a correggere gli errori di rilevazione che coinvolgono AU visivamente simili come AU12, AU20, AU23, e a predire l'emozione con un alto valore di confidenza. 
+
+Viene evitata anche la mappatura errata di molte emozioni quando la stringa di test presenta errori considerevoli.
 \begin{figure}
     \begin{center}    
         \includegraphics[width=1\linewidth]{images/21.png}
+        \caption{Esempio di rilevamento delle Action Units}
+        \label{fig:image6}
     \end{center}
 \end{figure}
 
@@ -321,11 +337,13 @@ Ad esempio, in sostituzioni non condizionali, una stringa di test come
 
 con un costo di sostituzione di "3". 
 
-I risultati e l’accuratezza ottenuta dal metodo proposto dallo studio sui vari dataset utilizzati per valutarlo sono esposti in questa immagine:
+I risultati e l’accuratezza ottenuta dal metodo proposto dallo studio sui vari dataset utilizzati per valutarlo sono esposti nella tabella all'immagine \ref{fig:image7}:
 
 \begin{figure}
     \begin{center}    
         \includegraphics[width=1\linewidth]{images/22.png}
+        \caption{Accuracy del metodo}
+        \label{fig:image7}
     \end{center}
 \end{figure}
 
@@ -333,10 +351,11 @@ I risultati e l’accuratezza ottenuta dal metodo proposto dallo studio sui vari
 
 Analizzando altri papers sul soggetto, nessuno di questi mi è apparso particolarmente rilevante, in quanto carenti di metodologie che aggiungevano informazioni e metodi utili da unire ai lavori già ritrovati; inoltre i risultati di accuratezza e precisione ottenuti da questi sono inferiori rispetto agli studi già analizzati o insufficientemente migliori e necessitano di più risorse (tempo, quantità di dati e potere computazionale).
 
-Ad esempio, in [14] vengono confrontate le due principali tecniche di previsione delle emozioni facciali, ovvero le tecniche di apprendimento automatico (ML) e di deep learning (DL), in termini di accuratezza e livello di accountability. 
+Ad esempio, in \cite{FaceEmoPredAUsDeepLearn} vengono confrontate le due principali tecniche di previsione delle emozioni facciali, ovvero le tecniche di apprendimento automatico (ML) e di deep learning (DL), in termini di accuratezza e livello di accountability. 
 \begin{figure}
     \begin{center}    
         \includegraphics[width=1\linewidth]{images/23.png}
+        \caption{Entrambi i process flow del riconoscimento delle emozioni facciali in \cite{FaceEmoPredAUsDeepLearn}}
     \end{center}
 \end{figure}
 
@@ -355,20 +374,19 @@ Un altro problema trattato solo da \cite{PredLocStudEngagInTheWild} (fra i paper
 
 Molti degli studi effettuati si concentrano su campioni prodotti in ambienti controllati, con nessun tipo di interferenza per quanto concerne i problemi che abitualmente si possono riscontrare quando invece si lavora con riprese che potrebbero avere una valenza anche quando le migliori condizioni non si presentano.
 
-Come riporta \cite{AFEWVAdatabaseInTheWild}: “The videos are recorded under controlled conditions, e.g. illumination is uniform, background is static, and there is a limited amount of head pose variation and occlusion. Although a range of affective states are displayed and recorded, emotions are elicited by a limited number of tasks, e.g., in [50], all subjects underwent exactly the same tasks.”
+Come riporta \cite{AFEWVAdatabaseInTheWild}: “The videos are recorded under controlled conditions, e.g. illumination is uniform, background is static, and there is a limited amount of head pose variation and occlusion. Although a range of affective states are displayed and recorded, emotions are elicited by a limited number of tasks, e.g., in \cite{BelfastInducedNaturalEmotionDatabase}, all subjects underwent exactly the same tasks.”
 
 Quindi i video creati in condizioni verificate, di luce uniforme, sfondo statico, con insufficienti variazioni nella posa delle persone, poca occlusione e dove le persone svolgono lo stesso compito non sono validi per creare un modello che possa effettuare delle predizioni veritiere da applicare ad ogni ambiente.
 
-Per quanto riguarda la raccolta di immagini, negli studi “in the wild” è stata messa in atto il prelievo e la categorizzazione delle immagini da film, serie tv, e altri media che non rispettano gli standard imposti durante la creazione dei dataset prelevati invece in ambienti controllati \cite{AFEWVAdatabaseInTheWild}.
+Per quanto riguarda la raccolta di immagini, negli studi “in the wild” è stato messo in atto il prelievo e la categorizzazione delle immagini da film, serie tv, e altri media che non rispettano gli standard imposti durante la creazione dei dataset prelevati invece in ambienti controllati \cite{AFEWVAdatabaseInTheWild}.
 
 Per l’annotazione delle immagini sono stati consultati due annotatori esperti FACS AU che hanno individuato lo stato d’animo della/e persone presenti all’interno della scena presentata attraverso una piattaforma di tagging delle immagini.
 
-Entrambi gli annotatori erano sempre presenti durante l’analisi dei singoli campioni ed hanno quindi potuto discutere ognuno dei casi incerti insieme; una volta concluse le prime analisi, sono stati inoltre ripresentati alcuni dei frame già analizzati agli stessi annotatori in modo da effettuare un’ulteriore verifica della loro consistenza, ed essi hanno dato la stessa annotazione l’87\% delle volte. Le annotazioni dello studio sono quindi da considerarsi affidabili.
+Entrambi gli annotatori erano sempre presenti durante l’analisi dei singoli campioni ed hanno quindi potuto discutere ognuno dei casi incerti insieme; una volta concluse le prime analisi, sono stati inoltre ripresentati alcuni dei frame già analizzati agli stessi annotatori in modo da effettuare un’ulteriore verifica della loro consistenza, ed essi hanno dato la stessa annotazione l’87\% delle volte.
 
 Per costruire il modello hanno poi utilizzato l’estrazione delle AU attraverso un sistema semi automatico, ed hanno utilizzato questi dati estratti per la costruzione del modello.
 
 I risultati di queste analisi hanno portato alla conclusione che i modelli sviluppati attraverso raccolte di immagini prelevate in scenari controllati non portano necessariamente a risultati puntuali (o accurati) quando vengono applicati al mondo reale.
-
 Una volta analizzati i sistemi utilizzati per l’elaborazione dei dati raccolti dai ricercatori che hanno redatto gli studi riportati precedentemente, ritengo ora necessario illustrare gli strumenti di cui si sono avvalsi.
 
 
@@ -385,20 +403,15 @@ Le FACS sono state utilizzate in una vasta gamma di contesti, tra cui la ricerca
 
 Questo sistema è stato utilizzato con successo in molti contesti diversi ed è un metodo utile per descrivere le espressioni facciali in modo oggettivo e dettagliato. 
 
-Sulla documentazione della libreria che ho utilizzato per l’estrazione delle AUs dal dataset aggregato ed utilizzato, è presente una tabella dove viene mostrato: il numero associato alla singola Action Unit, il loro relativo nome FACS, a quali muscoli della faccia sono correlate, la loro categoria FACS, le espressioni che vengono spesso legate a determinati valori di esse e i modelli che le utilizzano.
-
+Sulla documentazione della libreria che ho utilizzato per l’estrazione delle AUs dal dataset aggregato ed utilizzato, è presente una tabella dove viene mostrato: il numero associato alla singola Action Unit, il loro relativo nome FACS, a quali muscoli della faccia sono correlate, la loro categoria FACS, le espressioni che vengono spesso legate a determinati valori di esse e i modelli che le utilizzano. Ho reso disponibile un estratto di questa \ref{Tab:Tabella_AUs} dove vengono presentate solo le Action Units utilizzate dalla libreria \cite{PyFeat} utilizzata per estrarre questi dati dalle immagini ma la tabella completa è consultabile sulla relativa pagina web.
+\newpage
 \begin{figure}
     \begin{center}    
         \includegraphics[width=1\linewidth]{images/10.jpg}
-        \caption{Esempi di Action Units}
+        \caption{Esempi di Action Units e le relativi sezioni facciali}
     \end{center}
 \end{figure}
 
-\newpage
-
-Nella tabella ~\ref{Tab:Tabella_AUs} è riportato un estratto della tabella consultabile interamente al link presentato nel riferimento \cite{PyFeat} con le AUs che vengono estratte per la creazione del mio modello. La tabella è presente alla fine del capitolo.
-
-\newpage
 
 \section{Metodologie di tagging delle immagini del dataset}
 Per quanto riguarda la classificazione delle immagini dei dataset, vari studi hanno fatto ricorso a tecniche diverse:
@@ -410,7 +423,7 @@ Per quanto riguarda la classificazione delle immagini dei dataset, vari studi ha
 
 Strumenti utilizzati per effettuare la classificazione:
 \begin{itemize}
-    \item Piattaforma FEELTRACE (o altri software di annotazione manuale) che permette di registrare e analizzare i segnali EMG (Elettromiografici) e di misurare forza e durata delle risposte emotive dei partecipanti tramite una scala da 0 a 10 mentre i partecipanti osservano immagini, video o altre tipologie di stimoli emotivi. \cite{AFEWVAdatabaseInTheWild}
+    \item Piattaforma FEELTRACE (o altri software di annotazione manuale) che permette di registrare e analizzare i segnali EMG (Elettromiografici) e di misurare forza e durata delle risposte emotive dei partecipanti tramite una scala da 0 a 10 mentre i partecipanti osservano immagini, video o altre tipologie di stimoli emotivi \cite{AFEWVAdatabaseInTheWild}
     \begin{figure}[h]
         \centering    
             \includegraphics[width=0.5\linewidth]{images/11.jpg}
@@ -419,7 +432,7 @@ Strumenti utilizzati per effettuare la classificazione:
     \item Questionari a cui sottoporre i soggetti che vengono ripresi per la creazione del dataset
         \item \mbox{}\\[-\baselineskip]
         \begin{minipage}[t]{0.6\textwidth}
-            In \cite{DAiSEE} è stata adoperata una tecnica di crowdsourcing: mediante la piattaforma Amazon Mechanical Turk (o MTurk) i ricercatori hanno specificato la task che si erano proposti di risolvere e hanno fornito i frame da analizzare. Questi sono stati poi suddivisi dalla piattaforma e categorizzati dai singoli individui (tale servizio è naturalmente retribuito)
+            In \cite{DAiSEE} è stata adoperata una tecnica di crowdsourcing: mediante la piattaforma Amazon Mechanical Turk (o MTurk) i ricercatori hanno specificato il task che si erano proposti di risolvere e hanno fornito i frame da analizzare. Questi sono stati poi suddivisi dalla piattaforma e categorizzati dai singoli individui (tale servizio è ovviamente retribuito)
         \end{minipage}\hfill
         \begin{minipage}[t]{0.3\textwidth}
             \centering
@@ -437,10 +450,22 @@ Per quanto concerne l’estrazione dei dati dalle immagini, i paper analizzati h
     \item FaceReader: software commerciale sviluppato dalla società olandese Noldus Information Technology che ricorre ad algoritmi di analisi dell'emozione per registrare e classificare le AUs nelle immagini facciali. FaceReader è capace di riscontrare fino a 20 AUs e di classificarle in base alle emozioni ad essi associate.
     \item OpenFace: framework open-source di computer vision sviluppato dall'Università di Carnegie Mellon che offre funzioni per l'estrazione delle AUs e la rilevazione delle espressioni facciali. OpenFace sfrutta una combinazione di tecniche di machine learning e di analisi geometrica per rilevare le AUs.
     \item FACET: software commerciale sviluppato dalla società americana Emotient che impiega una combinazione di tecniche di computer vision e di analisi dell'emozione per rilevare e classificare le AUs nelle immagini facciali. FACET è in grado di rilevare fino a 20 AUs e di classificarle in base alle emozioni associate.
-    \item DeepFaceLab: software open-source che utilizza reti neurali profonde per l'analisi dell'immagine e la manipolazione dei lineamenti. Può essere strumentalizzato per l'estrazione delle AUs da immagini facciali.
-    \item Pyfeat: libreria open-source sviluppata in Python per l'estrazione delle feature facciali dalle immagini. Pyfeat si basa sulla fruizione di un insieme di funzioni matematiche, dette funzioni di base, per descrivere la forma e l'aspetto delle suddette espressioni. Tali funzioni di base sono rappresentate da immagini di capacità espressiva standardizzate, quali sorriso o rabbia, create e validate da esperti di psicologia e neuroscienze. La libreria Pyfeat fa uso di queste funzioni di base per il calcolo di un insieme di feature facciali, fra cui la forma del viso, la posizione degli occhi, la sagoma delle sopracciglia, la posizione della bocca e le Action Units. Pyfeat è in grado di estrarre un insieme completo di 280 feature facciali, le 2D FACS (Facial Action Coding System), anch’esse validate da esperti di psicologia e neuroscienze. Pyfeat può essere impiegato per diverse applicazioni di analisi facciale, come la rilevazione delle emozioni, l'analisi del comportamento non verbale e la diagnostica medica. Ho ritenuto opportuno ricorrere a questa libreria per l’estrazione delle AUs in quanto affidabile e agevole nell’utilizzo, soprattutto attraverso le funzioni CUDA della libreria che mi hanno permesso di velocizzare di molto il processing delle immagini contenute nei dataset ritrovati; inoltre, nessuno degli studi analizzati ha adoperato questa libreria. 
+    \item DeepFaceLab: software open-source che utilizza le deep neural networks per l'analisi dell'immagine e la manipolazione dei lineamenti. Può essere strumentalizzato per l'estrazione delle AUs da immagini facciali. 
 \end{itemize}
 
+Per il progetto di tesi ho invece deciso di utilizzare:
+
+Pyfeat: libreria open-source sviluppata in Python per l'estrazione delle feature facciali dalle immagini. Pyfeat si basa sulla fruizione di un insieme di funzioni matematiche, dette funzioni di base, per descrivere la forma e l'aspetto delle suddette espressioni. 
+    
+Tali funzioni di base sono rappresentate da immagini di capacità espressiva standardizzate, quali sorriso o rabbia, create e validate da esperti di psicologia e neuroscienze. 
+
+La libreria Pyfeat fa uso di queste funzioni di base per il calcolo di un insieme di feature facciali, fra cui la forma del viso, la posizione degli occhi, la sagoma delle sopracciglia, la posizione della bocca e le Action Units. 
+
+Pyfeat è in grado di estrarre un insieme completo di 280 feature facciali, le 2D FACS (Facial Action Coding System), anch’esse validate da esperti di psicologia e neuroscienze. 
+
+Pyfeat può essere impiegato per diverse applicazioni di analisi facciale, come la rilevazione delle emozioni, l'analisi del comportamento non verbale e la diagnostica medica. 
+
+Ho ritenuto opportuno ricorrere a questa libreria per l’estrazione delle AUs in quanto affidabile e agevole nell’utilizzo, soprattutto attraverso le funzioni CUDA della libreria che mi hanno permesso di velocizzare di molto il processing delle immagini contenute nei dataset ritrovati; inoltre, nessuno degli studi analizzati ha adoperato questa libreria.
 \begin{figure}
     \begin{center}    
         \includegraphics[width=1\linewidth]{images/13.jpg}
@@ -454,14 +479,10 @@ Dopo aver analizzato i sistemi impiegati per l’elaborazione delle informazioni
 
 \section{Unione dei dataset ritrovati e relativa categorizzazione delle immagini all’interno di questo}
 
-I dataset utili ritrovati sono il DAiSEE \cite{DAiSEE} e il Student-engagement-dataset \cite{StudEngagDataset}, ritrovabili ai seguenti link:
-
-https://people.iith.ac.in/vineethnb/resources/daisee/index.html
-
-https://www.kaggle.com/datasets/joyee19/studentengagement
+I dataset utili ritrovati sono il DAiSEE \cite{DAiSEE} e il Student-engagement-dataset \cite{StudEngagDataset}.
 
 \begin{itemize}
-    \item DAiSEE:
+    \item DAiSEE presenta i seguenti mood:
     \begin{itemize}
         \item Boredom
         \item Engagement
@@ -481,7 +502,7 @@ https://www.kaggle.com/datasets/joyee19/studentengagement
 
         Infine, in base ai risultati ottenuti attraverso questa categorizzazione, conseguita via crowdsourcing, è stato conferito un valore fra 0 (non corrispondente) e 3 (del tutto corrispondente) ad ognuna delle classi precedentemente elencate.
     \end{itemize}
-    \item Student engagement dataset:
+    \item Student engagement dataset, invece, presenta i seguenti mood:
     \begin{itemize}
         \item Confused (macro categoria: engaged)
         \item Engaged (macro categoria: engaged)
@@ -494,17 +515,18 @@ https://www.kaggle.com/datasets/joyee19/studentengagement
 
 Per la realizzazione del mio dataset ho ritenuto giusto attenermi alle classi proposte dallo Student Engagement dataset, in quanto propone più labels di cui usufruire.
 
-Per mettere in atto ciò, sarà necessario unire i samples all’interno di DAiSee ai samples dello student engagement dataset, per mezzo delle classi corrispondenti.
+Per mettere in atto ciò, è stato necessario unire i samples all’interno di DAiSEE ai samples dello student engagement dataset, per mezzo delle classi corrispondenti.
 
 DAiSEE è provvisto di un maggior numero di samples, in quanto non solo racchiude molti più file, ma questi stessi sono video e non immagini, come nello student engagement dataset, naturalmente suddivisi in frame (2 immagini per ogni secondo di video).
 
-Indubbiamente le classi che non trovano corrispondenza fra i due dataset (Drowsy e Looking away) non risulteranno frequenti nel momento in cui, eventualmente, si realizzerà un riconoscimento in tempo reale; ho comunque preferito conservarle in quanto permettono una classificazione più ampia.
+Le classi che non trovano corrispondenza fra i due dataset (Drowsy e Looking away) potrebbero risultare meno frequenti e accurate nel riconoscimento; ho comunque preferito conservarle in quanto permettono una classificazione più ampia.
 
 DAiSEE è un dataset realizzato tenendo in considerazione la questione “in-the-wild” e risulta quindi perfetto per lo studio proposto da questa tesi.
 
 Lo student engagement dataset non è stato creato da una fonte autorevole e certificata come il DAiSEE ma, sfogliando le immagini presenti in esso, è possibile notare come gli scenari ripresi in questo dataset (ambienti di studio casalinghi) le immagini al suo interno risultino simili a quelle presentate nel DAiSEE e quindi della tipologia interessata.
 
 \begin{table}[htb]
+\small
 \caption{estratto tabella AUs}
 \label{Tab:Tabella_AUs}
 \centering
