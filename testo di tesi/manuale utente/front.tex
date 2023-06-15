@@ -1,0 +1,19 @@
+\begin{titlepage}
+	\begin{tikzpicture}[remember picture,overlay]
+		\centering
+			\node[yshift=-6 cm] (logo) at (current page.north) {\includegraphics[width=0.35\linewidth]{images/logo uniba.png}};
+			\node[text width=50em,yshift=0.25cm, align = center, below = of logo](poliba){\bfseries \Large Università degli studi di Bari Aldo Moro};
+			\node[text width=40em, align = center, yshift=.55cm,below = of poliba](course){\normalsize \dept \\
+% 
+				\normalsize \textbf{\course}};
+		\node[text width=35em,align = center,  yshift=1.2cm,below = of course](line){\par\noindent\rule{\textwidth}{0.4pt}};
+		\node[text width=40em, align = center, yshift=.55cm,below = of line](lia){\beforetitle\xspace \subject};
+		\node[text width=40em, align = center, yshift=-0.5cm,below = of lia](title){\bfseries \fontsize{21pt}{20pt}\selectfont \title\par};
+	\node[text width=35em, align = left, yshift=-0.75cm,below = of title](supervisor){\large \beforeprof \\ \textbf{\prof}};
+	\node[text width=35em, align = left, yshift=-1.7 cm,below = of title](){\large \beforeRelatore \\ \textbf{\relatore}};
+		\node[text width=35em, align = right, yshift=0cm,below = of supervisor](candidate){\large \beforecandidate\\ \textbf{\author}};
+		\node[text width=35em,align = center,  yshift= 0cm,below = of candidate](line2){\par\noindent\rule{\textwidth}{0.4pt}};
+		\node[text width=50em, align = center, yshift=0.5cm,below = of line2](year){\beforeannoacc\xspace \annoacc};
+	\end{tikzpicture}
+\end{titlepage}
+

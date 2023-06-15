@@ -1,0 +1,124 @@
+\PassOptionsToPackage{table, dvipsnames}{xcolor}
+\documentclass[a4paper,oneside,12pt]{toptesi}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[italian]{babel}
+\usepackage{natbib} 
+\bibliographystyle{plain}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usepackage{pgfplots}
+\usepackage[newfloat]{minted}
+\usepackage[font=small,skip=1pt]{caption}
+\usepackage{minted}
+\usepackage{subcaption}
+\pgfplotsset{compat=1.18}
+\usepackage{lscape}
+\usepackage{adjustbox}
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\usepackage{microtype}
+\usepackage{tocloft}
+\usepackage{xcolor}
+\usepackage{hyperref}
+
+\sloppy
+
+\SetupFloatingEnvironment{listing}{name=Codice}
+
+
+\usepackage{minted}
+\usemintedstyle{monokai}
+\definecolor{bg}{RGB}{40, 44, 52}
+
+
+
+% ===== Define abstract environment =====
+\newcommand{\prefacename}{Preface}
+\newenvironment{preface}{
+    \vspace*{\stretch{1}}
+    {\noindent \bfseries \Huge \prefacename}
+    \begin{center}
+        % \phantomsection \addcontentsline{toc}{chapter}{\prefacename} % enable this if you want to put the preface in the table of contents
+        \thispagestyle{plain}
+    \end{center}%
+}
+{\vspace*{\stretch{1}}}
+
+
+\newcommand{\walter}[1]{\textcolor{red}{{\bf [Walter: }{#1}{\bf ]}}}
+\newcommand{\blueunderline}[1]{\textcolor{blue}{\uline{#1}}}
+
+\usepackage{hyperref}
+
+\hypersetup{
+    colorlinks = true,
+    allcolors=black
+}
+
+%%% workaround for listing
+% save the current meaning of \listing
+\let\savedlisting\listing
+% at the right spot, restore the meaning
+\AtBeginDocument{\let\listing\savedlisting}
+%%% end of workaround
+
+
+\def\dept{Dipartimento di Informatica}
+\def\course{Corso di Laurea in Informatica}
+\def\title{Guida utente dell'applicativo realizzato}
+\def\author{Alessandro Carella}
+\def\beforeprof{Professore}
+\def\prof{Prof. Stefano Ferilli\newline\newline Prof. Berardina Nadja De Carolis}
+\def\beforeRelatore {Relatrice}
+\def\beforetitle{Tesi di Laurea in}
+\def\subject{Informatica}
+\def\annoacc{2022 - 2023}
+\def\beforecandidate{Laureando}
+\def\beforeannoacc{Anno Accademico}
+
+\makeatletter
+\def\cleardoublepage{\clearpage\if@twoside \ifodd\c@page\else
+    \hbox{}
+    \vspace*{\fill}
+    \vspace{\fill}
+    \thispagestyle{empty}
+    \newpage
+    \if@twocolumn\hbox{}\newpage\fi\fi\fi}
+\makeatother
+
+
+\begin{document}
+
+%\maketitle
+
+
+\input{front}
+
+\cleardoublepage
+
+\cleardoublepage
+
+\pagenumbering{roman}
+
+
+\cleardoublepage
+
+\tableofcontents
+
+\cleardoublepage
+
+
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+\include{guida_utente_1}
+
+
+\bibliographystyle{plain}  
+
+\end{document}
+
+
+
