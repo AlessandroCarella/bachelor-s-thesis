@@ -1,4 +1,4 @@
-\chapter{WOman}
+\chapter{WoMan}
 \cite{IncrLearnDailyRoutWorkflowSmartHomeEnvir} \cite{WoMan} WoMan è un sistema dichiarativo di process mining, in quanto capace di adottare rappresentazioni FOL (First-Order Logic). La FOL fornisce un'ottima espressività, utile per gestire domini complessi che coinvolgono una variabile quantità di oggetti con la possibilità che si verifichino diverse interazioni tra di essi; inoltre offre un unico framework in cui è possibile esprimere e combinare descrizioni di casi, modelli di processo e condizioni sulle attività, sia ai fini dell’apprendimento che dell’attuazione. 
 
 Nella FOL, un predicato, scritto con la notazione usuale p/n, esprime una proprietà o una relazione p su n oggetti (chiamati i suoi argomenti). 
@@ -73,7 +73,7 @@ Un modello è espresso come un insieme (da interpretare come una congiunzione) d
 \begin{figure}
     \begin{center}    
         \includegraphics[width=0.9\linewidth]{images/53.png}
-        \caption{Pseudocodice WOman}
+        \caption{Pseudocodice WoMan}
         \label{fig:image18}
     \end{center}
 \end{figure}
@@ -99,7 +99,7 @@ Infatti, diversi nodi transition/2 possono combinare un dato task in modi divers
 
 Nel complesso, i modelli appresi da WoMan sono un superset stretto di quelli che possono essere espressi dalle reti di Petri; tuttavia, quando un modello WoMan rientra nell'intervallo esprimibile dalle reti di Petri, può essere facilmente e automaticamente tradotto in tale formalismo.
 
-WOman ha la facoltà di gestire anche il rumore; di fatti, le probabilità delle transizioni sono proporzionali al numero di casi in cui si sono effettivamente verificate, ovvero alla cardinalità del multiset associato di casi: quando viene elaborato un nuovo caso di addestramento, l'aggiornamento di questi multisets comporta anche l'aggiornamento dei pesi come effetto collaterale. 
+WoMan ha la facoltà di gestire anche il rumore; di fatti, le probabilità delle transizioni sono proporzionali al numero di casi in cui si sono effettivamente verificate, ovvero alla cardinalità del multiset associato di casi: quando viene elaborato un nuovo caso di addestramento, l'aggiornamento di questi multisets comporta anche l'aggiornamento dei pesi come effetto collaterale. 
 
 Pertanto, sebbene i casi rumorosi siano effettivamente incorporati nel modello, imporre una tolleranza al rumore $N \in [0,1]$ significa semplicemente ignorare tutte le transizioni la cui frequenza è inferiore a $N$.
 
@@ -119,13 +119,13 @@ Le routine sono considerate indipendenti l'una dall'altra, indi per cui il siste
 
 Anche nella fase di apprendimento, è possibile gestire più routine contemporaneamente, ma in questo caso è necessaria la presenza di un modo per il sistema di capire quali attività devono essere alimentate a quale modello.
 
-\section{Realizzazione file per l’osservazione e la predizione dei mood attraverso il sistema WOman}
+\section{Realizzazione file per l’osservazione e la predizione dei mood attraverso il sistema WoMan}
 
 Per la realizzazione di questi file ho proseguito nel seguente modo:
 \begin{itemize}
     \item Ho inizialmente ridotto la pull di mood di due in quanto solo confused, engaged, bored e frustrated sono presenti all’interno del dataset DAiSEE \cite{DAiSEE} che, a differenza dello student-engagement-dataset \cite{StudEngagDataset}, il quale presenta solo immagini, è composto solo da video.
     \item Successivamente ho scomposto il video utilizzando sempre il metodo \mintinline[bgcolor=bg]{python}{detector.detect_video(videoPath)}; come è possibile notare, il parametro \mintinline[bgcolor=bg]{python}{skip_frames} non è valorizzato. Quando questo parametro non è valorizzato il valore diventa \mintinline[bgcolor=bg]{python}{None}, ovvero non viene saltato nessuno dei frame del video.
-    Effettuo quindi un’analisi su ognuno dei frame dei video analizzati, rielaboro l’output di queste ed ottengo i file di input per il sistema WOman.
+    Effettuo quindi un’analisi su ognuno dei frame dei video analizzati, rielaboro l’output di queste ed ottengo i file di input per il sistema WoMan.
     \item Ognuna delle linee dei file di input prodotti è così strutturata: (T, E, W, P, A, O), dove: 
     \begin{itemize}
         \item T è suddiviso in \colorbox{yellow}{frame in cui avviene l'attivazione della singola action} \colorbox{yellow}{units} e \colorbox{green}{numero di utilizzo di questo frame},
@@ -207,7 +207,7 @@ Viene da sé che l’analisi di molti altri video non è sostenibile, sia per qu
 
 Il tempo effettivo necessario per l'elaborazione dei video è stato di $\sim$ 36 ore.
 
-\section{Generazione dei modelli workflow attraverso WOman}
+\section{Generazione dei modelli workflow attraverso WoMan}
 Una volta generati i file con le entry, ho fornito questi al professore che ha eseguito il framework dando in input i file risultanti per i video dei singoli mood uniti in singoli file, uno per ogni mood.
 
 Mi sono stati forniti due file di output per ognuno dei mood:
