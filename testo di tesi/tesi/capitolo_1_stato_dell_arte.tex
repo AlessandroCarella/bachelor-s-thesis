@@ -1,8 +1,8 @@
 \chapter{Stato dell'arte}
 
 \section{Studi sull’engagement all’interno degli ambienti di studio}
-Gli studi ritrovati che effettuano quest’analisi o trattano un argomento simile o tangente sono:
-\subsection{Recognizing Cognitive Emotions in E-Learning Environment}
+Gli studi ritrovati che effettuano quest’analisi o trattano un argomento simile sono:
+\subsection{Riconoscimento delle emozioni cognitive in ambiente di e-learning}
 In questo studio (\cite{RecoCognEmoELearnEnv}) gli stati di d’animo che vengono classificati dal loro sistema sono i seguenti:
 \begin{itemize}
     \item Entusiasmo,
@@ -16,7 +16,7 @@ In questo studio (\cite{RecoCognEmoELearnEnv}) gli stati di d’animo che vengon
 
 Viene riportato che gli stati d’animo positivi (entusiasmo, interesse e sorpresa) sono spesso associati al raggiungimento del “flow state” da parte dello studente.
 
-Più il singolo soggetto mantiene costante un mood positivo, tanto più permarrà in questo flow state, con esito un apprendimento più veloce ed efficace.
+Più il singolo soggetto mantiene costante un mood positivo, tanto più permarrà in questo flow state, con esito un apprendimento più veloce ed efficace \cite{RecoCognEmoELearnEnv}.
 
 Il raggiungimento di questo mood è stato inoltre connesso alla capacità dei singoli studenti di percepirsi come autosufficienti nel corso dell’attività di studio.
 
@@ -26,7 +26,7 @@ Questa percezione di sé stessi deriva dall’attitudine dello studente nel rius
     \item controllare,
     \item dirigere
 \end{itemize}
-l’attività di apprendimento.
+l’attività di apprendimento \cite{RecoCognEmoELearnEnv}.
 
 È quindi necessario che gli studenti maturino una certa dimestichezza nello studio, e che vengano dunque supportati in vista dell’approccio ai problemi che vengono da loro riconosciuti in quanto difficili.
 
@@ -34,7 +34,7 @@ Naturalmente un sistema che permette di “leggere” con precisione lo stato d�
 
 Un esempio circoscritto all’ambiente di lavoro potrebbe invece essere un’analisi del lavoratore nello svolgimento di un task e la possibilità, da parte di un capo progetto o di un tutor, di poter intervenire esclusivamente nel momento in cui il suo subordinato stia riscontrando dei problemi; in tal modo è permessa al dipendente una crescita professionale adeguata e non seguita al 100\%, così da sfruttare al meglio l’impiego del tempo del tutor.
 
-\subsection {The faces of Engagement: Automatic Recognition of Student Engagement from Facial Expression}
+\subsection {Le faccie dell'Engagement: Riconoscimento automatico dell'engagement degli studenti attraverso le espressioni facciali}
 
 In \cite{FacesOfEngagement}, gli stati d’animo organizzati in scala da meno attento/a a più attento/a, sono:
 \begin{itemize}
@@ -58,7 +58,7 @@ Infine si è investigato sulla correlazione effettiva fra i risultati di queste 
     \end{center}
 \end{figure}
 
-\subsection{Facial coding as a mean to enable continuous monitoring of student’s behaviour in e-Learning }
+\subsection{Codifica facciale come mezzo per il monitoraggio continuo del comportamento degli studenti nell'e-learning}
 
 Il paper \cite{FacialCodingContinMonitor} si focalizza sul tracciamento continuo degli studenti, sia per quanto riguarda una vera e propria identificazione degli stessi attraverso il riconoscimento facciale, sia per calcolarne il livello di attenzione ed eventualmente stimarne le emozioni provate durante i corsi MOOCs (Massive Open Online Courses).
 
@@ -74,7 +74,7 @@ Questi tre aspetti vengono successivamente congiunti al fine di creare un applic
     \end{center}
 \end{figure}
  
-\subsection{Prediction and Localization of student engagement in the wild}
+\subsection{Predizione e localizzazione dell'engagement degli studenti in the wild}
 
 Lo studio \cite{PredLocStudEngagInTheWild}, a differenza di altri, ha come premessa l’utilizzo delle immagini raccolte in ambienti non controllati per la creazione del modello che andrà successivamente ad effettuare la predizione per i nuovi campioni.
 
@@ -105,6 +105,27 @@ Hanno poi sfruttato un framework che esegue il riconoscimento dell’engagement 
     \end{center}
 \end{figure}
 
+\section{Cosa sono le AUs e il sistema FACS:}
+FACS, acronimo di Facial Action Coding System, è un sistema di codifica delle espressioni facciali sviluppato dallo psicologo Paul Ekman e dal collega Wallace V. Friesen negli anni '70 \cite{PyFeat}.
+
+Il sistema di codifica di FACS è composto da un insieme di codici numerici, o "Action Units" (AU), che rappresentano le azioni muscolari specifiche che avvengono durante le espressioni facciali. Ci sono 66 AUs, ciascuna delle quali rappresenta un'azione muscolare specifica, e ognuna di queste ha un codice numerico univoco.
+
+La codifica delle FACS può essere utilizzata per identificare e descrivere le espressioni facciali in modo oggettivo e dettagliato. Ad esempio, un codificatore FACS identifica l'AU corrispondente al sollevamento di una delle due sopracciglia con codice 1, e l'AU corrispondente al sorriso con codice 12. 
+
+Questi codici possono essere utilizzati per creare una descrizione dettagliata dell'espressione facciale di un individuo.
+
+Le FACS sono state utilizzate in una vasta gamma di contesti, tra cui la ricerca scientifica, la valutazione clinica e la produzione di effetti speciali per il cinema e la televisione. 
+
+Questo sistema è stato utilizzato con successo in molti contesti diversi ed è un metodo utile per descrivere le espressioni facciali in modo oggettivo e dettagliato. 
+
+Sulla documentazione della libreria che ho utilizzato per l’estrazione delle AUs dal dataset aggregato ed utilizzato, è presente una tabella dove viene mostrato: il numero associato alla singola Action Unit, il loro relativo nome FACS, a quali muscoli della faccia sono correlate, la loro categoria FACS, le espressioni che vengono spesso legate a determinati valori di esse e i modelli che le utilizzano. Ho reso disponibile un estratto di questa \ref{Tab:Tabella_AUs} dove vengono presentate solo le Action Units utilizzate dalla libreria \cite{PyFeat} utilizzata per estrarre questi dati dalle immagini ma la tabella completa è consultabile sulla relativa pagina web.
+\newpage
+\begin{figure}
+    \begin{center}    
+        \includegraphics[width=1\linewidth]{images/10.jpg}
+        \caption{Esempi di Action Units e le relativi sezioni facciali}
+    \end{center}
+\end{figure}
 
 \section{Studi sul riconoscimento delle emozioni FACS per scelta del modello da utilizzare}
 Essendo l’ammontare di studi che trattano l’analisi delle emozioni FACS maggiore rispetto a quelle che cercano di creare sistemi di riconoscimento automatico per gli stati d’animo, i quali possono direttamente aiutare a identificare i problemi nell’apprendimento delle conoscenze, ho ritenuto opportuno studiare e selezionare fra i modelli da questi proposti per l’elaborazione delle informazioni per il mio caso di studio.
@@ -389,30 +410,6 @@ Per costruire il modello hanno poi utilizzato l’estrazione delle AU attraverso
 I risultati di queste analisi hanno portato alla conclusione che i modelli sviluppati attraverso raccolte di immagini prelevate in scenari controllati non portano necessariamente a risultati puntuali (o accurati) quando vengono applicati al mondo reale.
 Una volta analizzati i sistemi utilizzati per l’elaborazione dei dati raccolti dai ricercatori che hanno redatto gli studi riportati precedentemente, ritengo ora necessario illustrare gli strumenti di cui si sono avvalsi.
 
-
-\section{Cosa sono le AUs e il sistema FACS:}
-FACS, acronimo di Facial Action Coding System, è un sistema di codifica delle espressioni facciali sviluppato dallo psicologo Paul Ekman e dal collega Wallace V. Friesen negli anni '70 \cite{PyFeat}.
-
-Il sistema di codifica di FACS è composto da un insieme di codici numerici, o "Action Units" (AU), che rappresentano le azioni muscolari specifiche che avvengono durante le espressioni facciali. Ci sono 66 AUs, ciascuna delle quali rappresenta un'azione muscolare specifica, e ognuna di queste ha un codice numerico univoco.
-
-La codifica delle FACS può essere utilizzata per identificare e descrivere le espressioni facciali in modo oggettivo e dettagliato. Ad esempio, un codificatore FACS identifica l'AU corrispondente al sollevamento di una delle due sopracciglia con codice 1, e l'AU corrispondente al sorriso con codice 12. 
-
-Questi codici possono essere utilizzati per creare una descrizione dettagliata dell'espressione facciale di un individuo.
-
-Le FACS sono state utilizzate in una vasta gamma di contesti, tra cui la ricerca scientifica, la valutazione clinica e la produzione di effetti speciali per il cinema e la televisione. 
-
-Questo sistema è stato utilizzato con successo in molti contesti diversi ed è un metodo utile per descrivere le espressioni facciali in modo oggettivo e dettagliato. 
-
-Sulla documentazione della libreria che ho utilizzato per l’estrazione delle AUs dal dataset aggregato ed utilizzato, è presente una tabella dove viene mostrato: il numero associato alla singola Action Unit, il loro relativo nome FACS, a quali muscoli della faccia sono correlate, la loro categoria FACS, le espressioni che vengono spesso legate a determinati valori di esse e i modelli che le utilizzano. Ho reso disponibile un estratto di questa \ref{Tab:Tabella_AUs} dove vengono presentate solo le Action Units utilizzate dalla libreria \cite{PyFeat} utilizzata per estrarre questi dati dalle immagini ma la tabella completa è consultabile sulla relativa pagina web.
-\newpage
-\begin{figure}
-    \begin{center}    
-        \includegraphics[width=1\linewidth]{images/10.jpg}
-        \caption{Esempi di Action Units e le relativi sezioni facciali}
-    \end{center}
-\end{figure}
-
-
 \section{Metodologie di tagging delle immagini del dataset}
 Per quanto riguarda la classificazione delle immagini dei dataset, vari studi hanno fatto ricorso a tecniche diverse:
 \begin{itemize}
@@ -423,12 +420,6 @@ Per quanto riguarda la classificazione delle immagini dei dataset, vari studi ha
 
 Strumenti utilizzati per effettuare la classificazione:
 \begin{itemize}
-    \item Piattaforma FEELTRACE (o altri software di annotazione manuale) che permette di registrare e analizzare i segnali EMG (Elettromiografici) e di misurare forza e durata delle risposte emotive dei partecipanti tramite una scala da 0 a 10 mentre i partecipanti osservano immagini, video o altre tipologie di stimoli emotivi \cite{AFEWVAdatabaseInTheWild}
-    \begin{figure}[h]
-        \centering    
-            \includegraphics[width=0.5\linewidth]{images/11.jpg}
-            \caption{Piattaforma FEELTRACE}
-    \end{figure}
     \item Questionari a cui sottoporre i soggetti che vengono ripresi per la creazione del dataset
         \item \mbox{}\\[-\baselineskip]
         \begin{minipage}[t]{0.6\textwidth}
@@ -451,31 +442,24 @@ Per quanto concerne l’estrazione dei dati dalle immagini, i paper analizzati h
     \item OpenFace: framework open-source di computer vision sviluppato dall'Università di Carnegie Mellon che offre funzioni per l'estrazione delle AUs e la rilevazione delle espressioni facciali. OpenFace sfrutta una combinazione di tecniche di machine learning e di analisi geometrica per rilevare le AUs.
     \item FACET: software commerciale sviluppato dalla società americana Emotient che impiega una combinazione di tecniche di computer vision e di analisi dell'emozione per rilevare e classificare le AUs nelle immagini facciali. FACET è in grado di rilevare fino a 20 AUs e di classificarle in base alle emozioni associate.
     \item DeepFaceLab: software open-source che utilizza le deep neural networks per l'analisi dell'immagine e la manipolazione dei lineamenti. Può essere strumentalizzato per l'estrazione delle AUs da immagini facciali. 
+    \item Per il progetto di tesi ho invece deciso di utilizzare:
+    Pyfeat: libreria open-source sviluppata in Python per l’estrazione delle feature
+    facciali dalle immagini. Pyfeat si basa sulla fruizione di un insieme di funzioni
+    matematiche, dette funzioni di base, per descrivere la forma e l’aspetto delle suddette
+    espressioni
 \end{itemize}
 
-Per il progetto di tesi ho invece deciso di utilizzare:
+Dopo aver analizzato i sistemi impiegati per l’elaborazione delle informazioni
+ottenute dalle immagini ed aver illustrato il processo di estrapolazione di questi
+dati, reputo possibile la creazione di un dataset ricavato dall’unione di alcuni dei
+datasets citati precedentemente per lo studio di questa tesi.
 
-Pyfeat: libreria open-source sviluppata in Python per l'estrazione delle feature facciali dalle immagini. Pyfeat si basa sulla fruizione di un insieme di funzioni matematiche, dette funzioni di base, per descrivere la forma e l'aspetto delle suddette espressioni. 
-    
-Tali funzioni di base sono rappresentate da immagini di capacità espressiva standardizzate, quali sorriso o rabbia, create e validate da esperti di psicologia e neuroscienze. 
-
-La libreria Pyfeat fa uso di queste funzioni di base per il calcolo di un insieme di feature facciali, fra cui la forma del viso, la posizione degli occhi, la sagoma delle sopracciglia, la posizione della bocca e le Action Units. 
-
-Pyfeat è in grado di estrarre un insieme completo di 280 feature facciali, le 2D FACS (Facial Action Coding System), anch’esse validate da esperti di psicologia e neuroscienze. 
-
-Pyfeat può essere impiegato per diverse applicazioni di analisi facciale, come la rilevazione delle emozioni, l'analisi del comportamento non verbale e la diagnostica medica. 
-
-Ho ritenuto opportuno ricorrere a questa libreria per l’estrazione delle AUs in quanto affidabile e agevole nell’utilizzo, soprattutto attraverso le funzioni CUDA della libreria che mi hanno permesso di velocizzare di molto il processing delle immagini contenute nei dataset ritrovati; inoltre, nessuno degli studi analizzati ha adoperato questa libreria.
 \begin{figure}
     \begin{center}    
-        \includegraphics[width=1\linewidth]{images/13.jpg}
-        \caption{Esempio di estrazione AUs tramite py-feat}
+        \includegraphics[width=0.3\linewidth]{images/pyfeat_logo_small.png}
+        \caption{Logo py-feat}
     \end{center}
 \end{figure}
-
-Dopo aver analizzato i sistemi impiegati per l’elaborazione delle informazioni ottenute dalle immagini ed aver illustrato il processo di estrapolazione di questi dati, reputo possibile la creazione di un dataset ricavato dall’unione di alcuni dei datasets citati precedentemente per lo studio di questa tesi.
-
-\newpage
 
 \section{Unione dei dataset ritrovati e relativa categorizzazione delle immagini all’interno di questo}
 

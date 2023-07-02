@@ -6,7 +6,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.tree import plot_tree
 import matplotlib.pyplot as plt
 
-from getInfoDataset import visualizeFeaturesImportances
+#from getInfoDataset import visualizeFeaturesImportances
 
 def getModelScores(yTest, yPred):
     # Evaluate the accuracy of the classifier

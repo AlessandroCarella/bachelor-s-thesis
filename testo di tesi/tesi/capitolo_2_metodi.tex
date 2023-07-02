@@ -1,6 +1,6 @@
-\chapter{Metodi}
+\chapter{Tecnologie, strumenti e librerie utilizzate}
 Questo capitolo tratterà le tecnologie, gli strumenti, le librerie e gli algoritmi utilizzati per la realizzazione dei modelli predittivi e dell’interfaccia successivamente creata. 
-\section{Tecnologie utilizzate}
+\section{Tecnologie}
 \subsection{Machine Learning}
 
 Il Machine Learning, o apprendimento automatico, è un campo di studio che si occupa di sviluppare algoritmi in grado di perfezionarsi automaticamente mediante l'esperienza acquisita tramite l'utilizzo dei dati. 
@@ -47,7 +47,7 @@ Il toolkit CUDA include librerie accelerate su GPU, un compilatore, strumenti di
     \end{center}
 \end{figure}
 
-\section{Strumenti utilizzati}
+\section{Strumenti}
 \subsection{Visual Studio Code}
 Visual Studio Code è un editor di testo sviluppato da Microsoft per Windows, Linux e macOS, che supporta il debugging, il controllo Git integrato, la Syntax Highlighting, l'IntelliSense, lo Snippet e il refactoring del codice. 
 
@@ -67,7 +67,7 @@ Visual Studio Code supporta molteplici linguaggi e funzionalità aggiuntive graz
     \caption{Visual studio code e python}
 \end{figure}
 
-\section{Librerie utilizzate}
+\section{Librerie}
 \subsection{Pandas}
 La libreria software open source Pandas è stata sviluppata per il linguaggio di programmazione Python, ed è utilizzata per la manipolazione e l'analisi dei dati. Con Pandas è possibile effettuare operazioni su tabelle numeriche e serie temporali mediante le sue strutture dati. 
 
@@ -212,3 +212,23 @@ Scikit-learn si integra bene con molte altre librerie di Python come Matplotlib 
     \end{center}
 \end{figure}
 
+\subsection{Py-Feat}
+Per il progetto di tesi ho invece deciso di utilizzare:
+
+Py-Feat: libreria open-source sviluppata in Python per l'estrazione delle feature facciali dalle immagini. Pyfeat si basa sulla fruizione di un insieme di funzioni matematiche, dette funzioni di base, per descrivere la forma e l'aspetto delle suddette espressioni. 
+    
+Tali funzioni di base sono rappresentate da immagini di capacità espressiva standardizzate, quali sorriso o rabbia, create e validate da esperti di psicologia e neuroscienze. 
+
+La libreria Pyfeat fa uso di queste funzioni di base per il calcolo di un insieme di feature facciali, fra cui la forma del viso, la posizione degli occhi, la sagoma delle sopracciglia, la posizione della bocca e le Action Units. 
+
+Pyfeat è in grado di estrarre un insieme completo di 280 feature facciali, le 2D FACS (Facial Action Coding System), anch’esse validate da esperti di psicologia e neuroscienze. 
+
+Pyfeat può essere impiegato per diverse applicazioni di analisi facciale, come la rilevazione delle emozioni, l'analisi del comportamento non verbale e la diagnostica medica. 
+
+Ho ritenuto opportuno ricorrere a questa libreria per l’estrazione delle AUs in quanto affidabile e agevole nell’utilizzo, soprattutto attraverso le funzioni CUDA della libreria che mi hanno permesso di velocizzare di molto il processing delle immagini contenute nei dataset ritrovati; inoltre, nessuno degli studi analizzati ha adoperato questa libreria.
+\begin{figure}
+    \begin{center}    
+        \includegraphics[width=1\linewidth]{images/13.jpg}
+        \caption{Esempio di estrazione AUs tramite py-feat}
+    \end{center}
+\end{figure}

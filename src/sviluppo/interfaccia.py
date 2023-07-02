@@ -178,7 +178,7 @@ def removeImageIfExists(imagePath):
 
 def initializeWebcam():
     # Initialize the webcam
-    cap = cv2.VideoCapture(0)
+    cap = cv2.VideoCapture(1)
     cap.set(cv2.CAP_PROP_EXPOSURE, 1.5)  # Adjust the exposure value (0.0 to 1.0)
     cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)  # Set the width to 640 pixels
     cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)  # Set the height to 480 pixels
@@ -188,7 +188,7 @@ def initializeWebcam():
 def handleProgramClose():
     # Release the webcam when the program exits
     cap.release()
-    cv2.destroyAllWindows()
+    root.destroy()
 
     if isfile(imagePath):
         os.remove(imagePath)

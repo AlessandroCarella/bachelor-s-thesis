@@ -3,11 +3,13 @@ import time
 from collections import Counter
 import json
 from os.path import join, abspath, dirname
+import numpy as np
 
 from classifiers.randomForestClassifier import getRandomForestClassifier
 from classifiers.KnnClassifier import getKnnClassifier
 from classifiers.naiveBayesClassifier import getNaiveBayesClassifier
 from classifiers.SVMclassifier import getSVMClassifier
+from classifiers.SVRclassifier import getSVRClassifier, fromNumLabelToLabel
 
 def predictProba (chosenClassifier, classifierObj, input):
     """
@@ -25,6 +27,8 @@ def predictProba (chosenClassifier, classifierObj, input):
         return classifierObj.predict_proba (input)
     if chosenClassifier == 4:
         return classifierObj.predict_proba (input)
+    if chosenClassifier == 5:
+        return classifierObj.predict (input)
     return None
 
 def getClassifierObj (buttonLabel):
@@ -43,7 +47,8 @@ def getClassifierObj (buttonLabel):
         return getNaiveBayesClassifier()
     elif buttonLabel == 4:
         return getSVMClassifier()
-    
+    elif buttonLabel == 5:
+        return getSVRClassifier()
     return None
 
 def getAUs ():
@@ -129,13 +134,21 @@ def getPredictionNaiveBayesclassifier(prediction, timeDiff, bestClassesLastMinut
 
 def getPredictionSVMclassifier(prediction, timeDiff, bestClassesLastMinute, dictAUs):
     return getPredictionTextRandomForestClassifier (prediction, timeDiff, bestClassesLastMinute, dictAUs) #same methods, same ouput format
+    
+def getPredictionSVRclassifier (prediction, timeDiff, bestClassesLastMinute, dictAUs):
+    return getPredictionTextKnnClassifier (prediction, timeDiff, bestClassesLastMinute, dictAUs) #same methods, same ouput format
 
 def getPredictionTextKnnClassifier(prediction, timeDiff, bestClassesLastMinute, dictAUs):
-    bestClassesLastMinute = addToBestClassesLastMinute (prediction[0], bestClassesLastMinute)
+    prediction = prediction[0]
+
+    if type(prediction) == np.float64:
+        prediction = fromNumLabelToLabel (int (prediction))
+
+    bestClassesLastMinute = addToBestClassesLastMinute (prediction, bestClassesLastMinute)
     bestClassesLastMinute = removeOldKeys(bestClassesLastMinute)
 
     return (
-        "Mood rilevato: " + prediction[0] + 
+        "Mood rilevato: " + prediction + 
         "\n\n\n\n\n\n\n\nMood più frequente nell'ultimo minuto: " + getMostFrequentMoodLastMinute(bestClassesLastMinute) + 
         "\n" + "Tempo passato dalla predizione precedente " + "{:.2f}".format(timeDiff) + 
         "\n" + "Descrizione in linguaggio naturale:\n" + getNaturalLanguageDescription (dictAUs)
@@ -157,6 +170,8 @@ def getModelPredictionText (chosenClassifier, prediction, timeDiff, bestClassesL
         return getPredictionNaiveBayesclassifier(prediction, timeDiff, bestClassesLastMinute, dictAUs)
     elif chosenClassifier == 4:
         return getPredictionSVMclassifier(prediction, timeDiff, bestClassesLastMinute, dictAUs)
+    elif chosenClassifier == 5:
+        return getPredictionSVRclassifier(prediction, timeDiff, bestClassesLastMinute, dictAUs)
     return None
 
 def onButtonClick(button_label, root):
@@ -168,7 +183,7 @@ def onClose(root):
     root._button_clicked = None
     root.destroy()
 
-def getGui(root):
+"""def getGui(root):
     label = tk.Label(root, text="Select a classifier:", padx=10, pady=10)
     label.grid(row=0, column=0, columnspan=2)
 
@@ -183,6 +198,31 @@ def getGui(root):
     button4.grid(row=2, column=1, padx=10, pady=10)
 
     # Register a function to handle the "WM_DELETE_WINDOW" event
+    root.protocol("WM_DELETE_WINDOW", lambda:onClose(root))"""
+
+def getGui(root):
+    label = tk.Label(root, text="Choose a classifier:", padx=10, pady=10, font=("Arial", 10))
+    label.grid(row=0, column=0, columnspan=2)
+
+    button_style = {"padx": 10, "pady": 10, "font": ("Arial", 10)}
+
+    button1 = tk.Button(root, text="Random Forest Classifier", command=lambda:onButtonClick(1, root), **button_style)
+    button2 = tk.Button(root, text="KNN Classifier", command=lambda:onButtonClick(2, root), **button_style)
+    button3 = tk.Button(root, text="Naive Bayes Classifier", command=lambda:onButtonClick(3, root), **button_style)
+    button4 = tk.Button(root, text="Support Vector Machine Classifier", command=lambda:onButtonClick(4, root), **button_style)
+    button5 = tk.Button(root, text="Support Vector Regression Classifier", command=lambda:onButtonClick(4, root), **button_style)
+
+    button1.grid(row=1, column=0, padx=10, pady=10, sticky="nsew")
+    button2.grid(row=1, column=1, padx=10, pady=10, sticky="nsew")
+    button3.grid(row=2, column=0, padx=10, pady=10, sticky="nsew")
+    button4.grid(row=2, column=1, padx=10, pady=10, sticky="nsew")
+    button5.grid(row=3, column=0, padx=10, pady=10, sticky="nsew")
+
+    # Configure uniform size for buttons
+    root.grid_columnconfigure(0, weight=1, uniform="buttons")
+    root.grid_columnconfigure(1, weight=1, uniform="buttons")
+
+    # Register a function to handle the "WM_DELETE_WINDOW" event
     root.protocol("WM_DELETE_WINDOW", lambda:onClose(root))
 
 def pickClassifier(nTentative=0):
@@ -192,6 +232,7 @@ def pickClassifier(nTentative=0):
     2 = knn
     3 = naive bayes
     4 = svm
+    5 = svr
     """
     root = tk.Tk()
     root.title("Classifier picker")

@@ -1,5 +1,5 @@
 \PassOptionsToPackage{table, dvipsnames}{xcolor}
-\documentclass[a4paper, oneside,12pt]{toptesi}
+\documentclass[a4paper, twoside,12pt]{toptesi}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage[italian]{babel}
@@ -22,6 +22,7 @@
 \usepackage{tocloft}
 \usepackage{xcolor}
 \usepackage{amsmath}
+\usepackage[hyphens]{url}
 
 \sloppy
 
@@ -33,9 +34,8 @@
 \definecolor{bg}{RGB}{40, 44, 52}
 
 
-
 % ===== Define abstract environment =====
-\newcommand{\prefacename}{Preface}
+\newcommand{\prefacename}{Introduzione}
 \newenvironment{preface}{
     \vspace*{\stretch{1}}
     {\noindent \bfseries \Huge \prefacename}
@@ -69,7 +69,7 @@
 \def\title{Analisi espressioni facciali in contesto di e-learning}
 \def\author{Alessandro Carella}
 \def\beforeprof{Professore}
-\def\prof{Prof. Stefano Ferilli\newline\newline Prof. Berardina Nadja De Carolis}
+\def\prof{Prof. Stefano Ferilli\newline\newline Prof. Berardina De Carolis}
 \def\beforeRelatore {Relatrice}
 \def\beforetitle{Tesi di Laurea in}
 \def\subject{Informatica}
@@ -122,7 +122,7 @@
 \include{capitolo_6_WoMan}
 \include{capitolo_7_tabelle_risultati_analisi}
 \include{conclusion}
-\include{acknoweldgements}
+%\include{acknoweldgements}
 
 \bibliographystyle{plain}  
 \include{bibliografia}

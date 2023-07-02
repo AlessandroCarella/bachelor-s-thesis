@@ -418,6 +418,105 @@ Quando ci si trova di fronte ad una errata classificazione, ossia il nostro mode
     \label{equation:14}
 \end{equation}
 
+\subsection{Support Vector Regression}
+Le Support Vector Machines (SVMs) vengono spesso adoperate per i problemi di classificazione; tuttavia, il loro utilizzo nella regressione non è altrettanto documentato. Questo tipo di modelli è noto come Support Vector Regression (SVR).
+
+\subsubsection{La Regressione Lineare Semplice}
+Nella maggior parte dei modelli di regressione lineare l'obiettivo è minimizzare la somma degli errori quadratici.
+
+Prendiamo ad esempio il metodo dei minimi quadrati ordinari (OLS).
+
+La funzione obiettivo per OLS con un singolo predittore (feature) è riportata a \ref{equation:19}:
+\begin{equation}
+        \min \left( \sum_{i=1}^{n} (y_i - w_i x_i)^2 \right)
+        \label{equation:19}
+    \end{equation}
+
+dove $y_i$ rappresenta il valore target, $w_i$ è il coefficiente e $x_i$ è il predittore (feature).
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{images/img101.png}
+    \caption{Grafico relativo}
+\end{figure}
+
+Lasso, Ridge e ElasticNet sono tutte estensioni di questa semplice equazione, con un parametro di penalità aggiuntivo che mira a minimizzare la complessità e/o ridurre il numero di feature utilizzate nel modello finale. 
+
+Tuttavia, l'obiettivo, come per molti modelli, è quello di ridurre l'errore sul set di test.
+
+Ciononostante cosa succede se ci preoccupiamo solo di ridurre l'errore entro un certo grado? Cosa succede se non ci importa quanto siano grandi i nostri errori, purché rientrino in un intervallo accettabile?
+
+Prendiamo ad esempio i prezzi delle case. Cosa succede se decidiamo che la previsione debba essere entro una determinata somma di denaro, ad esempio \$5.000? 
+
+Possiamo quindi dare al nostro modello una certa flessibilità nel trovare i valori previsti, purché l'errore rientri in quel range.
+
+E' proprio in questo momento che entra in gioco la Support Vector Regression. SVR ci offre la flessibilità di definire quanto margine di errore è accettabile nel nostro modello e troverà una linea appropriata (o iperpiano in dimensioni superiori) per adattarsi ai dati.
+
+La funzione obiettivo degli SVR è quella di minimizzare i coefficienti, più precisamente la norma l2 del vettore dei coefficienti, non l'errore quadratico. 
+
+Il termine di errore viene invece gestito nei vincoli, dove viene impostato l'errore assoluto come minore o uguale a una determinata soglia, chiamata errore massimo, $\epsilon$. 
+Possiamo tarare epsilon per ottenere la precisione desiderata del nostro modello. La nostra nuova funzione obiettivo e i vincoli sono i seguenti:
+
+Funzione obiettivo:
+\begin{equation}
+        \min \left( \frac{1}{2} \| w \|^{2} \right)
+\end{equation}
+
+Vincolo:
+\begin{equation}
+        | y_i - w_i x_i | \leq \epsilon 
+\end{equation}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.7\linewidth]{images/img102.png}
+    \caption{Esempio illustrativo}
+\end{figure}
+
+
+Il grafico \ref{fig:image41} mostra i risultati di un modello SVR addestrato sul dataset dei prezzi delle case a Boston. 
+La linea rossa rappresenta la linea di miglior adattamento e le linee nere rappresentano la fascia di errore, $\epsilon$, che abbiamo impostato a 5 (\$5.000).
+
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.9\linewidth]{images/img103.png}
+    \caption{Risultati di un modello SVR addestrato sul dataset dei prezzi delle case a Boston}
+    \label{fig:image41}
+\end{figure}
+
+
+Si può rapidamente notare che questo algoritmo non funziona per tutti i data points. 
+
+L'algoritmo ha risolto la funzione obiettivo nel miglior modo possibile, ma alcuni punti si trovano ancora al di fuori delle fasce di errore. 
+
+Pertanto, dobbiamo considerare la possibilità di errori che sono più grandi di $\epsilon$. E' possibile effettuare ciò utilizzando le variabili di slack.
+
+\subsubsection{Slack (e un altro iperparametro)}
+Il concetto di variabili di slack è semplice: per ogni valore che cade al di fuori di $\epsilon$, possiamo indicare la sua deviazione dalla fascia come $\xi$.
+
+Sappiamo che queste deviazioni possono esistere, ma vorremmo comunque ridurle al minimo. Pertanto, possiamo aggiungere queste deviazioni alla funzione obiettivo (\ref{equation:20} e \ref{equation:21}).
+
+Funzione obiettivo:
+\begin{equation}
+        \min \left( \frac{1}{2} \| w \|^{2} + C \sum_{i=1}^{n} | \xi_i | \right)
+        \label{equation:20}
+\end{equation}
+
+Vincolo:
+\begin{equation}
+        | y_i - w_i x_i | \leq \epsilon + | \xi_i |
+        \label{equation:21}
+\end{equation}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.9\linewidth]{images/img104.png}
+    \caption{Esempio illustrativo}
+\end{figure}
+
+
+Ora abbiamo un ulteriore iperparametro, $C$, che possiamo tarare. All'aumentare di $C$, aumenta anche la tolleranza per i punti al di fuori di $\epsilon$. 
+
 \section{Random forest classifier}
 Per effettuare delle predizioni sul dataset ho realizzato un classificatore random forest sul quale effettuare delle query, fornendogli i dati riguardanti le Action Units da nuove immagini, sempre attraverso la libreria py-feat.
 
@@ -465,12 +564,11 @@ return randomForestClassifier
 
 Eseguendo dei test attraverso il metodo \mintinline[bgcolor=bg]{python}{score(Xtest, yTest)} offerto dal random forest classifier generato dalla libreria sklearn.ensemble ho potuto calcolare l’accuracy del modello da me generato.
 
-I risultati di questa analisi sono che il random forest classifier ottiene una precisione dell’82,$0.\overline{3}$\% sul dataset di test generato nel metodo \mintinline[bgcolor=bg]{python}{getXtrainYTrainXtestYTest}.
+I risultati di questa analisi sono che il random forest classifier ottiene una precisione dell’82,$0\overline{3}$\% sul dataset di test generato nel metodo \mintinline[bgcolor=bg]{python}{getXtrainYTrainXtestYTest}.
 
 Oltre alla produzione del classificatore viene anche generato un grafico per la visualizzazione dell’influenza di ognuna delle label sulla predizione, riportato all'immagine \ref{fig:image14}.
 
 Come è possibile constatare in \ref{fig:image14}, quasi tutte le label influenzano la predizione in modo simile (in un range fra il 7,2\% e l’11,9\%) tranne per la AU43 (Eyes Closed) che, ovviamente, influenza largamente la predizione effettuata dal modello.
-\newpage
 
 \begin{figure}
     \begin{center}    
@@ -567,6 +665,19 @@ Eseguendo dei test attraverso il metodo \mintinline[bgcolor=bg]
 {python}{score(Xtest, yTest)} offerto dalla classe \mintinline[bgcolor=bg]{python}{MultinomialNB} ho potuto calcolare l’accuracy del modello da me generato che risulta essere del 40\%
 
 Il ~40\% di accuracy è il valore più alto che sono riuscito ad ottenere modificando i diversi valori presi in input dal costruttore di \mintinline[bgcolor=bg]{python}{MultinomialNB}.
+
+\section{ Support Vector Regression Classifier}
+Un altro classificatore adoperato per effettuare delle predizioni sul dataset è basato sull’algoritmo Support Vector Regression.
+
+La modalità di realizzazione è molto simile a quella per i precedenti classificatori, con utilizzo identico al K-nearest Neighbors Classifier.
+
+Viene sempre letto in memoria il dataset pre elaborato e resamplato, con successiva rimozione delle colonne non necessarie e viene suddiviso in set di addestramento e set di test.
+
+L’oggetto che viene creato per effettuare le predizioni proviene sempre dalla libreria sklearn, in questo caso il modulo \mintinline[bgcolor=bg]{python}{sklearn.svm} e la sua relativa classe \mintinline[bgcolor=bg]{python}{SVR}.
+
+Eseguendo dei test attraverso il metodo \mintinline[bgcolor=bg]
+{python}{score(Xtest, yTest)} offerto dalla classe SVC ho potuto calcolare l’accuracy del modello da me generato che risulta essere del 34\%.
+
 
 \section{Quale è il miglior modello predittivo?}
 Ho collezionato diverse metriche per valutare quale dei modelli predittivi sviluppati fosse il migliore: 
@@ -676,7 +787,7 @@ Ho quindi calcolato e salvato su file i risultati delle analisi per ognuna delle
 \end{itemize}
 le medie dei risultati ottenuti da ognuno dei classificatori realizzati per ciascuna di queste metriche sono riportate nella tabella \ref{tab:1}.
 
-Mentre i risultati per ognuno dei dataset sono riportati al capitolo \ref{chap:tabelle_risultati_analisi}.
+Mentre i risultati per ognuno dei dataset sono riportati nell'appendice (capitolo \ref{chap:tabelle_risultati_analisi}).
 
 Come già evidenziato nel primo capitolo riguardante lo stato dell’arte, dalle analisi effettuate in \cite{FaceExpreRecoImgSeqTwoFoldRandomForestClass} l’algoritmo di random forest risulta essere il più affidabile per effettuare le previsioni su dataset di Action Units col fine di un rilevamento delle emozioni FACS e, come si evince dalla tabella sopra riportata, lo stesso è vero per gli stati d’animo (o moods) che vengono trattati nel mio caso di studio.
 
@@ -695,6 +806,8 @@ Come già evidenziato nel primo capitolo riguardante lo stato dell’arte, dalle
          Naive bayes& 39.16669\% & 35.96379\% & 39.16669\% & 39.16736\%\\
          \hline
          Support vector machine& 54.37561\% & 53.82087\% & 54.37561\% & 54.38249\%\\
+         \hline
+         Support vector regressor& 16.62504\% & 18.92075\% & 16.62504\% & 16.6416\%\\
          \hline
     \end{tabular}
 \end{table}
